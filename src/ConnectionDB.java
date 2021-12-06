@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ConnectionDB {
     private static final String DB_URL = "jdbc:sqlite:SQLite/";
@@ -13,36 +10,48 @@ public class ConnectionDB {
             DatabaseMetaData meta = conn.getMetaData();
             // System.out.println("Nom du driver : " + meta.getDriverName());
             System.out.println("Base de données " + fileName + " ouverte.");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Erreur SQL : " + ex.getMessage());
         }
     }
 
-    /**
-     * Test the connection of the database
-     */
-    public static void connect() {
-        Connection conn = null;
+    public void createBoissonsTables(){
         try {
-            // Create a connection to the database
-            conn = DriverManager.getConnection(DB_URL);
+            Statement stmt = this.conn.createStatement();
+            // Table stock
+            String query =  "CREATE TABLE IF NOT EXISTS Stock(" +
+                            "Eau FLOAT," +
+                            "Petits_gobelets INTEGER," +
+                            "Grands_gobelets INTEGER," +
+                            "Sucre INTEGER);";
+            stmt.executeUpdate(query);
 
-            System.out.println("Connecté à SQLite.");
+            // Boisson
+            query = "CREATE TABLE IF NOT EXISTS Boisson(" +
+                    "Id INTEGER," +
+                    "Nom VARCHAR(32)," +
+                    "Description VARCHAR(256)," +
+                    "Prix_u FLOAT," +
+                    "PRIMARY KEY (Id));";
+            stmt.executeUpdate(query);
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
+            // Commande
+            query = "CREATE TABLE IF NOT EXISTS Commande(" +
+                    "Id INTEGER," +
+                    "Boisson_id INTEGER," +
+                    "Quantite_boisson INTEGER," +
+                    "Quantite_sucre INTEGER," +
+                    "Gobelet BOOLEAN," +
+                    "Prix FLOAT," +
+                    "Annule BOOLEAN," +
+                    "PRIMARY KEY (Id)," +
+                    "FOREIGN KEY (Boisson_id) REFERENCES Boisson);";
+            stmt.executeUpdate(query);
+
+            System.out.println("Tables de la base Boissons créées.");
         }
-    }
-
-    public static void createBoissonsTables(){
-
+        catch(SQLException ex){
+            System.out.println("Erreur SQL : " + ex.getMessage());
+        }
     }
 }
