@@ -4,5 +4,6 @@ public class Run {
         System.out.println("Hello world");
         ConnectionDB dbManager = new ConnectionDB("Boissons.db");
         dbManager.createBoissonsTables();
+        dbManager.fillBoissonsTables();
     }
 }

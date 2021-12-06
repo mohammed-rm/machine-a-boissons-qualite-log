@@ -7,7 +7,6 @@ public class ConnectionDB {
     public ConnectionDB(String fileName){
         try {
             this.conn = DriverManager.getConnection(DB_URL + "/" + fileName);
-            DatabaseMetaData meta = conn.getMetaData();
             // System.out.println("Nom du driver : " + meta.getDriverName());
             System.out.println("Base de données " + fileName + " ouverte.");
         } catch (SQLException ex) {
@@ -15,18 +14,29 @@ public class ConnectionDB {
         }
     }
 
+    /**
+     * Create the Boissons tables
+     * /!\ Drop the tables if they already exist
+     */
     public void createBoissonsTables(){
         try {
             Statement stmt = this.conn.createStatement();
-            // Table stock
+            // Drop all the tables
+            stmt.executeUpdate("DROP TABLE IF EXISTS Commande");
+            stmt.executeUpdate("DROP TABLE IF EXISTS Boisson");
+            stmt.executeUpdate("DROP TABLE IF EXISTS Stock");
+
+            // Table Stock
             String query =  "CREATE TABLE IF NOT EXISTS Stock(" +
+                            "Id INTEGER," +
                             "Eau FLOAT," +
                             "Petits_gobelets INTEGER," +
                             "Grands_gobelets INTEGER," +
-                            "Sucre INTEGER);";
+                            "Sucre INTEGER," +
+                            "PRIMARY KEY (Id));";
             stmt.executeUpdate(query);
 
-            // Boisson
+            // Table Boisson
             query = "CREATE TABLE IF NOT EXISTS Boisson(" +
                     "Id INTEGER," +
                     "Nom VARCHAR(32)," +
@@ -35,7 +45,7 @@ public class ConnectionDB {
                     "PRIMARY KEY (Id));";
             stmt.executeUpdate(query);
 
-            // Commande
+            // Table Commande
             query = "CREATE TABLE IF NOT EXISTS Commande(" +
                     "Id INTEGER," +
                     "Boisson_id INTEGER," +
@@ -49,8 +59,69 @@ public class ConnectionDB {
             stmt.executeUpdate(query);
 
             System.out.println("Tables de la base Boissons créées.");
+            stmt.close();
+        } catch(SQLException ex){
+            System.out.println("Erreur SQL : " + ex.getMessage());
         }
-        catch(SQLException ex){
+    }
+
+    /**
+     * Fill the database Boissons with test values
+     */
+    public void fillBoissonsTables(){
+        try {
+            Statement stmt = this.conn.createStatement();
+
+            // Stock
+            String query = "INSERT INTO Stock VALUES(" +
+                    "0," +      // id to always use
+                    "5000.0," + // cl of water
+                    "200," +    // little cups
+                    "100," +    // big cups
+                    "5000);";   // g of sugar
+            stmt.executeUpdate(query);
+
+            // Boisson
+            query = "INSERT INTO Boisson VALUES(" +
+                    "1," +
+                    "'Café court'," +
+                    "'Un café court.'," +
+                    "0.30);";
+            stmt.executeUpdate(query);
+            query = "INSERT INTO Boisson VALUES(" +
+                    "2," +
+                    "'Café long'," +
+                    "'Un café long.'," +
+                    "0.40);";
+            stmt.executeUpdate(query);
+            query = "INSERT INTO Boisson VALUES(" +
+                    "3," +
+                    "'Café late'," +
+                    "'Un café late.'," +
+                    "0.40);";
+            stmt.executeUpdate(query);
+            query = "INSERT INTO Boisson VALUES(" +
+                    "4," +
+                    "'Thé noir'," +
+                    "'Un thé noir.'," +
+                    "0.30);";
+            stmt.executeUpdate(query);
+            query = "INSERT INTO Boisson VALUES(" +
+                    "5," +
+                    "'Thé vert (sencha)'," +
+                    "'Un thé vert Sencha de Mai.'," +
+                    "0.50);";
+            stmt.executeUpdate(query);
+            query = "INSERT INTO Boisson VALUES(" +
+                    "6," +
+                    "'Soupe de tomate'," +
+                    "'La fameuse.'," +
+                    "0.40);";
+            stmt.executeUpdate(query);
+
+            System.out.println("Tables de la base Boissons remplies.");
+            stmt.close();
+        } catch(SQLException ex){
             System.out.println("Erreur SQL : " + ex.getMessage());
         }
     }
