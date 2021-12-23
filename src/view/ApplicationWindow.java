@@ -32,26 +32,6 @@ public class ApplicationWindow extends JFrame {
 	private int yMouse;
 	
 	/**
-	 * Main method
-	 * 
-	 * @param args
-	 */
-	@SuppressWarnings("unused")
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ApplicationWindow app = new ApplicationWindow();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	
-
-	/**
 	 * Create the frame.
 	 */
 	public ApplicationWindow() {
@@ -60,7 +40,7 @@ public class ApplicationWindow extends JFrame {
 		this.labMin = new JLabel();
 		this.labLogo = new JLabel();
 		this.labHome = new JLabel("Home");
-		this.labDrinks = new JLabel("Bye a drink");
+		this.labDrinks = new JLabel("Buy a drink");
 		this.labSettings = new JLabel("Settings");
 
 		initFrame();
