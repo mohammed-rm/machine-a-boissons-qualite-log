@@ -31,8 +31,8 @@ public class InternalPanel extends JPanel {
 		// graph2D.setColor(getBackground());
 		graph2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		graph2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		GradientPaint gradPaint = new GradientPaint(0, 0, Color.decode("#fdbb4f"), getWidth(), getHeight(),
-				Color.decode("#5a2a4b"));
+		GradientPaint gradPaint = new GradientPaint(0, 0, Color.decode("#fdbd4f"), getWidth(), getHeight(),
+				Color.decode("#5a3a4a"));
 		graph2D.setPaint(gradPaint);
 		graph2D.fillRect(0, 0, 620, 580);
 		super.paintComponent(grphcs);
