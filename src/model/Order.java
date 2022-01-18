@@ -21,7 +21,7 @@ public class Order {
 	 */
 	public Order(int idOrder, int drinkId, int drinkQuantity, int sugarQuantity, boolean cup, double water,
 			boolean cancel) {
-		IdOrder = idOrder;
+		this.IdOrder = idOrder;
 		this.drinkId = drinkId;
 		this.drinkQuantity = drinkQuantity;
 		this.sugarQuantity = sugarQuantity;

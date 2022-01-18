@@ -17,7 +17,7 @@ public class Stock {
 	 * @param sugar
 	 */
 	public Stock(int idStock, double water, int smallCup, int largeCup, int sugar) {
-		IdStock = idStock;
+		this.IdStock = idStock;
 		this.water = water;
 		this.smallCup = smallCup;
 		this.largeCup = largeCup;

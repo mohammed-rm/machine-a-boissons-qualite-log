@@ -1,3 +1,8 @@
 /.idea/
 /Boissons.iml
+/SQLite/Boissons.db
 /bin/
+.classpath
+.project
+QLog - Boissons.iml
+/classes
