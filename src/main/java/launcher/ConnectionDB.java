@@ -126,4 +126,8 @@ public class ConnectionDB {
             System.out.println("Erreur SQL : " + ex.getMessage());
         }
     }
+
+    public Connection getConn(){
+        return conn;
+    }
 }
