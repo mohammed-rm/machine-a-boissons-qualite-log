@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class StockDAO {
 
-    private Connection conn;
+    private final Connection conn;
 
     public StockDAO(Connection conn){
         this.conn = conn;
@@ -17,8 +17,7 @@ public class StockDAO {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Stock");
             if(rs.next()){
-                Stock stock = new Stock(rs.getInt("id"), rs.getDouble("Eau"), rs.getInt("Petits_gobelets"), rs.getInt("Grands_gobelets"), rs.getInt("Sucre"));
-                return stock;
+                return new Stock(rs.getInt("id"), rs.getDouble("Eau"), rs.getInt("Petits_gobelets"), rs.getInt("Grands_gobelets"), rs.getInt("Sucre"));
             }
             return null;
         }catch(SQLException sqle){
@@ -28,9 +27,9 @@ public class StockDAO {
     }
 
     /**
-     * Methode pour enleve du sucre du stock actuel
-     * @param sugar Quantite de sucre qu'on enleve
-     * note : sugar peut etre negatif, ce qui ajoute du sucre
+     * Méthode pour enlever du sucre du stock actuel
+     * @param sugar Quantité de sucre qu'on enlève
+     * note : sugar peut être négatif, ce qui ajoute du sucre
      */
     public void reduceSugarStock(int sugar){
         try{
@@ -45,7 +44,7 @@ public class StockDAO {
     }
 
     /**
-     * Methode pour enleve un seul petit-gobelet du stock
+     * Méthode pour enlever un seul petit gobelet du stock
      */
     public void decrementSmallCupStock(){
         try{
@@ -60,7 +59,7 @@ public class StockDAO {
     }
 
     /**
-     * Methode pour enleve un seul grand-gobelet du stock
+     * Méthode pour enlever un seul grand gobelet du stock
      */
     public void decrementLargeCupStock(){
         try{
@@ -75,9 +74,9 @@ public class StockDAO {
     }
 
     /**
-     * Methode pour reduire le stock d'eau
-     * @param water Quantite d'eau enleve du stock
-     * note : water peut etre negatif
+     * Méthode pour réduire le stock d'eau
+     * @param water Quantité d'eau à enlever du stock
+     * note : water peut être négatif
      */
     public void reduceWaterStock(double water){
         try{

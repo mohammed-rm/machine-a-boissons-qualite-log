@@ -6,14 +6,6 @@ public class Drink {
 	private String description;
 	private double price;
 
-	/**
-	 * Constructor
-	 * 
-	 * @param idDrink
-	 * @param name
-	 * @param description
-	 * @param price
-	 */
 	public Drink(int idDrink, String name, String description, double price) {
 		this.IdDrink = idDrink;
 		this.name = name;

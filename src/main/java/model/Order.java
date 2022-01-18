@@ -9,16 +9,6 @@ public class Order {
 	private double water;
 	private boolean cancel;
 
-	/**
-	 * Constructor
-	 * @param idOrder
-	 * @param drinkId
-	 * @param drinkQuantity
-	 * @param sugarQuantity
-	 * @param cup
-	 * @param water
-	 * @param cancel
-	 */
 	public Order(int idOrder, int drinkId, int drinkQuantity, int sugarQuantity, boolean cup, double water,
 			boolean cancel) {
 		this.IdOrder = idOrder;

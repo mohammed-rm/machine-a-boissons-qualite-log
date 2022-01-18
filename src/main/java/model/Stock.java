@@ -8,14 +8,6 @@ public class Stock {
 	private int largeCup;
 	private int sugar;
 
-	/**
-	 * Constructor
-	 * @param idStock
-	 * @param water
-	 * @param smallCup
-	 * @param largeCup
-	 * @param sugar
-	 */
 	public Stock(int idStock, double water, int smallCup, int largeCup, int sugar) {
 		this.IdStock = idStock;
 		this.water = water;

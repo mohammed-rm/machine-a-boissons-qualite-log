@@ -1,4 +1,3 @@
-
 package controller;
 
 import model.Drink;
@@ -8,13 +7,13 @@ import java.util.*;
 
 public class DrinkDAO {
 
-    private Connection conn;
+    private final Connection conn;
 
     public DrinkDAO(Connection conn){
         this.conn = conn;
     }
 
-    public List<Drink> getAllDrink(){
+    public List<Drink> getAllDrinks(){
         List<Drink> liste = new ArrayList<>();
         try{
             Statement stmt = this.conn.createStatement();
