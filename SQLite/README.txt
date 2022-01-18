@@ -3,4 +3,4 @@ Sur IntelliJ :
     File > Project Structure > Libraries > + > Java > Indiquez l'emplacement du fichier.
 
 Sur Eclipse :
-    TODO
+    Project > Properties > Java Build Path > Modulepath then Add External JARs
