@@ -63,6 +63,55 @@ public class ApplicationWindow extends JFrame {
 
 		frame.getContentPane().add(panel);
 		panel.add(internalPanel);
+		
+		JLabel labdDrinks = new JLabel("Drinks");
+		labdDrinks.setFont(new Font("Script MT Bold", Font.ITALIC, 22));
+		labdDrinks.setHorizontalAlignment(SwingConstants.CENTER);
+		labdDrinks.setBounds(80, 40, 110, 35);
+		internalPanel.add(labdDrinks);
+		
+		JLabel labdSoups = new JLabel("Soups");
+		labdSoups.setHorizontalAlignment(SwingConstants.CENTER);
+		labdSoups.setFont(new Font("Script MT Bold", Font.ITALIC, 22));
+		labdSoups.setBounds(401, 41, 107, 36);
+		internalPanel.add(labdSoups);
+		
+		JLabel labSB = new JLabel("Short Black");
+		labSB.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		labSB.setHorizontalAlignment(SwingConstants.CENTER);
+		labSB.setBounds(60, 118, 63, 14);
+		internalPanel.add(labSB);
+		
+		JLabel labAmericano = new JLabel("Americano");
+		labAmericano.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		labAmericano.setHorizontalAlignment(SwingConstants.CENTER);
+		labAmericano.setBounds(60, 152, 63, 14);
+		internalPanel.add(labAmericano);
+		
+		JLabel labLatte = new JLabel("Latte");
+		labLatte.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		labLatte.setHorizontalAlignment(SwingConstants.CENTER);
+		labLatte.setBounds(60, 203, 31, 14);
+		internalPanel.add(labLatte);
+		
+		JLabel labBT = new JLabel("Black Tea");
+		labBT.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		labBT.setHorizontalAlignment(SwingConstants.CENTER);
+		labBT.setBounds(60, 252, 63, 14);
+		internalPanel.add(labBT);
+		
+		JLabel labGT = new JLabel("Green Tea");
+		labGT.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		labGT.setHorizontalAlignment(SwingConstants.CENTER);
+		labGT.setBounds(60, 311, 63, 14);
+		internalPanel.add(labGT);
+		
+		JLabel labTomato = new JLabel("Tomato Soup");
+		labTomato.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		labTomato.setBounds(416, 118, 75, 14);
+		internalPanel.add(labTomato);
+		
+		
 		panel.add(menu);
 		panel.add(bottom);
 		frame.pack();
@@ -313,5 +362,4 @@ public class ApplicationWindow extends JFrame {
 		MenuSeparators.lineSeparator(menu);
 
 	}
-
 }
