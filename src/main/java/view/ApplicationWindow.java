@@ -16,20 +16,34 @@ import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class ApplicationWindow extends JFrame {
+
 	private final JFrame frame;
 	private Panel panel;
 	private InternalPanel internalPanel;
+	private BottomItems itemRights;
 	private Menu menu;
 	private Bottom bottom;
+	private MenuHome home;
+
 	private final JLabel labClose;
 	private final JLabel labMin;
 	private final JLabel labLogo;
 	private final JLabel labHome;
 	private final JLabel labDrinks;
 	private final JLabel labSettings;
+
+	private JLabel drinksTitle;
+	private JLabel soupsTitle;
+	private JLabel shortCoffee;
+	private JLabel americanonCoffee;
+	private JLabel latteCoffee;
+	private JLabel blackTea;
+	private JLabel greenTea;
+	private JLabel tomatoSoup;
+
 	private int xMouse;
 	private int yMouse;
-	
+
 	/**
 	 * Create the frame.
 	 */
@@ -46,72 +60,15 @@ public class ApplicationWindow extends JFrame {
 		initComponents();
 		iconsConfig();
 		menuConfig();
+		homeConfig();
 		frameListener();
 		panelListener();
 
-		BottomItems itemRights = new BottomItems();
 		bottom.add(itemRights.createLabName());
 		bottom.add(itemRights.createTime());
 
-		/*JLabel homePan = new JLabel();
-		homePan.setIcon(IconsResize
-				.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/home_pan.png")), 450, 450));
-		homePan.setHorizontalAlignment(SwingConstants.CENTER);
-		homePan.setVerticalAlignment(SwingConstants.CENTER);
-		homePan.setBounds(50, 0, 500, 500);
-		internalPanel.add(homePan);*/
-
 		frame.getContentPane().add(panel);
 		panel.add(internalPanel);
-		
-		JLabel labdDrinks = new JLabel("Drinks");
-		labdDrinks.setFont(new Font("Script MT Bold", Font.ITALIC, 22));
-		labdDrinks.setHorizontalAlignment(SwingConstants.CENTER);
-		labdDrinks.setBounds(80, 40, 110, 35);
-		internalPanel.add(labdDrinks);
-		
-		JLabel labdSoups = new JLabel("Soups");
-		labdSoups.setHorizontalAlignment(SwingConstants.CENTER);
-		labdSoups.setFont(new Font("Script MT Bold", Font.ITALIC, 22));
-		labdSoups.setBounds(401, 41, 107, 36);
-		internalPanel.add(labdSoups);
-		
-		JLabel labSB = new JLabel("Short Black");
-		labSB.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		labSB.setHorizontalAlignment(SwingConstants.CENTER);
-		labSB.setBounds(60, 118, 63, 14);
-		internalPanel.add(labSB);
-		
-		JLabel labAmericano = new JLabel("Americano");
-		labAmericano.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		labAmericano.setHorizontalAlignment(SwingConstants.CENTER);
-		labAmericano.setBounds(60, 152, 63, 14);
-		internalPanel.add(labAmericano);
-		
-		JLabel labLatte = new JLabel("Latte");
-		labLatte.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		labLatte.setHorizontalAlignment(SwingConstants.CENTER);
-		labLatte.setBounds(60, 203, 31, 14);
-		internalPanel.add(labLatte);
-		
-		JLabel labBT = new JLabel("Black Tea");
-		labBT.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		labBT.setHorizontalAlignment(SwingConstants.CENTER);
-		labBT.setBounds(60, 252, 63, 14);
-		internalPanel.add(labBT);
-		
-		JLabel labGT = new JLabel("Green Tea");
-		labGT.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		labGT.setHorizontalAlignment(SwingConstants.CENTER);
-		labGT.setBounds(60, 311, 63, 14);
-		internalPanel.add(labGT);
-		
-		JLabel labTomato = new JLabel("Tomato Soup");
-		labTomato.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		labTomato.setBounds(416, 118, 75, 14);
-		internalPanel.add(labTomato);
-		
-		
 		panel.add(menu);
 		panel.add(bottom);
 		frame.pack();
@@ -137,9 +94,10 @@ public class ApplicationWindow extends JFrame {
 	public void initComponents() {
 		panel = new Panel();
 		internalPanel = new InternalPanel();
+		itemRights = new BottomItems();
 		menu = new Menu();
 		bottom = new Bottom();
-
+		home = new MenuHome();
 	}
 
 	/**
@@ -291,6 +249,15 @@ public class ApplicationWindow extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				internalPanel.removeAll();
 
+				internalPanel.add(drinksTitle);
+				internalPanel.add(soupsTitle);
+				internalPanel.add(shortCoffee);
+				internalPanel.add(americanonCoffee);
+				internalPanel.add(latteCoffee);
+				internalPanel.add(blackTea);
+				internalPanel.add(greenTea);
+				internalPanel.add(tomatoSoup);
+
 				frame.pack();
 				frame.repaint();
 			}
@@ -361,5 +328,29 @@ public class ApplicationWindow extends JFrame {
 
 		MenuSeparators.lineSeparator(menu);
 
+	}
+
+	/**
+	 * Configuration of the Home 
+	 */
+	public void homeConfig() {
+
+		drinksTitle = home.createDrinks().get(0);
+		soupsTitle = home.createDrinks().get(1);
+		shortCoffee = home.createDrinks().get(2);
+		americanonCoffee = home.createDrinks().get(3);
+		latteCoffee = home.createDrinks().get(4);
+		blackTea = home.createDrinks().get(5);
+		greenTea = home.createDrinks().get(6);
+		tomatoSoup = home.createDrinks().get(7);
+
+		internalPanel.add(drinksTitle);
+		internalPanel.add(soupsTitle);
+		internalPanel.add(shortCoffee);
+		internalPanel.add(americanonCoffee);
+		internalPanel.add(latteCoffee);
+		internalPanel.add(blackTea);
+		internalPanel.add(greenTea);
+		internalPanel.add(tomatoSoup);
 	}
 }
