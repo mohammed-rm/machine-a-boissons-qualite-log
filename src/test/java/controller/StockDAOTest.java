@@ -3,10 +3,7 @@ package controller;
 import launcher.ConnectionDB;
 import model.Stock;
 import org.junit.Rule;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -26,7 +23,9 @@ class StockDAOTest {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
-    private void connect() {
+
+    @BeforeEach
+    void connect() {
         ConnectionDB dbManager = new ConnectionDB("Boissons.db");
         conn = dbManager.getConn();
         stockDAO = new StockDAO(conn);
@@ -34,36 +33,62 @@ class StockDAOTest {
 
     @Test
     void testGetStock() {
-        connect();
+        Stock stock_backup = stockDAO.getStock();
+
+        stockDAO.setStocks(0, 1d, 2, 3, 4);
         Stock result = stockDAO.getStock();
 
-        for (int i=0; i<100; i++)
-            stockDAO.reduceSugarStock(1);
+        Assertions.assertEquals(0, result.getIdStock());
+        Assertions.assertEquals(1d, result.getWater());
+        Assertions.assertEquals(2, result.getSmallCup());
+        Assertions.assertEquals(3, result.getLargeCup());
+        Assertions.assertEquals(4, result.getSugar());
 
-        Assertions.assertEquals(new Stock(0, 0d, 0, 0, 0), result);
+        stockDAO.setStocks(stock_backup.getIdStock(), stock_backup.getWater(), stock_backup.getSmallCup(), stock_backup.getLargeCup(), stock_backup.getSugar());
     }
 
     @Test
     void testReduceSugarStock() {
-        connect();
-        stockDAO.reduceSugarStock(0);
+        Stock stock_backup = stockDAO.getStock();
+
+        stockDAO.setStocks(0, 1d, 2, 3, 4);
+        int sugar = stockDAO.getStock().getSugar();
+        stockDAO.reduceSugarStock(1);
+
+        Assertions.assertEquals(sugar-1, stockDAO.getStock().getSugar());
     }
 
     @Test
     void testDecrementSmallCupStock() {
-        connect();
+        Stock stock_backup = stockDAO.getStock();
+
+        stockDAO.setStocks(0, 1d, 2, 3, 4);
+        int smallCup = stockDAO.getStock().getSmallCup();
         stockDAO.decrementSmallCupStock();
+
+        Assertions.assertEquals(smallCup-1, stockDAO.getStock().getSmallCup());
+
     }
 
     @Test
     void testDecrementLargeCupStock() {
-        connect();
+        Stock stock_backup = stockDAO.getStock();
+
+        stockDAO.setStocks(0, 1d, 2, 3, 4);
+        int largeCup = stockDAO.getStock().getLargeCup();
         stockDAO.decrementLargeCupStock();
+
+        Assertions.assertEquals(largeCup-1, stockDAO.getStock().getLargeCup());
     }
 
     @Test
     void testReduceWaterStock() {
-        connect();
-        stockDAO.reduceWaterStock(0d);
+        Stock stock_backup = stockDAO.getStock();
+
+        stockDAO.setStocks(0, 1d, 2, 3, 4);
+        Double water = stockDAO.getStock().getWater();
+        stockDAO.reduceWaterStock(1d);
+
+        Assertions.assertEquals(water-1d, stockDAO.getStock().getWater());
     }
 }

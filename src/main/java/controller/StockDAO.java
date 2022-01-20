@@ -18,7 +18,7 @@ public class StockDAO {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Stock");
             if(rs.next()){
-                return new Stock(rs.getInt("id"), rs.getDouble("Eau"), rs.getInt("Petits_gobelets"), rs.getInt("Grands_gobelets"), rs.getInt("Sucre"));
+                return new Stock(rs.getInt("Id"), rs.getDouble("Eau"), rs.getInt("Petits_gobelets"), rs.getInt("Grands_gobelets"), rs.getInt("Sucre"));
             }
             return null;
         }catch(SQLException sqle){
@@ -93,8 +93,20 @@ public class StockDAO {
 
     public void setStocks(int idStock, double water, int smallCup, int largeCup, int sugar) {
         try {
-            String str = "";
+            String str = "UPDATE Stock " +
+                    "SET Eau = ?, " +
+                    "Petits_gobelets = ?, " +
+                    "Grands_gobelets = ?, " +
+                    "Sucre = ? " +
+                    "WHERE Id = ?";
             PreparedStatement stmt = conn.prepareStatement(str);
+            stmt.setDouble(1, water);
+            stmt.setInt(2, smallCup);
+            stmt.setInt(3, largeCup);
+            stmt.setInt(4, sugar);
+            stmt.setInt(5, idStock);
+
+            stmt.executeUpdate();
         } catch (SQLException sqle) {
             System.out.println("Erreur setStocks dans StockDAO : " + sqle);
         }
