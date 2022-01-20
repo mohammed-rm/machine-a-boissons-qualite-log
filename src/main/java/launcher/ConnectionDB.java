@@ -48,7 +48,7 @@ public class ConnectionDB {
 
             // Table Commande
             query = "CREATE TABLE IF NOT EXISTS Commande(" +
-                    "Id INTEGER," +
+                    "Id INTEGER AUTO_INCREMENT," +
                     "Boisson_id INTEGER," +
                     "Quantite_boisson INTEGER," +
                     "Quantite_sucre INTEGER," +

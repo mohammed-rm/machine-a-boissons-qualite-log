@@ -8,9 +8,10 @@ public class Order {
 	private boolean cup;
 	private double water;
 	private boolean cancel;
+	private Float price; // Can be null if price not calculated yet
 
 	public Order(int idOrder, int drinkId, int drinkQuantity, int sugarQuantity, boolean cup, double water,
-			boolean cancel) {
+			boolean cancel, Float price) {
 		this.IdOrder = idOrder;
 		this.drinkId = drinkId;
 		this.drinkQuantity = drinkQuantity;
@@ -18,6 +19,7 @@ public class Order {
 		this.cup = cup;
 		this.water = water;
 		this.cancel = cancel;
+		this.price = price;
 	}
 
 	/**
@@ -70,6 +72,13 @@ public class Order {
 	}
 
 	/**
+	 * @return the price
+	 */
+	public Float getPrice() {
+		return price;
+	}
+
+	/**
 	 * @param idOrder the idOrder to set
 	 */
 	public void setIdOrder(int idOrder) {
@@ -118,4 +127,10 @@ public class Order {
 		this.cancel = cancel;
 	}
 
+	/**
+	 * @param price the new price
+	 */
+	public void setPrice(Float price) {
+		this.price = price;
+	}
 }

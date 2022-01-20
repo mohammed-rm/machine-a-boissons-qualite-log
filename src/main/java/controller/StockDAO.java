@@ -1,5 +1,6 @@
 package controller;
 
+import model.Order;
 import model.Stock;
 
 import java.sql.*;
@@ -96,6 +97,30 @@ public class StockDAO {
             PreparedStatement stmt = conn.prepareStatement(str);
         } catch (SQLException sqle) {
             System.out.println("Erreur setStocks dans StockDAO : " + sqle);
+        }
+    }
+
+    /**
+     * Méthode appelé par OrderDAO si une commande est effectuée
+     * Consomme les éléments commandés dans le stock
+     * @param order la commande à prendre en compte
+     */
+    public void consumeOrder(Order order) {
+        try {
+            Statement stmt = conn.createStatement();
+            String gobeletSize;
+            if (order.getDrinkQuantity() == 75)
+                gobeletSize = "Grands_gobelets";
+            else
+                gobeletSize = "Petits_gobelets";
+
+            stmt.executeUpdate("UPDATE Stock SET " +
+                    "Eau = Eau - " + order.getWater() + ", " +
+                    gobeletSize + " = " + gobeletSize + " - " + 1 + ", " +
+                    "Sucre = Sucre - " + order.getSugarQuantity() + ";");
+            stmt.close();
+        } catch (SQLException sqle) {
+            System.out.println("Erreur consumeOrder dans StockDAO : " + sqle);
         }
     }
 }
