@@ -86,4 +86,8 @@ public class Stock {
 		this.sugar = sugar;
 	}
 
+	public String toString() {
+		return "id:" + this.IdStock + " ; water:" +this.getWater() + " ; SmallCup:" + this.getSmallCup() + " ; LargeCup:" + this.getLargeCup() + " ; sugar:" + this.getSugar();
+	}
+
 }
