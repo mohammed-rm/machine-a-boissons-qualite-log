@@ -85,8 +85,17 @@ public class StockDAO {
             if(rs.next()){
                 rs.updateDouble("Eau", rs.getDouble("Eau")-water);
             }
-        }catch(SQLException sqle){
-            System.out.println("Erreur reduceWaterStock dans StockDAO : "+sqle);
+        }catch(SQLException sqle) {
+            System.out.println("Erreur reduceWaterStock dans StockDAO : " + sqle);
+        }
+    }
+
+    public void setStocks(int idStock, double water, int smallCup, int largeCup, int sugar) {
+        try {
+            String str = "";
+            PreparedStatement stmt = conn.prepareStatement(str);
+        } catch (SQLException sqle) {
+            System.out.println("Erreur setStocks dans StockDAO : " + sqle);
         }
     }
 }
