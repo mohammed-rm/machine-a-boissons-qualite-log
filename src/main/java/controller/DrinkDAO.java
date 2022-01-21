@@ -18,7 +18,7 @@ public class DrinkDAO {
         try{
             Statement stmt = this.conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Boisson");
-            if(rs.next()){
+            while(rs.next()){
                 Drink drink = new Drink(rs.getInt("id"), rs.getString("nom"), rs.getString("description"), rs.getDouble("prix_u"));
                 liste.add(drink);
             }
