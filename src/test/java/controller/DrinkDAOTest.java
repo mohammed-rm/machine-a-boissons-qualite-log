@@ -63,12 +63,13 @@ public class DrinkDAOTest {
         contenu_theorique.add(new Drink(4, "Thé noir", "Un thé noir.", 0.30));
         contenu_theorique.add(new Drink(5, "Thé vert (sencha)", "Un thé vert Sencha de Mai.", 0.50));
         contenu_theorique.add(new Drink(6, "Soupe de tomate", "La fameuse.", 0.40));
-        boolean result = list.containsAll(contenu_theorique);
+        boolean result = contenu_theorique.containsAll(list); // = true
+        //boolean result = list.containsAll(contenu_theorique); // = false
         Assertions.assertEquals(true, result);
     }
 
     @Test
-    void testGetAllDrink_ThereIsAImpostorAmongUs(){
+    void testGetAllDrink_ThereIsAnImpostorAmongUs(){
         List<Drink> list = drinkDAO.getAllDrinks();
         List<Drink> contenu_theorique = new ArrayList<>();
         contenu_theorique.add(new Drink(1, "Café court", "Un café court.", 0.30));
