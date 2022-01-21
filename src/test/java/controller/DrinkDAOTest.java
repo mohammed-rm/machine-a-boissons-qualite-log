@@ -2,7 +2,6 @@ package controller;
 
 import launcher.ConnectionDB;
 import model.Drink;
-import model.Stock;
 import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 
@@ -18,7 +17,6 @@ public class DrinkDAOTest {
     DrinkDAO drinkDAO;
 
     Connection conn;
-    Drink drink_backup;
 
 
     @BeforeAll
@@ -42,7 +40,7 @@ public class DrinkDAOTest {
         List<Drink> list = drinkDAO.getAllDrinks();
         Drink drink_not_in_database = new Drink(-1, "Chocolat Chaud", "Meilleurs boisson", 0d);
         boolean result = list.contains(drink_not_in_database);
-        Assertions.assertEquals(false, result);
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -50,7 +48,7 @@ public class DrinkDAOTest {
         List<Drink> list = drinkDAO.getAllDrinks();
         Drink drink_in_database = new Drink(1, "Café court", "Un café court.", 0.30);
         boolean result = list.contains(drink_in_database);
-        Assertions.assertEquals(true, result);
+        Assertions.assertTrue(result);
     }
 
     @Test
@@ -65,8 +63,8 @@ public class DrinkDAOTest {
         contenu_theorique.add(new Drink(6, "Soupe de tomate", "La fameuse.", 0.40d));
         boolean result1 = contenu_theorique.containsAll(list);
         boolean result2 = list.containsAll(contenu_theorique);
-        Assertions.assertEquals(true, result1);
-        Assertions.assertEquals(true, result2);
+        Assertions.assertTrue(result1);
+        Assertions.assertTrue(result2);
     }
 
     @Test
@@ -79,11 +77,11 @@ public class DrinkDAOTest {
         contenu_theorique.add(new Drink(4, "Thé noir", "Un thé noir.", 0.30));
         contenu_theorique.add(new Drink(5, "Thé vert (sencha)", "Un thé vert Sencha de Mai.", 0.50));
         contenu_theorique.add(new Drink(6, "Soupe de tomate", "La fameuse.", 0.40));
-        contenu_theorique.add(new Drink(-1, "Chocolat Chaud", "Meilleurs boisson", 0d));
+        contenu_theorique.add(new Drink(-1, "Crewmate rouge", "red sus", 0d));
         boolean result1 = contenu_theorique.containsAll(list);
         boolean result2 = list.containsAll(contenu_theorique);
-        Assertions.assertEquals(true, result1);
-        Assertions.assertEquals(false, result2);
+        Assertions.assertTrue(result1);
+        Assertions.assertFalse(result2);
     }
 
     @Test
@@ -97,8 +95,8 @@ public class DrinkDAOTest {
         contenu_theorique.add(new Drink(5, "Thé vert (sencha)", "Un thé vert Sencha de Mai.", 0.50));
         boolean result1 = contenu_theorique.containsAll(list);
         boolean result2 = list.containsAll(contenu_theorique);
-        Assertions.assertEquals(false, result1);
-        Assertions.assertEquals(true, result2);
+        Assertions.assertFalse(result1);
+        Assertions.assertTrue(result2);
     }
 
 }
