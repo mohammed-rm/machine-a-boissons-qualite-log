@@ -2,31 +2,19 @@ package controller;
 
 import launcher.ConnectionDB;
 import model.Stock;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.jupiter.api.*;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import static org.mockito.Mockito.*;
-
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class StockDAOTest {
     @Mock
-    Connection conn;
-    @Mock
-    Stock stock_backup;
-    @Mock
-
-    @InjectMocks
     StockDAO stockDAO;
+
+    Connection conn;
+    Stock stock_backup;
 
 
     @BeforeAll
@@ -35,7 +23,6 @@ class StockDAOTest {
         conn = dbManager.getConn();
         stockDAO = new StockDAO(conn);
     }
-
     @AfterAll
     void disconnect() {
         try {
@@ -51,7 +38,6 @@ class StockDAOTest {
         stock_backup = stockDAO.getStock();
         stockDAO.setStocks(0, 1d, 2, 3, 4);
     }
-
     @AfterEach
     void rollback() {
         stockDAO.setStocks(stock_backup.getIdStock(), stock_backup.getWater(), stock_backup.getSmallCup(), stock_backup.getLargeCup(), stock_backup.getSugar());

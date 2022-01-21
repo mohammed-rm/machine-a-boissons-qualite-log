@@ -2,6 +2,8 @@ package launcher;
 
 import java.awt.EventQueue;
 
+import controller.StockDAO;
+import model.Stock;
 import view.ApplicationWindow;
 
 public class Run {
