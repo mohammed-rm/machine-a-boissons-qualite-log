@@ -77,7 +77,7 @@ public class DrinkDAOTest {
         contenu_theorique.add(new Drink(4, "Thé noir", "Un thé noir.", 0.30));
         contenu_theorique.add(new Drink(5, "Thé vert (sencha)", "Un thé vert Sencha de Mai.", 0.50));
         contenu_theorique.add(new Drink(6, "Soupe de tomate", "La fameuse.", 0.40));
-        contenu_theorique.add(new Drink(-1, "Crewmate rouge", "red sus", 0d));
+        contenu_theorique.add(new Drink(-1, "Boisson rouge", "red sus", 0d));
         boolean result1 = contenu_theorique.containsAll(list);
         boolean result2 = list.containsAll(contenu_theorique);
         Assertions.assertTrue(result1);
@@ -97,6 +97,22 @@ public class DrinkDAOTest {
         boolean result2 = list.containsAll(contenu_theorique);
         Assertions.assertFalse(result1);
         Assertions.assertTrue(result2);
+    }
+
+    @Test
+    void testGetAllDrink_NothingSimilar(){
+        List<Drink> list = drinkDAO.getAllDrinks();
+        List<Drink> contenu_theorique = new ArrayList<>();
+        contenu_theorique.add(new Drink(1, "Eau","H2O", 0.30));
+        contenu_theorique.add(new Drink(2, "Ethanol","C2H6O", 0.40));
+        contenu_theorique.add(new Drink(3, "Acide sulfurique","H2SO4", 0.40));
+        contenu_theorique.add(new Drink(4, "Mercure", "Hg", 0.30));
+        contenu_theorique.add(new Drink(5, "Dibrome","Br2", 0.50));
+        contenu_theorique.add(new Drink(6, "Octane","C8H18", 0.40));
+        boolean result1 = contenu_theorique.containsAll(list);
+        boolean result2 = list.containsAll(contenu_theorique);
+        Assertions.assertFalse(result1);
+        Assertions.assertFalse(result2);
     }
 
 }
