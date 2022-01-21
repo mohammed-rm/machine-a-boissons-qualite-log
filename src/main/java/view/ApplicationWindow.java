@@ -36,6 +36,7 @@ public class ApplicationWindow extends JFrame {
 	private Menu menu;
 	private Bottom bottom;
 	private MenuHome home;
+	private MenuBuyDrink buy;
 
 	private final JLabel labClose;
 	private final JLabel labMin;
@@ -43,15 +44,6 @@ public class ApplicationWindow extends JFrame {
 	private final JLabel labHome;
 	private final JLabel labDrinks;
 	private final JLabel labSettings;
-
-	private JLabel drinksTitle;
-	private JLabel soupsTitle;
-	private JLabel shortCoffee;
-	private JLabel americanonCoffee;
-	private JLabel latteCoffee;
-	private JLabel blackTea;
-	private JLabel greenTea;
-	private JLabel tomatoSoup;
 
 	private int xMouse;
 	private int yMouse;
@@ -72,7 +64,7 @@ public class ApplicationWindow extends JFrame {
 		initComponents();
 		iconsConfig();
 		menuConfig();
-		//homeConfig();
+		homeConfig();
 		frameListener();
 		panelListener();
 
@@ -81,173 +73,6 @@ public class ApplicationWindow extends JFrame {
 
 		frame.getContentPane().add(panel);
 		panel.add(internalPanel);
-		
-		//DONE
-		JLabel orderDrinks = new JLabel("Drinks");
-		orderDrinks.setFont(new Font("Script MT Bold", Font.ITALIC, 22));
-		orderDrinks.setBounds(50, 30, 100, 20);
-		internalPanel.add(orderDrinks);
-		
-		//DONE
-		JLabel orderCup = new JLabel("Cup");
-		orderCup.setBounds(50, 130, 60, 20);
-		orderCup.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		internalPanel.add(orderCup);
-		
-		//DONE
-		JLabel quantity = new JLabel("Quantity");
-		quantity.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		quantity.setBounds(300, 130, 80, 20);
-		internalPanel.add(quantity);
-		
-		//DONE
-		JLabel orderSugar = new JLabel("Sugar");
-		orderSugar.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		orderSugar.setBounds(50, 230, 70, 20);
-		internalPanel.add(orderSugar);
-		
-		//DONE
-		JComboBox drinksList = new JComboBox();
-		drinksList.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		drinksList.setModel(new DefaultComboBoxModel(new String[] {"Short Black", "Americano", "Latte", "Black Tea", "Green Tea"}));
-		drinksList.setBackground(new Color(173, 216, 230));
-		drinksList.setForeground(new Color(0, 0, 128));
-		drinksList.setBounds(50, 80, 160, 22);
-		internalPanel.add(drinksList);
-		
-		//DONE
-		JCheckBox yes = new JCheckBox("Yes");
-		yes.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		yes.setBackground(new Color(173, 216, 230));
-		yes.setBounds(50, 160, 50, 20);
-		internalPanel.add(yes);
-		
-		//DONE
-		JCheckBox no = new JCheckBox("No");
-		no.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		no.setBackground(new Color(173, 216, 230));
-		no.setBounds(120, 160, 50, 20);
-		internalPanel.add(no);
-		
-		//DONE
-		JCheckBox firstQuantity = new JCheckBox("35 cl");
-		firstQuantity.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		firstQuantity.setBackground(new Color(173, 216, 230));
-		firstQuantity.setBounds(300, 160, 55, 20);
-		internalPanel.add(firstQuantity);
-		
-		//DONE
-		JCheckBox secondQuantity = new JCheckBox("75 cl");
-		secondQuantity.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		secondQuantity.setBackground(new Color(173, 216, 230));
-		secondQuantity.setBounds(370, 160, 55, 20);
-		internalPanel.add(secondQuantity);
-		
-		JCheckBox noSug = new JCheckBox("0");
-		noSug.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		noSug.setBackground(new Color(173, 216, 230));
-		noSug.setBounds(50, 260, 40, 20);
-		internalPanel.add(noSug);
-		
-		JCheckBox oneSug = new JCheckBox("1");
-		oneSug.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		oneSug.setBackground(new Color(173, 216, 230));
-		oneSug.setBounds(100, 260, 40, 20);
-		internalPanel.add(oneSug);
-		
-		JCheckBox twoSug = new JCheckBox("2");
-		twoSug.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		twoSug.setBackground(new Color(173, 216, 230));
-		twoSug.setBounds(150, 260, 40, 20);
-		internalPanel.add(twoSug);
-		
-		JCheckBox treeSug = new JCheckBox("3");
-		treeSug.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		treeSug.setBackground(new Color(173, 216, 230));
-		treeSug.setBounds(200, 260, 40, 20);
-		internalPanel.add(treeSug);
-		
-		JCheckBox four = new JCheckBox("4");
-		four.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		four.setBackground(new Color(173, 216, 230));
-		four.setBounds(250, 260, 40, 20);
-		internalPanel.add(four);
-		
-		//DONE
-		JLabel orderSoups = new JLabel("Soups");
-		orderSoups.setFont(new Font("Script MT Bold", Font.ITALIC, 22));
-		orderSoups.setBounds(50, 330, 60, 25);
-		internalPanel.add(orderSoups);
-		
-		JButton btnOrder = new JButton("Order");
-		btnOrder.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		btnOrder.setBackground(new Color(0, 128, 0));
-		btnOrder.setBounds(480, 300, 90, 25);
-		internalPanel.add(btnOrder);
-		
-		JCheckBox fiveSug = new JCheckBox("5");
-		fiveSug.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		fiveSug.setBackground(new Color(173, 216, 230));
-		fiveSug.setBounds(300, 260, 40, 20);
-		internalPanel.add(fiveSug);
-		
-		JComboBox drinksList_1 = new JComboBox();
-		drinksList_1.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		drinksList_1.setModel(new DefaultComboBoxModel(new String[] {"Tomato Soup"}));
-		drinksList_1.setForeground(new Color(0, 0, 128));
-		drinksList_1.setBackground(new Color(173, 216, 230));
-		drinksList_1.setBounds(50, 380, 160, 22);
-		internalPanel.add(drinksList_1);
-		
-		JLabel orderCup_1 = new JLabel("Cup");
-		orderCup_1.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		orderCup_1.setBounds(50, 430, 60, 20);
-		internalPanel.add(orderCup_1);
-		
-		JCheckBox yes_1 = new JCheckBox("Yes");
-		yes_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		yes_1.setBackground(new Color(173, 216, 230));
-		yes_1.setBounds(50, 460, 50, 20);
-		internalPanel.add(yes_1);
-		
-		JCheckBox no_1 = new JCheckBox("No");
-		no_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		no_1.setBackground(new Color(173, 216, 230));
-		no_1.setBounds(120, 460, 50, 20);
-		internalPanel.add(no_1);
-		
-		JLabel quantity_1 = new JLabel("Quantity");
-		quantity_1.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		quantity_1.setBounds(300, 430, 80, 20);
-		internalPanel.add(quantity_1);
-		
-		JCheckBox firstQuantity_1 = new JCheckBox("35 cl");
-		firstQuantity_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		firstQuantity_1.setBackground(new Color(173, 216, 230));
-		firstQuantity_1.setBounds(300, 460, 55, 20);
-		internalPanel.add(firstQuantity_1);
-		
-		JCheckBox secondQuantity_1 = new JCheckBox("75 cl");
-		secondQuantity_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		secondQuantity_1.setBackground(new Color(173, 216, 230));
-		secondQuantity_1.setBounds(370, 460, 55, 20);
-		internalPanel.add(secondQuantity_1);
-		
-		JButton btnOrder_1 = new JButton("Order");
-		btnOrder_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		btnOrder_1.setBackground(new Color(0, 128, 0));
-		btnOrder_1.setBounds(480, 500, 90, 25);
-		internalPanel.add(btnOrder_1);
-		
-		JSeparator separator = new JSeparator();
-		separator.setBackground(new Color(128, 0, 128));
-		separator.setBounds(10, 323, 460, 2);
-		internalPanel.add(separator);
-		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBackground(new Color(128, 0, 128));
-		separator_1.setBounds(10, 523, 460, 2);
-		internalPanel.add(separator_1);
 		panel.add(menu);
 		panel.add(bottom);
 		frame.pack();
@@ -277,6 +102,7 @@ public class ApplicationWindow extends JFrame {
 		menu = new Menu();
 		bottom = new Bottom();
 		home = new MenuHome();
+		buy = new MenuBuyDrink();
 	}
 
 	/**
@@ -428,14 +254,7 @@ public class ApplicationWindow extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				internalPanel.removeAll();
 
-				internalPanel.add(drinksTitle);
-				internalPanel.add(soupsTitle);
-				internalPanel.add(shortCoffee);
-				internalPanel.add(americanonCoffee);
-				internalPanel.add(latteCoffee);
-				internalPanel.add(blackTea);
-				internalPanel.add(greenTea);
-				internalPanel.add(tomatoSoup);
+				homeConfig();
 
 				frame.pack();
 				frame.repaint();
@@ -463,6 +282,7 @@ public class ApplicationWindow extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				internalPanel.removeAll();
+				buyConfig();
 
 				frame.pack();
 				frame.repaint();
@@ -510,26 +330,36 @@ public class ApplicationWindow extends JFrame {
 	}
 
 	/**
-	 * Configuration of the Home 
+	 * Configuration of the Home
 	 */
 	public void homeConfig() {
 
-		drinksTitle = home.createDrinks().get(0);
-		soupsTitle = home.createDrinks().get(1);
-		shortCoffee = home.createDrinks().get(2);
-		americanonCoffee = home.createDrinks().get(3);
-		latteCoffee = home.createDrinks().get(4);
-		blackTea = home.createDrinks().get(5);
-		greenTea = home.createDrinks().get(6);
-		tomatoSoup = home.createDrinks().get(7);
+		for (int i = 0; i <= 7; i++) {
+			internalPanel.add(home.createDrinks().get(i));
+		}
+	}
 
-		internalPanel.add(drinksTitle);
-		internalPanel.add(soupsTitle);
-		internalPanel.add(shortCoffee);
-		internalPanel.add(americanonCoffee);
-		internalPanel.add(latteCoffee);
-		internalPanel.add(blackTea);
-		internalPanel.add(greenTea);
-		internalPanel.add(tomatoSoup);
+	public void buyConfig() {
+
+		for (int i = 0; i <= 6; i++) {
+			internalPanel.add(buy.createLab().get(i));
+		}
+
+		for (int i = 0; i <= 1; i++) {
+			internalPanel.add(buy.createCombo().get(i));
+		}
+
+		for (int i = 0; i <= 13; i++) {
+			internalPanel.add(buy.createCheck().get(i));
+		}
+
+		for (int i = 0; i <= 1; i++) {
+			internalPanel.add(buy.createButton().get(i));
+		}
+
+		for (int i = 0; i <= 1; i++) {
+			internalPanel.add(buy.createSep().get(i));
+		}
+
 	}
 }

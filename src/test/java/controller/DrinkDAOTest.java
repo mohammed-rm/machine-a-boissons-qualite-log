@@ -2,36 +2,39 @@ package controller;
 
 import launcher.ConnectionDB;
 import model.Drink;
-import org.junit.Rule;
+import model.Stock;
 import org.junit.jupiter.api.*;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
-
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DrinkDAOTest {
 
     @Mock
-    Connection conn;
-    @InjectMocks
     DrinkDAO drinkDAO;
 
-    @Rule
-    public MockitoRule rule = MockitoJUnit.rule();
+    Connection conn;
+    Drink drink_backup;
 
 
-    @BeforeEach
-    void connect() {
+    @BeforeAll
+    void init() {
         ConnectionDB dbManager = new ConnectionDB("Boissons.db");
         conn = dbManager.getConn();
         drinkDAO = new DrinkDAO(conn);
+    }
+    @AfterAll
+    void disconnect() {
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getErrorCode());
+            e.getStackTrace();
+        }
     }
 
     @Test
