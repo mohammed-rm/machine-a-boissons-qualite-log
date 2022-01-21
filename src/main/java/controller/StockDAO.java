@@ -34,18 +34,10 @@ public class StockDAO {
      */
     public void reduceSugarStock(int amount){
         try{
-            /*
-            Statement stmt = conn.createStatement(ResultSet.CONCUR_READ_ONLY, ResultSet.CONCUR_UPDATABLE);
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Stock");
-            if(rs.next()){
-                rs.updateInt("Sucre", rs.getInt("Sucre")-sugar);
-            }*/
             Statement stmt = conn.createStatement();
-            ResultSet rs1 = stmt.executeQuery("select * from stock where id=0");
+            ResultSet rs1 = stmt.executeQuery("SELECT Sucre FROM Stock WHERE Id = 0");
             rs1.next();
-            int preSugar = rs1.getInt("Sucre");
-
-            System.out.println("new sugar amount = " + (preSugar-amount));
+            int preSugar = rs1.getInt(1);
 
             String sql = "UPDATE Stock SET Sucre = ? WHERE Id = 0";
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -62,11 +54,16 @@ public class StockDAO {
      */
     public void decrementSmallCupStock(){
         try{
-            Statement stmt = conn.createStatement(ResultSet.CONCUR_READ_ONLY, ResultSet.CONCUR_UPDATABLE);
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Stock");
-            if(rs.next()){
-                rs.updateInt("Petits_gobelets", rs.getInt("Petits_gobelets")-1);
-            }
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT Petits_gobelets FROM Stock WHERE Id = 0");
+            rs.next();
+            int preSmallCups = rs.getInt(1);
+
+            String sql = "UPDATE Stock SET Petits_gobelets = ? WHERE Id = 0";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, preSmallCups-1);
+
+            pstmt.executeUpdate();
         }catch(SQLException sqle){
             System.out.println("Erreur decrementSmallCupStock dans StockDAO : "+sqle);
         }
@@ -77,11 +74,16 @@ public class StockDAO {
      */
     public void decrementLargeCupStock(){
         try{
-            Statement stmt = conn.createStatement(ResultSet.CONCUR_READ_ONLY, ResultSet.CONCUR_UPDATABLE);
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Stock");
-            if(rs.next()){
-                rs.updateInt("Grands_gobelets", rs.getInt("Grands_gobelets")-1);
-            }
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT Grands_gobelets FROM Stock WHERE Id = 0");
+            rs.next();
+            int preLargeCups = rs.getInt(1);
+
+            String sql = "UPDATE Stock SET Grands_gobelets = ? WHERE Id = 0";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, preLargeCups-1);
+
+            pstmt.executeUpdate();
         }catch(SQLException sqle){
             System.out.println("Erreur decrementLargeCupStock dans StockDAO : "+sqle);
         }
@@ -92,13 +94,18 @@ public class StockDAO {
      * @param water Quantité d'eau à enlever du stock
      * note : water peut être négatif
      */
-    public void reduceWaterStock(double water){
+    public void reduceWaterStock(double amount){
         try{
-            Statement stmt = conn.createStatement(ResultSet.CONCUR_READ_ONLY, ResultSet.CONCUR_UPDATABLE);
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Stock");
-            if(rs.next()){
-                rs.updateDouble("Eau", rs.getDouble("Eau")-water);
-            }
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT Eau FROM Stock WHERE Id = 0");
+            rs.next();
+            Double preEau = rs.getDouble(1);
+
+            String sql = "UPDATE Stock SET Eau = ? WHERE Id = 0";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setDouble(1, preEau-amount);
+
+            pstmt.executeUpdate();
         }catch(SQLException sqle) {
             System.out.println("Erreur reduceWaterStock dans StockDAO : " + sqle);
         }
