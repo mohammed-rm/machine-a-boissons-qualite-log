@@ -29,16 +29,29 @@ public class StockDAO {
 
     /**
      * Méthode pour enlever du sucre du stock actuel
-     * @param sugar Quantité de sucre qu'on enlève
+     * @param amount Quantité de sucre qu'on enlève
      * note : sugar peut être négatif, ce qui ajoute du sucre
      */
-    public void reduceSugarStock(int sugar){
+    public void reduceSugarStock(int amount){
         try{
+            /*
             Statement stmt = conn.createStatement(ResultSet.CONCUR_READ_ONLY, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = stmt.executeQuery("SELECT * FROM Stock");
             if(rs.next()){
                 rs.updateInt("Sucre", rs.getInt("Sucre")-sugar);
-            }
+            }*/
+            Statement stmt = conn.createStatement();
+            ResultSet rs1 = stmt.executeQuery("select * from stock where id=0");
+            rs1.next();
+            int preSugar = rs1.getInt("Sucre");
+
+            System.out.println("new sugar amount = " + (preSugar-amount));
+
+            String sql = "UPDATE Stock SET Sucre = ? WHERE Id = 0";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, preSugar-amount);
+            pstmt.executeUpdate();
+
         }catch(SQLException sqle){
             System.out.println("Erreur reduceSugarStock dans StockDAO : "+sqle);
         }
