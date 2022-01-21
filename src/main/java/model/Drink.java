@@ -69,4 +69,18 @@ public class Drink {
 		this.price = price;
 	}
 
+	/**
+	 * Vérifie que 2 boissons sont égaux
+	 * @param obj La boisson comparé
+	 * @return false si obj n'est pas une boisson ou s'il l'une des variables est différentes de la boisson appelante. true sinon.
+	 */
+	public boolean equals(Object obj){
+		boolean resultat = false;
+		if(obj instanceof Drink){
+			Drink d = (Drink) obj;
+			resultat = d.IdDrink==this.IdDrink && d.name.equals(this.name) && d.description.equals(this.description) && d.price==this.price;
+		}
+		return resultat;
+	}
+
 }
