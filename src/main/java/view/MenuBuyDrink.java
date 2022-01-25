@@ -4,12 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JSeparator;
+import javax.swing.*;
 
 public class MenuBuyDrink {
 
@@ -18,31 +13,36 @@ public class MenuBuyDrink {
 	private JLabel quantity;
 	private JLabel orderSugar;
 	private JComboBox<String> drinksList;
-	private JCheckBox yes;
-	private JCheckBox no;
-	private JCheckBox firstQuantity;
-	private JCheckBox secondQuantity;
-	private JCheckBox noSug;
-	private JCheckBox oneSug;
-	private JCheckBox twoSug;
-	private JCheckBox treeSug;
-	private JCheckBox four;
-	private JCheckBox fiveSug;
+	private JRadioButton yes;
+	private JRadioButton no;
+	private JRadioButton firstQuantity;
+	private JRadioButton secondQuantity;
+	private JRadioButton noSug;
+	private JRadioButton oneSug;
+	private JRadioButton twoSug;
+	private JRadioButton treeSug;
+	private JRadioButton fourSug;
+	private JRadioButton fiveSug;
+	private ButtonGroup takeCup;
+	private ButtonGroup cupSize;
+	private ButtonGroup sugar;
 	private JButton btnOrder;
 	private JLabel orderSoups;
 	private JComboBox<String> drinksList_1;
 	private JLabel orderCup_1;
-	private JCheckBox yes_1;
-	private JCheckBox no_1;
+	private JRadioButton yes_1;
+	private JRadioButton no_1;
 	private JLabel quantity_1;
-	private JCheckBox firstQuantity_1;
-	private JCheckBox secondQuantity_1;
+	private JRadioButton firstQuantity_1;
+	private JRadioButton secondQuantity_1;
+	private ButtonGroup takeCupSoup;
+	private ButtonGroup cupSizeSoup;
 	private JButton btnOrder_1;
 	private JSeparator separator;
 	private JSeparator separator_1;
 	private ArrayList<JLabel> labelList;
 	private ArrayList<JComboBox<String>> comboList;
-	private ArrayList<JCheckBox> checkList;
+	private ArrayList<JRadioButton> checkList;
 	private ArrayList<JButton> buttonList;
 	private ArrayList<JSeparator> sepList;
 
@@ -50,7 +50,7 @@ public class MenuBuyDrink {
 
 		labelList = new ArrayList<JLabel>();
 		comboList = new ArrayList<JComboBox<String>>();
-		checkList = new ArrayList<JCheckBox>();
+		checkList = new ArrayList<>();
 		buttonList = new ArrayList<JButton>();
 		sepList = new ArrayList<JSeparator>();
 
@@ -60,28 +60,54 @@ public class MenuBuyDrink {
 		orderSugar = new JLabel("Sugar");
 
 		drinksList = new JComboBox<String>();
-		yes = new JCheckBox("Yes");
-		no = new JCheckBox("No");
-		firstQuantity = new JCheckBox("35 cl");
-		secondQuantity = new JCheckBox("75 cl");
-		noSug = new JCheckBox("0");
-		oneSug = new JCheckBox("1");
-		twoSug = new JCheckBox("2");
-		treeSug = new JCheckBox("3");
-		four = new JCheckBox("4");
-		fiveSug = new JCheckBox("5");
+		yes = new JRadioButton("Yes");
+		no = new JRadioButton("No");
+		firstQuantity = new JRadioButton("35 cl");
+		secondQuantity = new JRadioButton("75 cl");
+		noSug = new JRadioButton("0");
+		oneSug = new JRadioButton("1");
+		twoSug = new JRadioButton("2");
+		treeSug = new JRadioButton("3");
+		fourSug = new JRadioButton("4");
+		fiveSug = new JRadioButton("5");
 		btnOrder = new JButton("Order");
+
+		sugar = new ButtonGroup();
+		takeCup = new ButtonGroup();
+		cupSize = new ButtonGroup();
+
+		sugar.add(noSug);
+		sugar.add(oneSug);
+		sugar.add(twoSug);
+		sugar.add(treeSug);
+		sugar.add(fourSug);
+		sugar.add(fiveSug);
+
+		takeCup.add(yes);
+		takeCup.add(no);
+
+		cupSize.add(firstQuantity);
+		cupSize.add(secondQuantity);
 
 		orderSoups = new JLabel("Soups");
 
 		drinksList_1 = new JComboBox<String>();
 		orderCup_1 = new JLabel("Cup");
-		yes_1 = new JCheckBox("Yes");
-		no_1 = new JCheckBox("No");
+		yes_1 = new JRadioButton("Yes");
+		no_1 = new JRadioButton("No");
 		quantity_1 = new JLabel("Quantity");
-		firstQuantity_1 = new JCheckBox("35 cl");
-		secondQuantity_1 = new JCheckBox("75 cl");
+		firstQuantity_1 = new JRadioButton("35 cl");
+		secondQuantity_1 = new JRadioButton("75 cl");
 		btnOrder_1 = new JButton("Order");
+
+		takeCupSoup = new ButtonGroup();
+		cupSizeSoup = new ButtonGroup();
+
+		takeCupSoup.add(yes_1);
+		takeCupSoup.add(no_1);
+
+		cupSizeSoup.add(firstQuantity_1);
+		cupSizeSoup.add(secondQuantity_1);
 
 		separator = new JSeparator();
 		separator_1 = new JSeparator();
@@ -135,7 +161,7 @@ public class MenuBuyDrink {
 		return comboList;
 	}
 
-	public ArrayList<JCheckBox> createCheck() {
+	public ArrayList<JRadioButton> createCheck() {
 
 		yes.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		yes.setBackground(new Color(173, 216, 230));
@@ -161,9 +187,9 @@ public class MenuBuyDrink {
 		treeSug.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		treeSug.setBackground(new Color(173, 216, 230));
 		treeSug.setBounds(200, 260, 40, 20);
-		four.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		four.setBackground(new Color(173, 216, 230));
-		four.setBounds(250, 260, 40, 20);
+		fourSug.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		fourSug.setBackground(new Color(173, 216, 230));
+		fourSug.setBounds(250, 260, 40, 20);
 		fiveSug.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		fiveSug.setBackground(new Color(173, 216, 230));
 		fiveSug.setBounds(300, 260, 40, 20);
@@ -189,7 +215,7 @@ public class MenuBuyDrink {
 		checkList.add(yes_1);
 		checkList.add(firstQuantity);
 		checkList.add(firstQuantity_1);
-		checkList.add(four);
+		checkList.add(fourSug);
 		checkList.add(no);
 		checkList.add(noSug);
 		checkList.add(no_1);
@@ -264,70 +290,70 @@ public class MenuBuyDrink {
 	/**
 	 * @return the yes
 	 */
-	public JCheckBox getYes() {
+	public JRadioButton getYes() {
 		return yes;
 	}
 
 	/**
 	 * @return the no
 	 */
-	public JCheckBox getNo() {
+	public JRadioButton getNo() {
 		return no;
 	}
 
 	/**
 	 * @return the firstQuantity
 	 */
-	public JCheckBox getFirstQuantity() {
+	public JRadioButton getFirstQuantity() {
 		return firstQuantity;
 	}
 
 	/**
 	 * @return the secondQuantity
 	 */
-	public JCheckBox getSecondQuantity() {
+	public JRadioButton getSecondQuantity() {
 		return secondQuantity;
 	}
 
 	/**
 	 * @return the noSug
 	 */
-	public JCheckBox getNoSug() {
+	public JRadioButton getNoSug() {
 		return noSug;
 	}
 
 	/**
 	 * @return the oneSug
 	 */
-	public JCheckBox getOneSug() {
+	public JRadioButton getOneSug() {
 		return oneSug;
 	}
 
 	/**
 	 * @return the twoSug
 	 */
-	public JCheckBox getTwoSug() {
+	public JRadioButton getTwoSug() {
 		return twoSug;
 	}
 
 	/**
 	 * @return the treeSug
 	 */
-	public JCheckBox getTreeSug() {
+	public JRadioButton getTreeSug() {
 		return treeSug;
 	}
 
 	/**
 	 * @return the four
 	 */
-	public JCheckBox getFour() {
-		return four;
+	public JRadioButton getFourSug() {
+		return fourSug;
 	}
 
 	/**
 	 * @return the fiveSug
 	 */
-	public JCheckBox getFiveSug() {
+	public JRadioButton getFiveSug() {
 		return fiveSug;
 	}
 
@@ -362,14 +388,14 @@ public class MenuBuyDrink {
 	/**
 	 * @return the yes_1
 	 */
-	public JCheckBox getYes_1() {
+	public JRadioButton getYes_1() {
 		return yes_1;
 	}
 
 	/**
 	 * @return the no_1
 	 */
-	public JCheckBox getNo_1() {
+	public JRadioButton getNo_1() {
 		return no_1;
 	}
 
@@ -383,14 +409,14 @@ public class MenuBuyDrink {
 	/**
 	 * @return the firstQuantity_1
 	 */
-	public JCheckBox getFirstQuantity_1() {
+	public JRadioButton getFirstQuantity_1() {
 		return firstQuantity_1;
 	}
 
 	/**
 	 * @return the secondQuantity_1
 	 */
-	public JCheckBox getSecondQuantity_1() {
+	public JRadioButton getSecondQuantity_1() {
 		return secondQuantity_1;
 	}
 
@@ -432,7 +458,7 @@ public class MenuBuyDrink {
 	/**
 	 * @return the checkList
 	 */
-	public ArrayList<JCheckBox> getCheckList() {
+	public ArrayList<JRadioButton> getCheckList() {
 		return checkList;
 	}
 
@@ -488,70 +514,70 @@ public class MenuBuyDrink {
 	/**
 	 * @param yes the yes to set
 	 */
-	public void setYes(JCheckBox yes) {
+	public void setYes(JRadioButton yes) {
 		this.yes = yes;
 	}
 
 	/**
 	 * @param no the no to set
 	 */
-	public void setNo(JCheckBox no) {
+	public void setNo(JRadioButton no) {
 		this.no = no;
 	}
 
 	/**
 	 * @param firstQuantity the firstQuantity to set
 	 */
-	public void setFirstQuantity(JCheckBox firstQuantity) {
+	public void setFirstQuantity(JRadioButton firstQuantity) {
 		this.firstQuantity = firstQuantity;
 	}
 
 	/**
 	 * @param secondQuantity the secondQuantity to set
 	 */
-	public void setSecondQuantity(JCheckBox secondQuantity) {
+	public void setSecondQuantity(JRadioButton secondQuantity) {
 		this.secondQuantity = secondQuantity;
 	}
 
 	/**
 	 * @param noSug the noSug to set
 	 */
-	public void setNoSug(JCheckBox noSug) {
+	public void setNoSug(JRadioButton noSug) {
 		this.noSug = noSug;
 	}
 
 	/**
 	 * @param oneSug the oneSug to set
 	 */
-	public void setOneSug(JCheckBox oneSug) {
+	public void setOneSug(JRadioButton oneSug) {
 		this.oneSug = oneSug;
 	}
 
 	/**
 	 * @param twoSug the twoSug to set
 	 */
-	public void setTwoSug(JCheckBox twoSug) {
+	public void setTwoSug(JRadioButton twoSug) {
 		this.twoSug = twoSug;
 	}
 
 	/**
 	 * @param treeSug the treeSug to set
 	 */
-	public void setTreeSug(JCheckBox treeSug) {
+	public void setTreeSug(JRadioButton treeSug) {
 		this.treeSug = treeSug;
 	}
 
 	/**
-	 * @param four the four to set
+	 * @param fourSug the four to set
 	 */
-	public void setFour(JCheckBox four) {
-		this.four = four;
+	public void setFourSug(JRadioButton fourSug) {
+		this.fourSug = fourSug;
 	}
 
 	/**
 	 * @param fiveSug the fiveSug to set
 	 */
-	public void setFiveSug(JCheckBox fiveSug) {
+	public void setFiveSug(JRadioButton fiveSug) {
 		this.fiveSug = fiveSug;
 	}
 
@@ -586,14 +612,14 @@ public class MenuBuyDrink {
 	/**
 	 * @param yes_1 the yes_1 to set
 	 */
-	public void setYes_1(JCheckBox yes_1) {
+	public void setYes_1(JRadioButton yes_1) {
 		this.yes_1 = yes_1;
 	}
 
 	/**
 	 * @param no_1 the no_1 to set
 	 */
-	public void setNo_1(JCheckBox no_1) {
+	public void setNo_1(JRadioButton no_1) {
 		this.no_1 = no_1;
 	}
 
@@ -607,14 +633,14 @@ public class MenuBuyDrink {
 	/**
 	 * @param firstQuantity_1 the firstQuantity_1 to set
 	 */
-	public void setFirstQuantity_1(JCheckBox firstQuantity_1) {
+	public void setFirstQuantity_1(JRadioButton firstQuantity_1) {
 		this.firstQuantity_1 = firstQuantity_1;
 	}
 
 	/**
 	 * @param secondQuantity_1 the secondQuantity_1 to set
 	 */
-	public void setSecondQuantity_1(JCheckBox secondQuantity_1) {
+	public void setSecondQuantity_1(JRadioButton secondQuantity_1) {
 		this.secondQuantity_1 = secondQuantity_1;
 	}
 
@@ -656,7 +682,7 @@ public class MenuBuyDrink {
 	/**
 	 * @param checkList the checkList to set
 	 */
-	public void setCheckList(ArrayList<JCheckBox> checkList) {
+	public void setCheckList(ArrayList<JRadioButton> checkList) {
 		this.checkList = checkList;
 	}
 
