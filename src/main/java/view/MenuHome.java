@@ -5,10 +5,15 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import controller.DrinkDAO;
+import launcher.ConnectionDB;
+import model.Drink;
 
 public class MenuHome {
 
@@ -22,16 +27,23 @@ public class MenuHome {
 	private JLabel labGT;
 	private JLabel labTomato;
 	private DialogueFrame frame;
+	private ConnectionDB connection;
+	private DrinkDAO drinkDAO;
+	private List<Drink> list;
 
 	public MenuHome() {
+		connection = new ConnectionDB("Boissons.db");
+		drinkDAO = new DrinkDAO(connection.getConn());
+		list = drinkDAO.getAllDrinks();
+		
 		this.drinks = new JLabel("  Drinks");
 		this.labSoups = new JLabel("  Soups");
-		this.labSB = new JLabel("  Short Black : " + "€");
-		this.labAmericano = new JLabel("  Americano : " + "€");
-		this.labLatte = new JLabel("  Latte : " + "€");
-		this.labBT = new JLabel("  Black Tea : " + "€");
-		this.labGT = new JLabel("  Green Tea : " + "€");
-		this.labTomato = new JLabel("  Tomato Soup : " + "€");
+		this.labSB = new JLabel("  Short Black : " + list.get(0).getPrice() + "€");
+		this.labAmericano = new JLabel("  Americano : " + list.get(1).getPrice() + "€");
+		this.labLatte = new JLabel("  Latte : " + list.get(2).getPrice() + "€");
+		this.labBT = new JLabel("  Black Tea : " + list.get(3).getPrice() + "€");
+		this.labGT = new JLabel("  Green Tea : " + list.get(4).getPrice() + "€");
+		this.labTomato = new JLabel("  Tomato Soup : " + list.get(5).getPrice() + "€");
 		
 		initListener();
 	}
@@ -55,42 +67,42 @@ public class MenuHome {
 
 		labSB.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		labSB.setHorizontalAlignment(SwingConstants.LEFT);
-		labSB.setBounds(30, 120, 150, 40);
+		labSB.setBounds(30, 120, 160, 40);
 		labSB.setIcon(IconsResize
 				.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/short_black.png")), 40, 40));
 		
 
 		labAmericano.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		labAmericano.setHorizontalAlignment(SwingConstants.LEFT);
-		labAmericano.setBounds(30, 180, 150, 40);
+		labAmericano.setBounds(30, 180, 160, 40);
 		labAmericano.setIcon(IconsResize
 				.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/americano.png")), 40, 40));
 		
 
 		labLatte.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		labLatte.setHorizontalAlignment(SwingConstants.LEFT);
-		labLatte.setBounds(30, 240, 150, 40);
+		labLatte.setBounds(30, 240, 160, 40);
 		labLatte.setIcon(IconsResize
 				.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/latte.png")), 40, 40));
 		
 
 		labBT.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		labBT.setHorizontalAlignment(SwingConstants.LEFT);
-		labBT.setBounds(30, 300, 150, 40);
+		labBT.setBounds(30, 300, 160, 40);
 		labBT.setIcon(IconsResize
 				.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/black_tea.png")), 40, 40));
 		
 
 		labGT.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		labGT.setHorizontalAlignment(SwingConstants.LEFT);
-		labGT.setBounds(30, 360, 150, 50);
+		labGT.setBounds(30, 360, 160, 50);
 		labGT.setIcon(IconsResize
 				.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/green_tea.png")), 40, 40));
 		
 
 		labTomato.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		labTomato.setHorizontalAlignment(SwingConstants.LEFT);
-		labTomato.setBounds(360, 120, 150, 40);
+		labTomato.setBounds(360, 120, 190, 40);
 		labTomato.setIcon(IconsResize
 				.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/tomato_soup.png")), 40, 40));
 
