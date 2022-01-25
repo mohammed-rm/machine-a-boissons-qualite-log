@@ -8,8 +8,10 @@ Le code source est structuré au format MVC et la vue a été conçu à l'aide d
 
 La base de données est gérée à l'aide de **SQLite** dans le dossier du même nom.
 
+GitLab : https://gitlab.com/Hugo-Julien/machine-a-boissons-qualite-log
+
 ## Tests
-Les tests unitaires et d'intégration sont réalisés à l'aide de JUnit et de Mockito.
+Les tests unitaires et d'intégration sont réalisés à l'aide de **JUnit** et de **Mockito**.
 
 ## Guide de déploiement
 Les versions de Java que nous avons utilisé sont la 16 et la 17. D'autres sont probablement compatibles, mais pour éviter toute surprise nous vous conseillons d'utiliser celles-ci. 
