@@ -3,16 +3,14 @@ package controller;
 import launcher.ConnectionDB;
 import model.Stock;
 import org.junit.jupiter.api.*;
-import org.mockito.Mock;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class StockDAOTest {
-    @Mock
-    StockDAO stockDAO;
 
+    StockDAO stockDAO;
     Connection conn;
     Stock stock_backup;
 

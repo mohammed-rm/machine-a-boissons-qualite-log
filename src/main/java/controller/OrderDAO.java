@@ -1,6 +1,5 @@
 package controller;
 
-import model.Drink;
 import model.Order;
 import model.Stock;
 
@@ -75,8 +74,7 @@ public class OrderDAO {
             Statement stmt = this.conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Commande");
             while(rs.next()){
-                Order order = new Order(rs.getInt("id"),
-                        rs.getInt("Boisson_id"),
+                Order order = new Order(rs.getInt("Boisson_id"),
                         rs.getInt("Quantite_boisson"),
                         rs.getInt("Quantite_sucre"),
                         rs.getBoolean("Gobelet"),

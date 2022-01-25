@@ -3,7 +3,6 @@ package controller;
 import launcher.ConnectionDB;
 import model.Drink;
 import org.junit.jupiter.api.*;
-import org.mockito.Mock;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -13,9 +12,7 @@ import java.util.List;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DrinkDAOTest {
 
-    @Mock
     DrinkDAO drinkDAO;
-
     Connection conn;
 
 

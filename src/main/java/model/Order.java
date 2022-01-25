@@ -1,28 +1,19 @@
 package model;
 
 public class Order {
-	private int IdOrder;
 	private int drinkId;
 	private int drinkQuantity;
 	private int sugarQuantity;
 	private boolean cup;
 	private boolean cancel;
 
-	public Order(int idOrder, int drinkId, int drinkQuantity, int sugarQuantity, boolean cup,
+	public Order(int drinkId, int drinkQuantity, int sugarQuantity, boolean cup,
 			boolean cancel) {
-		this.IdOrder = idOrder;
 		this.drinkId = drinkId;
 		this.drinkQuantity = drinkQuantity; // 35 ou 75 (petit ou grand gobelet)
 		this.sugarQuantity = sugarQuantity;
 		this.cup = cup;						// L'utilisateur utilise son gobelet
 		this.cancel = cancel;
-	}
-
-	/**
-	 * @return the idOrder
-	 */
-	public int getIdOrder() {
-		return IdOrder;
 	}
 
 	/**
@@ -58,13 +49,6 @@ public class Order {
 	 */
 	public boolean isCancel() {
 		return cancel;
-	}
-
-	/**
-	 * @param idOrder the idOrder to set
-	 */
-	public void setIdOrder(int idOrder) {
-		IdOrder = idOrder;
 	}
 
 	/**
@@ -104,7 +88,6 @@ public class Order {
 
 	public String toString() {
 		return "Order{" +
-				"IdOrder=" + IdOrder +
 				", drinkId=" + drinkId +
 				", drinkQuantity=" + drinkQuantity +
 				", sugarQuantity=" + sugarQuantity +
