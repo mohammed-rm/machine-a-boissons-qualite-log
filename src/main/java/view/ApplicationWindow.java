@@ -270,6 +270,8 @@ public class ApplicationWindow extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				internalPanel.removeAll();
+				
+				//internalPanel.add(buy.buyConfig());
 				buyConfig();
 
 				frame.pack();
@@ -314,7 +316,7 @@ public class ApplicationWindow extends JFrame {
 		MenuSeparators.lineSeparator(menu);
 
 	}
-
+	
 	/**
 	 * Configuration of the buying panel
 	 */
@@ -341,4 +343,5 @@ public class ApplicationWindow extends JFrame {
 		}
 
 	}
+
 }
