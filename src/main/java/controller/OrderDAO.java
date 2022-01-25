@@ -114,6 +114,9 @@ public class OrderDAO {
         //Reduction si pas de gobelet
         if(!order.isCup()){
             price-=0.1;
+            if(order.getDrinkQuantity()==75){
+                price-=0.05;
+            }
         }
         return price;
     }
