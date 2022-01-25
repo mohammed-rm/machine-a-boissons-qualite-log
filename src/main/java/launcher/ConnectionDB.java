@@ -13,7 +13,7 @@ public class ConnectionDB {
         try {
             this.conn = DriverManager.getConnection(DB_URL + "/" + fileName);
             // System.out.println("Nom du driver : " + meta.getDriverName());
-            System.out.println("Base de données " + fileName + " ouverte.");
+            //System.out.println("Base de données " + fileName + " ouverte.");
         } catch (SQLException ex) {
             System.out.println("Erreur SQL : " + ex.getMessage());
         }

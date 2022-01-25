@@ -4,9 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 import javax.swing.*;
+
+import controller.OrderDAO;
+import controller.StockDAO;
+import launcher.ConnectionDB;
 
 public class MenuBuyDrink implements ActionListener {
 
@@ -47,6 +52,9 @@ public class MenuBuyDrink implements ActionListener {
 	private ArrayList<JRadioButton> checkList;
 	private ArrayList<JButton> buttonList;
 	private ArrayList<JSeparator> sepList;
+	private ConnectionDB connection = new ConnectionDB("Boisson.db");
+	private StockDAO stock = new StockDAO(connection.getConn());
+	private OrderDAO order = new OrderDAO(connection.getConn(), stock);
 
 	public MenuBuyDrink() {
 
@@ -115,16 +123,16 @@ public class MenuBuyDrink implements ActionListener {
 		separator_1 = new JSeparator();
 
 		drinksList.addActionListener(this);
-		yes.addActionListener(this);
-		no.addActionListener(this);
-		firstQuantity.addActionListener(this);
-		secondQuantity.addActionListener(this);
-		noSug.addActionListener(this);
-		oneSug.addActionListener(this);
-		twoSug.addActionListener(this);
-		treeSug.addActionListener(this);
-		fourSug.addActionListener(this);
-		fiveSug.addActionListener(this);
+		yes.setActionCommand("Yes");
+		no.setActionCommand("No");
+		firstQuantity.setActionCommand("35");
+		secondQuantity.setActionCommand("75");
+		noSug.setActionCommand("0");
+		oneSug.setActionCommand("1");
+		twoSug.setActionCommand("2");
+		treeSug.setActionCommand("3");
+		fourSug.setActionCommand("4");
+		fiveSug.setActionCommand("5");
 		btnOrder.addActionListener(this);
 
 		drinksList_1.addActionListener(this);
@@ -276,11 +284,42 @@ public class MenuBuyDrink implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
+		//StockDAO stock = new StockDAO(connection.getConn());
+		//OrderDAO order = new OrderDAO(connection.getConn(), stock);
+		
 		Object source = event.getSource();
+		String inputDrinks = new String();
+		String inputCup = new String();
+		String inputQuantity = new String();
+		String inputSugar = new String();
 
-		if (source == btnOrder) {
-			System.out.print(1);
+		/*****/
+		if(source == btnOrder) {
+			if( (yes.isSelected() || no.isSelected() ) 
+			&&  (firstQuantity.isSelected() || secondQuantity.isSelected() ) 
+			&&  (noSug.isSelected() || oneSug.isSelected() || twoSug.isSelected() || treeSug.isSelected() || fourSug.isSelected() || fiveSug.isSelected()))
+			{
+			inputDrinks = String.valueOf(drinksList.getSelectedItem());
+			inputCup = takeCup.getSelection().getActionCommand();
+			inputQuantity = cupSize.getSelection().getActionCommand();
+			inputSugar = sugar.getSelection().getActionCommand();
+			System.out.print(inputDrinks + "\n" + inputCup + "\n" + inputQuantity + "\n" + inputSugar + "\n");}
+			else {
+				System.out.print("Need to check all boxes\n");
+			}
 		}
-
+		else {
+			
+		}
+		/*****/
+		
+		/*****/
+		if(source == btnOrder_1) {
+			
+		}
+		else {
+			
+		}
+		/*****/
 	}
 }

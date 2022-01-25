@@ -13,19 +13,10 @@ public class DialogueFrame {
 	JFrame addFrame;
 	JPanel contentPane;
 	JLabel lab;
-	ConnectionDB connection;
-	DrinkDAO drinks;
+	ConnectionDB connection = new ConnectionDB("Boissons.db");
+	DrinkDAO drinks = new DrinkDAO(connection.getConn());
 	List<Drink> list;
 	
-	/**
-	 * Initialize connection and list of drinks
-	 */
-	public void init() {
-		connection = new ConnectionDB("Boissons.db");
-		drinks = new DrinkDAO(connection.getConn());
-		list = drinks.getAllDrinks();
-	}
-
 	/**
 	 * Default constructor
 	 */
@@ -68,8 +59,7 @@ public class DialogueFrame {
 	 * Sub frame that shows the drinks description
 	 */
 	public void dialogFrameSB() {
-		init();
-		dialogFrame(list.get(0).getDescription(), "/icons/description.png");
+		dialogFrame(drinks.getAllDrinks().get(0).getDescription(), "/icons/description.png");
 
 	}
 
@@ -77,8 +67,7 @@ public class DialogueFrame {
 	 * Sub frame that shows the drinks description
 	 */
 	public void dialogFrameAmer() {
-		init();
-		dialogFrame(list.get(1).getDescription(), "/icons/description.png");
+		dialogFrame(drinks.getAllDrinks().get(1).getDescription(), "/icons/description.png");
 
 	}
 
@@ -86,8 +75,7 @@ public class DialogueFrame {
 	 * Sub frame that shows the drinks description
 	 */
 	public void dialogFrameLatte() {
-		init();
-		dialogFrame(list.get(2).getDescription(), "/icons/description.png");
+		dialogFrame(drinks.getAllDrinks().get(2).getDescription(), "/icons/description.png");
 
 	}
 
@@ -95,8 +83,7 @@ public class DialogueFrame {
 	 * Sub frame that shows the drinks description
 	 */
 	public void dialogFrameBT() {
-		init();
-		dialogFrame(list.get(3).getDescription(), "/icons/description.png");
+		dialogFrame(drinks.getAllDrinks().get(3).getDescription(), "/icons/description.png");
 
 	}
 
@@ -104,8 +91,7 @@ public class DialogueFrame {
 	 * Sub frame that shows the drinks description
 	 */
 	public void dialogFrameGT() {
-		init();
-		dialogFrame(list.get(4).getDescription(), "/icons/description.png");
+		dialogFrame(drinks.getAllDrinks().get(4).getDescription(), "/icons/description.png");
 
 	}
 
@@ -113,93 +99,7 @@ public class DialogueFrame {
 	 * Sub frame that shows the drinks description
 	 */
 	public void dialogFrameTS() {
-		init();
-		dialogFrame(list.get(5).getDescription(), "/icons/description.png");
+		dialogFrame(drinks.getAllDrinks().get(5).getDescription(), "/icons/description.png");
 
 	}
-
-	/**
-	 * @return the addFrame
-	 */
-	public JFrame getAddFrame() {
-		return addFrame;
-	}
-
-	/**
-	 * @return the contentPane
-	 */
-	public JPanel getContentPane() {
-		return contentPane;
-	}
-
-	/**
-	 * @return the lab
-	 */
-	public JLabel getLab() {
-		return lab;
-	}
-
-	/**
-	 * @return the connection
-	 */
-	public ConnectionDB getConnection() {
-		return connection;
-	}
-
-	/**
-	 * @return the drinks
-	 */
-	public DrinkDAO getDrinks() {
-		return drinks;
-	}
-
-	/**
-	 * @return the list
-	 */
-	public List<Drink> getList() {
-		return list;
-	}
-
-	/**
-	 * @param addFrame the addFrame to set
-	 */
-	public void setAddFrame(JFrame addFrame) {
-		this.addFrame = addFrame;
-	}
-
-	/**
-	 * @param contentPane the contentPane to set
-	 */
-	public void setContentPane(JPanel contentPane) {
-		this.contentPane = contentPane;
-	}
-
-	/**
-	 * @param lab the lab to set
-	 */
-	public void setLab(JLabel lab) {
-		this.lab = lab;
-	}
-
-	/**
-	 * @param connection the connection to set
-	 */
-	public void setConnection(ConnectionDB connection) {
-		this.connection = connection;
-	}
-
-	/**
-	 * @param drinks the drinks to set
-	 */
-	public void setDrinks(DrinkDAO drinks) {
-		this.drinks = drinks;
-	}
-
-	/**
-	 * @param list the list to set
-	 */
-	public void setList(List<Drink> list) {
-		this.list = list;
-	}
-
 }
