@@ -308,17 +308,11 @@ public class MenuBuyDrink implements ActionListener {
 				System.out.print("Need to check all boxes\n");
 			}
 		}
-		else {
-			
-		}
 		/*****/
 		
 		/*****/
-		if(source == btnOrder_1) {
-			
-		}
-		else {
-			
+		else if(source == btnOrder_1) {
+			System.out.print("Test");
 		}
 		/*****/
 	}
