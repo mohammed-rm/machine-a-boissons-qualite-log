@@ -27,9 +27,5 @@ public class MenuSeparators {
 		separator_3.setBounds(15, 370, 200, 1);
 		menu.add(separator_3);
 
-		/*JSeparator separator_4 = new JSeparator();
-		separator_4.setForeground(Color.BLUE);
-		separator_4.setBounds(15, 390, 200, 1);
-		menu.add(separator_4);*/
 	}
 }

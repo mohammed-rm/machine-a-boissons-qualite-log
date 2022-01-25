@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -11,11 +12,27 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import controller.DrinkDAO;
+import launcher.ConnectionDB;
+import model.Drink;
+
 public class DialogueFrame {
 
 	JFrame addFrame;
 	JPanel contentPane;
 	JLabel lab;
+	ConnectionDB connection;
+	DrinkDAO drinks;
+	List<Drink> list;
+	
+	/**
+	 * Initialize connection and list of drinks
+	 */
+	public void init() {
+		connection = new ConnectionDB("Boissons.db");
+		drinks = new DrinkDAO(connection.getConn());
+		list = drinks.getAllDrinks();
+	}
 
 	/**
 	 * Default constructor
@@ -59,8 +76,8 @@ public class DialogueFrame {
 	 * Sub frame that shows the drinks description
 	 */
 	public void dialogFrameSB() {
-
-		dialogFrame("Description1...", "/icons/description.png");
+		init();
+		dialogFrame(list.get(0).getDescription(), "/icons/description.png");
 
 	}
 
@@ -68,7 +85,8 @@ public class DialogueFrame {
 	 * Sub frame that shows the drinks description
 	 */
 	public void dialogFrameAmer() {
-		dialogFrame("Description2...", "/icons/description.png");
+		init();
+		dialogFrame(list.get(1).getDescription(), "/icons/description.png");
 
 	}
 
@@ -76,7 +94,8 @@ public class DialogueFrame {
 	 * Sub frame that shows the drinks description
 	 */
 	public void dialogFrameLatte() {
-		dialogFrame("Description3...", "/icons/description.png");
+		init();
+		dialogFrame(list.get(2).getDescription(), "/icons/description.png");
 
 	}
 
@@ -84,7 +103,8 @@ public class DialogueFrame {
 	 * Sub frame that shows the drinks description
 	 */
 	public void dialogFrameBT() {
-		dialogFrame("Description4...", "/icons/description.png");
+		init();
+		dialogFrame(list.get(3).getDescription(), "/icons/description.png");
 
 	}
 
@@ -92,7 +112,8 @@ public class DialogueFrame {
 	 * Sub frame that shows the drinks description
 	 */
 	public void dialogFrameGT() {
-		dialogFrame("Description5...", "/icons/description.png");
+		init();
+		dialogFrame(list.get(4).getDescription(), "/icons/description.png");
 
 	}
 
@@ -100,7 +121,8 @@ public class DialogueFrame {
 	 * Sub frame that shows the drinks description
 	 */
 	public void dialogFrameTS() {
-		dialogFrame("Description6...", "/icons/description.png");
+		init();
+		dialogFrame(list.get(5).getDescription(), "/icons/description.png");
 
 	}
 

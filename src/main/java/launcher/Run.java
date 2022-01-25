@@ -2,8 +2,6 @@ package launcher;
 
 import java.awt.EventQueue;
 
-import controller.StockDAO;
-import model.Stock;
 import view.ApplicationWindow;
 
 public class Run {
@@ -24,5 +22,7 @@ public class Run {
         ConnectionDB dbManager = new ConnectionDB("Boissons.db");
         dbManager.createBoissonsTables();
         dbManager.fillBoissonsTables();
+        
+        
     }
 }

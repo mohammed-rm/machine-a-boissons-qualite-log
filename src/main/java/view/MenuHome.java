@@ -23,6 +23,7 @@ public class MenuHome {
 	private JLabel labGT;
 	private JLabel labTomato;
 	private DialogueFrame frame;
+	
 
 	public MenuHome() {
 		this.drinksList = new ArrayList<JLabel>();
