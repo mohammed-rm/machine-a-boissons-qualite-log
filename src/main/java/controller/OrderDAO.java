@@ -89,33 +89,33 @@ public class OrderDAO {
     }
 
     /**
-     * Calcul et retourne le prix d'un ordre donne
+     * Calcule et retourne le prix d'un ordre donne
      * @param order L'ordre pour lequel on veut avoir son prix
      * @return Le prix de l'ordre
      */
     public double getPrice(Order order){
         double price = 0d;
-        //Recuperation prix boisson
+        // Recuperation prix boisson
         try{
             PreparedStatement stmt = this.conn.prepareStatement("SELECT * FROM Boisson WHERE Id=?;");
             stmt.setInt(1, order.getDrinkId());
             ResultSet rs = stmt.executeQuery();
             if(rs.next()){
-                price+=rs.getDouble("Prix_u");
+                price += rs.getDouble("Prix_u");
             }
         }catch(SQLException sqle){
             System.out.println("Erreur getPrice dans OrderDAO : "+sqle);
             return price;
         }
-        //Augmentation si 75cl
-        if(order.getDrinkQuantity()==75){
-            price*=1.5;
+        // Augmentation si 75cl
+        if(order.getDrinkQuantity() == 75){
+            price *= 1.5d;
         }
-        //Reduction si pas de gobelet
+        // Reduction si pas de gobelet
         if(!order.isCup()){
-            price-=0.1;
-            if(order.getDrinkQuantity()==75){
-                price-=0.05;
+            price -= 0.1d;
+            if(order.getDrinkQuantity() == 75){
+                price -= 0.05d;
             }
         }
         return price;

@@ -58,4 +58,15 @@ public class OrderDAOTest {
         Order order3 = new Order(2, 750, 50, true, false);
         Assertions.assertFalse(orderDAO.placeOrder(order3).isEmpty());
     }
+
+    @Test
+    void testGetPrice(){
+        // 35cl with a gobelet
+        Order order1 = new Order(1,35, 0, true, false);
+        Assertions.assertEquals(0.3d, orderDAO.getPrice(order1));
+
+        // 75cl without a gobelet
+        Order order2 = new Order(1,75, 0, false, false);
+        Assertions.assertEquals(0.3d, orderDAO.getPrice(order2));
+    }
 }
