@@ -87,4 +87,29 @@ public class OrderDAO {
         }
         return liste;
     }
+
+    public double getPrice(Order order){
+        double price = 0d;
+        //Recuperation prix boisson
+        try{
+            PreparedStatement stmt = this.conn.prepareStatement("SELECT * FROM Boisson WHERE Id=?;");
+            stmt.setInt(1, order.getDrinkId());
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                price+=rs.getDouble("Prix_u");
+            }
+        }catch(SQLException sqle){
+            System.out.println("Erreur getPrice dans OrderDAO : "+sqle);
+            return price;
+        }
+        //Augmentation si 75cl
+        if(order.getDrinkQuantity()==75){
+            price*=1.5;
+        }
+        //Reduction si pas de gobelet
+        if(!order.isCup()){
+            price-=0.1;
+        }
+        return price;
+    }
 }
