@@ -88,6 +88,11 @@ public class OrderDAO {
         return liste;
     }
 
+    /**
+     * Calcul et retourne le prix d'un ordre donne
+     * @param order L'ordre pour lequel on veut avoir son prix
+     * @return Le prix de l'ordre
+     */
     public double getPrice(Order order){
         double price = 0d;
         //Recuperation prix boisson
