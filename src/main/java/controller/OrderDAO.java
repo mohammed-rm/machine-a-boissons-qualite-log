@@ -55,7 +55,7 @@ public class OrderDAO {
      * @param stock le stock à prendre en compte
      * @return La liste des éléments manquants, vide si possible
      */
-    private static List<String> isOrderPossible(Order order, Stock stock){
+    public static List<String> isOrderPossible(Order order, Stock stock){
         List<String> missingElems = new ArrayList<>();
         if (order.getDrinkQuantity() > stock.getWater())
             missingElems.add("Eau");
