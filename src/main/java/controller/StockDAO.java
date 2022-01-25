@@ -92,14 +92,14 @@ public class StockDAO {
     /**
      * Méthode pour réduire le stock d'eau
      * @param amount Quantité d'eau à enlever du stock
-     * note : water peut être négatif
+     * note : amount peut être négatif
      */
     public void reduceWaterStock(double amount){
         try{
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT Eau FROM Stock WHERE Id = 0");
             rs.next();
-            double preEau = rs.getDouble(1);
+            Double preEau = rs.getDouble(1);
 
             String sql = "UPDATE Stock SET Eau = ? WHERE Id = 0";
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -147,7 +147,7 @@ public class StockDAO {
                 gobeletSize = "Petits_gobelets";
 
             stmt.executeUpdate("UPDATE Stock SET " +
-                    "Eau = Eau - " + order.getWater() + ", " +
+                    "Eau = Eau - " + order.getDrinkQuantity() + ", " +
                     gobeletSize + " = " + gobeletSize + " - " + 1 + ", " +
                     "Sucre = Sucre - " + order.getSugarQuantity() + ";");
             stmt.close();

@@ -52,13 +52,13 @@ public class OrderDAOTest {
 
     @Test
     void testPlaceOrder() {
-        Order order1 = new Order(1, 1, 75, 5, true, 75, false, 1.5f);
+        Order order1 = new Order(1, 1, 75, 5, true, false);
         Assertions.assertTrue(orderDAO.placeOrder(order1).isEmpty());
 
-        Order order2 = new Order(1, 1, 75, 5, true, 7500, false, 2.5f);
+        Order order2 = new Order(1, 1, 75, 5, true, false);
         Assertions.assertEquals("Eau", orderDAO.placeOrder(order2).get(0));
 
-        Order order3 = new Order(1, 2, 750, 50, true, 750, false, 1500.5f);
+        Order order3 = new Order(1, 2, 750, 50, true, false);
         Assertions.assertFalse(orderDAO.placeOrder(order3).isEmpty());
     }
 }

@@ -1,12 +1,10 @@
 package controller;
 
+import model.Drink;
 import model.Order;
 import model.Stock;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +37,7 @@ public class OrderDAO {
             stmt.setInt(2, order.getDrinkQuantity());
             stmt.setInt(3, order.getSugarQuantity());
             stmt.setBoolean(4, order.isCup());
-            stmt.setFloat(5, order.getPrice());
+            //stmt.setFloat(5, order.getPrice());
             stmt.setBoolean(6, order.isCancel());
             stmt.executeUpdate();
             stmt.close();
@@ -60,7 +58,7 @@ public class OrderDAO {
      */
     private static List<String> isOrderPossible(Order order, Stock stock){
         List<String> missingElems = new ArrayList<>();
-        if (order.getWater() > stock.getWater())
+        if (order.getDrinkQuantity() > stock.getWater())
             missingElems.add("Eau");
         if (order.getSugarQuantity() > stock.getSugar())
             missingElems.add("Sucre");
@@ -69,5 +67,26 @@ public class OrderDAO {
         if (order.isCup() && order.getDrinkQuantity() == 35 && stock.getSmallCup() == 0)
             missingElems.add("Petits gobelets");
         return missingElems;
+    }
+
+    public List<Order> getAllOrders(){
+        List<Order> liste = new ArrayList<>();
+        try{
+            Statement stmt = this.conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Commande");
+            while(rs.next()){
+                Order order = new Order(rs.getInt("id"),
+                        rs.getInt("Boisson_id"),
+                        rs.getInt("Quantite_boisson"),
+                        rs.getInt("Quantite_sucre"),
+                        rs.getBoolean("Gobelet"),
+                        rs.getBoolean("Annule")
+                );
+                liste.add(order);
+            }
+        }catch(SQLException sqle) {
+            System.out.println("Erreur getAllDrink dans DrinkDAO : " + sqle);
+        }
+        return liste;
     }
 }

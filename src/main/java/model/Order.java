@@ -6,20 +6,16 @@ public class Order {
 	private int drinkQuantity;
 	private int sugarQuantity;
 	private boolean cup;
-	private double water;
 	private boolean cancel;
-	private Float price; // Can be null if price not calculated yet
 
-	public Order(int idOrder, int drinkId, int drinkQuantity, int sugarQuantity, boolean cup, double water,
-			boolean cancel, Float price) {
+	public Order(int idOrder, int drinkId, int drinkQuantity, int sugarQuantity, boolean cup,
+			boolean cancel) {
 		this.IdOrder = idOrder;
 		this.drinkId = drinkId;
-		this.drinkQuantity = drinkQuantity;
+		this.drinkQuantity = drinkQuantity; // 35 ou 75 (petit ou grand gobelet)
 		this.sugarQuantity = sugarQuantity;
-		this.cup = cup;
-		this.water = water;
+		this.cup = cup;						// L'utilisateur utilise son gobelet
 		this.cancel = cancel;
-		this.price = price;
 	}
 
 	/**
@@ -58,24 +54,10 @@ public class Order {
 	}
 
 	/**
-	 * @return the water
-	 */
-	public double getWater() {
-		return water;
-	}
-
-	/**
 	 * @return the cancel
 	 */
 	public boolean isCancel() {
 		return cancel;
-	}
-
-	/**
-	 * @return the price
-	 */
-	public Float getPrice() {
-		return price;
 	}
 
 	/**
@@ -114,23 +96,21 @@ public class Order {
 	}
 
 	/**
-	 * @param water the water to set
-	 */
-	public void setWater(double water) {
-		this.water = water;
-	}
-
-	/**
 	 * @param cancel the cancel to set
 	 */
 	public void setCancel(boolean cancel) {
 		this.cancel = cancel;
 	}
 
-	/**
-	 * @param price the new price
-	 */
-	public void setPrice(Float price) {
-		this.price = price;
+	public String toString() {
+		return "Order{" +
+				"IdOrder=" + IdOrder +
+				", drinkId=" + drinkId +
+				", drinkQuantity=" + drinkQuantity +
+				", sugarQuantity=" + sugarQuantity +
+				", cup=" + cup +
+				", cancel=" + cancel +
+				'}';
 	}
+
 }
