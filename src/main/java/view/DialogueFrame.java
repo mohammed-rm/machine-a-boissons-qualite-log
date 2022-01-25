@@ -46,7 +46,7 @@ public class DialogueFrame {
 		lab = new JLabel(message, SwingConstants.CENTER);
 		lab.setIcon(IconsResize.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource(iconPath)), 35, 35));
 		lab.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lab.setBounds(50, 40, 300, 40);
+		lab.setBounds(0, 40, 400, 40);
 
 		contentPane.add(lab);
 		addFrame.add(contentPane);
@@ -101,5 +101,9 @@ public class DialogueFrame {
 	public void dialogFrameTS() {
 		dialogFrame(drinks.getAllDrinks().get(5).getDescription(), "/icons/description.png");
 
+	}
+	
+	public void dialogueCheckAllBoxes() {
+		dialogFrame("You need to check all boxes beforing ordering!", "/icons/failure.png");
 	}
 }

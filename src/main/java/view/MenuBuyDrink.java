@@ -286,7 +286,7 @@ public class MenuBuyDrink implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		//StockDAO stock = new StockDAO(connection.getConn());
 		//OrderDAO order = new OrderDAO(connection.getConn(), stock);
-		
+		DialogueFrame frame = new DialogueFrame();
 		Object source = event.getSource();
 		String inputDrinks = new String();
 		String inputCup = new String();
@@ -305,6 +305,7 @@ public class MenuBuyDrink implements ActionListener {
 			inputSugar = sugar.getSelection().getActionCommand();
 			System.out.print(inputDrinks + "\n" + inputCup + "\n" + inputQuantity + "\n" + inputSugar + "\n");}
 			else {
+				frame.dialogueCheckAllBoxes();
 				System.out.print("Need to check all boxes\n");
 			}
 		}
