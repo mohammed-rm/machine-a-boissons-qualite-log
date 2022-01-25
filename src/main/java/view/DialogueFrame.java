@@ -106,4 +106,31 @@ public class DialogueFrame {
 	public void dialogueCheckAllBoxes() {
 		dialogFrame("You need to check all boxes beforing ordering!", "/icons/failure.png");
 	}
+	
+	public void dialogConfirm() {
+		contentPane = new JPanel();
+		contentPane.setSize(400, 180);
+		contentPane.setLayout(null);
+		contentPane.setBackground(new Color(189, 183, 107));
+
+		lab = new JLabel("Order Confirmation", SwingConstants.CENTER);
+		lab.setIcon(IconsResize.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/succes.png")), 35, 35));
+		lab.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		lab.setBounds(0, 40, 400, 40);
+		
+		JButton btnConfirm = new JButton("Confirm");
+		JButton btnCancel = new JButton("Cancel");
+		btnConfirm.setBounds(addFrame.getPreferredSize().width-160, 100, 90, 25);
+		btnCancel.setBounds(addFrame.getPreferredSize().width-325, 100, 90, 25);
+		btnConfirm.setBackground(Color.GREEN);
+		btnCancel.setBackground(Color.RED);
+
+		contentPane.add(lab);
+		contentPane.add(btnConfirm);
+		contentPane.add(btnCancel);
+		addFrame.add(contentPane);
+		addFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addFrame.pack();
+		addFrame.setVisible(true);
+	}
 }

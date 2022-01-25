@@ -303,7 +303,8 @@ public class MenuBuyDrink implements ActionListener {
 			inputCup = takeCup.getSelection().getActionCommand();
 			inputQuantity = cupSize.getSelection().getActionCommand();
 			inputSugar = sugar.getSelection().getActionCommand();
-			System.out.print(inputDrinks + "\n" + inputCup + "\n" + inputQuantity + "\n" + inputSugar + "\n");}
+			System.out.print(inputDrinks + "\n" + inputCup + "\n" + inputQuantity + "\n" + inputSugar + "\n");
+			frame.dialogConfirm();}
 			else {
 				frame.dialogueCheckAllBoxes();
 				System.out.print("Need to check all boxes\n");
