@@ -126,4 +126,88 @@ public class DialogueFrame {
 
 	}
 
+	/**
+	 * @return the addFrame
+	 */
+	public JFrame getAddFrame() {
+		return addFrame;
+	}
+
+	/**
+	 * @return the contentPane
+	 */
+	public JPanel getContentPane() {
+		return contentPane;
+	}
+
+	/**
+	 * @return the lab
+	 */
+	public JLabel getLab() {
+		return lab;
+	}
+
+	/**
+	 * @return the connection
+	 */
+	public ConnectionDB getConnection() {
+		return connection;
+	}
+
+	/**
+	 * @return the drinks
+	 */
+	public DrinkDAO getDrinks() {
+		return drinks;
+	}
+
+	/**
+	 * @return the list
+	 */
+	public List<Drink> getList() {
+		return list;
+	}
+
+	/**
+	 * @param addFrame the addFrame to set
+	 */
+	public void setAddFrame(JFrame addFrame) {
+		this.addFrame = addFrame;
+	}
+
+	/**
+	 * @param contentPane the contentPane to set
+	 */
+	public void setContentPane(JPanel contentPane) {
+		this.contentPane = contentPane;
+	}
+
+	/**
+	 * @param lab the lab to set
+	 */
+	public void setLab(JLabel lab) {
+		this.lab = lab;
+	}
+
+	/**
+	 * @param connection the connection to set
+	 */
+	public void setConnection(ConnectionDB connection) {
+		this.connection = connection;
+	}
+
+	/**
+	 * @param drinks the drinks to set
+	 */
+	public void setDrinks(DrinkDAO drinks) {
+		this.drinks = drinks;
+	}
+
+	/**
+	 * @param list the list to set
+	 */
+	public void setList(List<Drink> list) {
+		this.list = list;
+	}
+
 }

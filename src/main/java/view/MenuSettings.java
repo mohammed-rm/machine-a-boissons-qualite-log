@@ -12,6 +12,7 @@ public class MenuSettings extends Component {
 	private static final long serialVersionUID = 1L;
 	private JComboBox<String> comboBox;
 	private JLabel labLanguage;
+	private InternalPanel pan;
 
 	/**
 	 * Default constructor
@@ -19,31 +20,71 @@ public class MenuSettings extends Component {
 	public MenuSettings() {
 		comboBox = new JComboBox<String>();
 		labLanguage = new JLabel("Select a language");
+		pan = new InternalPanel();
+		pan.setLocation(0,0);
 	}
 
 	/**
-	 * To create a selection box
-	 * 
-	 * @return comboBox
+	 * Settings panel
+	 * @return pan
 	 */
-	public JComboBox<String> createCombo() {
+	public InternalPanel createPan() {
+		InternalPanel pan = new InternalPanel();
+		pan.setLocation(0,0);
+		
 		comboBox.setBounds(150, 8, 45, 30);
 		comboBox.setBackground(new Color(189, 183, 107));
 		comboBox.addItem("Fr");
 		comboBox.addItem("En");
+		labLanguage.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		labLanguage.setBounds(10, 14, 130, 20);
 
+		pan.add(labLanguage);
+		pan.add(comboBox);
+		
+		return pan;
+		
+	}
+
+	/**
+	 * @return the comboBox
+	 */
+	public JComboBox<String> getComboBox() {
 		return comboBox;
 	}
 
 	/**
-	 * To change style
-	 * 
-	 * @return labLanguage
+	 * @return the labLanguage
 	 */
-	public JLabel createLabel() {
-		labLanguage.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		labLanguage.setBounds(10, 14, 130, 20);
-
+	public JLabel getLabLanguage() {
 		return labLanguage;
+	}
+
+	/**
+	 * @return the pan
+	 */
+	public InternalPanel getPan() {
+		return pan;
+	}
+
+	/**
+	 * @param comboBox the comboBox to set
+	 */
+	public void setComboBox(JComboBox<String> comboBox) {
+		this.comboBox = comboBox;
+	}
+
+	/**
+	 * @param labLanguage the labLanguage to set
+	 */
+	public void setLabLanguage(JLabel labLanguage) {
+		this.labLanguage = labLanguage;
+	}
+
+	/**
+	 * @param pan the pan to set
+	 */
+	public void setPan(InternalPanel pan) {
+		this.pan = pan;
 	}
 }

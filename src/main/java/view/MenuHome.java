@@ -12,7 +12,6 @@ import javax.swing.SwingConstants;
 
 public class MenuHome {
 
-	private ArrayList<JLabel> drinksList;
 	private JLabel labdSoups;
 	private JLabel drinks;
 	private JLabel labSoups;
@@ -23,10 +22,8 @@ public class MenuHome {
 	private JLabel labGT;
 	private JLabel labTomato;
 	private DialogueFrame frame;
-	
 
 	public MenuHome() {
-		this.drinksList = new ArrayList<JLabel>();
 		this.drinks = new JLabel("  Drinks");
 		this.labSoups = new JLabel("  Soups");
 		this.labSB = new JLabel("  Short Black : " + "€");
@@ -36,66 +33,70 @@ public class MenuHome {
 		this.labGT = new JLabel("  Green Tea : " + "€");
 		this.labTomato = new JLabel("  Tomato Soup : " + "€");
 
-		this.frame = new DialogueFrame();
+		
 
 	}
 
-	public ArrayList<JLabel> createDrinks() {
+	/**
+	 * Creates home panel
+	 * @return pan
+	 */
+	public InternalPanel createDrinks() {
 
+		InternalPanel pan = new InternalPanel();
+		pan.setLocation(0, 0);
 		drinks.setFont(new Font("Script MT Bold", Font.ITALIC, 22));
 		drinks.setHorizontalAlignment(SwingConstants.LEFT);
 		drinks.setBounds(70, 40, 110, 40);
-		drinksList.add(drinks);
 
 		labSoups.setFont(new Font("Script MT Bold", Font.ITALIC, 22));
 		labSoups.setHorizontalAlignment(SwingConstants.LEFT);
 		labSoups.setBounds(400, 40, 110, 40);
-		drinksList.add(labSoups);
+		
 
 		labSB.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		labSB.setHorizontalAlignment(SwingConstants.LEFT);
 		labSB.setBounds(30, 120, 150, 40);
 		labSB.setIcon(IconsResize
 				.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/short_black.png")), 40, 40));
-		drinksList.add(labSB);
+		
 
 		labAmericano.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		labAmericano.setHorizontalAlignment(SwingConstants.LEFT);
 		labAmericano.setBounds(30, 180, 150, 40);
 		labAmericano.setIcon(IconsResize
 				.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/americano.png")), 40, 40));
-		drinksList.add(labAmericano);
+		
 
 		labLatte.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		labLatte.setHorizontalAlignment(SwingConstants.LEFT);
 		labLatte.setBounds(30, 240, 150, 40);
 		labLatte.setIcon(IconsResize
 				.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/latte.png")), 40, 40));
-		drinksList.add(labLatte);
+		
 
 		labBT.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		labBT.setHorizontalAlignment(SwingConstants.LEFT);
 		labBT.setBounds(30, 300, 150, 40);
 		labBT.setIcon(IconsResize
 				.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/black_tea.png")), 40, 40));
-		drinksList.add(labBT);
+		
 
 		labGT.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		labGT.setHorizontalAlignment(SwingConstants.LEFT);
 		labGT.setBounds(30, 360, 150, 50);
 		labGT.setIcon(IconsResize
 				.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/green_tea.png")), 40, 40));
-		drinksList.add(labGT);
+		
 
 		labTomato.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		labTomato.setHorizontalAlignment(SwingConstants.LEFT);
 		labTomato.setBounds(360, 120, 150, 40);
 		labTomato.setIcon(IconsResize
 				.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/tomato_soup.png")), 40, 40));
-		drinksList.add(labTomato);
+		
 
 		labSB.addMouseListener(new MouseAdapter() {
-			@Override
 			public void mouseEntered(MouseEvent e) {
 				labSB.setForeground(Color.WHITE);
 				labSB.setIcon(IconsResize.getScaledImage(
@@ -250,15 +251,17 @@ public class MenuHome {
 			}
 		});
 
-		return drinksList;
+		pan.add(drinks);
+		pan.add(labSoups);
+		pan.add(labSB);
+		pan.add(labAmericano);
+		pan.add(labLatte);
+		pan.add(labBT);
+		pan.add(labGT);
+		pan.add(labTomato);
+		
+		return pan;
 
-	}
-
-	/**
-	 * @return the drinksList
-	 */
-	public ArrayList<JLabel> getDrinksList() {
-		return drinksList;
 	}
 
 	/**
@@ -322,13 +325,6 @@ public class MenuHome {
 	 */
 	public JLabel getLabTomato() {
 		return labTomato;
-	}
-
-	/**
-	 * @param drinksList the drinksList to set
-	 */
-	public void setDrinksList(ArrayList<JLabel> drinksList) {
-		this.drinksList = drinksList;
 	}
 
 	/**

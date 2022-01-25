@@ -37,6 +37,7 @@ public class ApplicationWindow extends JFrame {
 	private Bottom bottom;
 	private MenuHome home;
 	private MenuBuyDrink buy;
+	MenuSettings settings;
 
 	private final JLabel labClose;
 	private final JLabel labMin;
@@ -64,7 +65,8 @@ public class ApplicationWindow extends JFrame {
 		initComponents();
 		iconsConfig();
 		menuConfig();
-		homeConfig();
+		//homeConfig();
+		internalPanel.add(home.createDrinks());
 		frameListener();
 		panelListener();
 
@@ -103,6 +105,7 @@ public class ApplicationWindow extends JFrame {
 		bottom = new Bottom();
 		home = new MenuHome();
 		buy = new MenuBuyDrink();
+		settings = new MenuSettings();
 	}
 
 	/**
@@ -254,11 +257,15 @@ public class ApplicationWindow extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				internalPanel.removeAll();
 
-				homeConfig();
+				internalPanel.add(home.createDrinks());
 
 				frame.pack();
 				frame.repaint();
 			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+		
 		});
 		menu.add(labHome);
 
@@ -309,11 +316,9 @@ public class ApplicationWindow extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MenuSettings settings = new MenuSettings();
 				internalPanel.removeAll();
 
-				internalPanel.add(settings.createLabel());
-				internalPanel.add(settings.createCombo());
+				internalPanel.add(settings.createPan());
 
 				frame.pack();
 				frame.repaint();
@@ -330,15 +335,8 @@ public class ApplicationWindow extends JFrame {
 	}
 
 	/**
-	 * Configuration of the Home
+	 * Configuration of the buying panel
 	 */
-	public void homeConfig() {
-
-		for (int i = 0; i <= 7; i++) {
-			internalPanel.add(home.createDrinks().get(i));
-		}
-	}
-
 	public void buyConfig() {
 
 		for (int i = 0; i <= 6; i++) {
