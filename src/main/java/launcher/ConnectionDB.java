@@ -57,7 +57,7 @@ public class ConnectionDB {
                     "Quantite_boisson INTEGER," +
                     "Quantite_sucre INTEGER," +
                     "Gobelet BOOLEAN," +
-                    //"Prix FLOAT," +
+                    "Prix FLOAT," +
                     "Annule BOOLEAN," +
                     "PRIMARY KEY (Id)," +
                     "FOREIGN KEY (Boisson_id) REFERENCES Boisson);";
