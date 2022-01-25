@@ -1,4 +1,5 @@
-import controller.DrinkDAO;
+package integration;
+
 import controller.OrderDAO;
 import controller.StockDAO;
 import launcher.ConnectionDB;
@@ -10,21 +11,19 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class IntegrationTest {
-    StockDAO stockDAO;
-    OrderDAO orderDAO;
-    DrinkDAO drinkDAO;
+public class OrderDAOTest {
 
     Connection conn;
     Stock stock_backup;
-
+    StockDAO stockDAO;
+    OrderDAO orderDAO;
 
     @BeforeAll
     void init() {
         ConnectionDB dbManager = new ConnectionDB("Boissons.db");
         conn = dbManager.getConn();
         stockDAO = new StockDAO(conn);
-        drinkDAO = new DrinkDAO(conn);
+        orderDAO = new OrderDAO(conn, stockDAO);
     }
 
     @AfterAll
@@ -40,26 +39,25 @@ public class IntegrationTest {
     @BeforeEach
     void connect() {
         stock_backup = stockDAO.getStock();
-        orderDAO = new OrderDAO(conn, stockDAO);
-        stockDAO.setStocks(0, 150d, 2, 3, 4);
+        stockDAO.setStocks(0, 100d, 2, 3, 10);
     }
+
     @AfterEach
     void rollback() {
         stockDAO.setStocks(stock_backup.getIdStock(), stock_backup.getWater(), stock_backup.getSmallCup(), stock_backup.getLargeCup(), stock_backup.getSugar());
     }
 
-
     @Test
-    void testOrderConsumeDrink(){
-        Order o = new Order(1, 75, 1, false, false);
-        Assertions.assertTrue(orderDAO.placeOrder(o).isEmpty());
+    void testPlaceOrder() {
+        Order order1 = new Order(1, 75, 5, true, false);
+        Assertions.assertTrue(orderDAO.placeOrder(order1).isEmpty());
 
-        stockDAO.consumeOrder(o);
+        stockDAO.consumeOrder(order1);
 
-        //Assertions.assertFalse(orderDAO.placeOrder(o).isEmpty());
-        stockDAO.consumeOrder(o);
+        Order order2 = new Order(1, 75, 5, true, false);
+        Assertions.assertEquals("Eau", orderDAO.placeOrder(order2).get(0));
 
-        Assertions.assertEquals(0d, stockDAO.getStock().getWater());
+        Order order3 = new Order(2, 750, 50, true, false);
+        Assertions.assertFalse(orderDAO.placeOrder(order3).isEmpty());
     }
-
 }

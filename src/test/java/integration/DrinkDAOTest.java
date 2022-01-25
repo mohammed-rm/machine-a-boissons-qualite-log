@@ -1,5 +1,6 @@
-package controller;
+package integration;
 
+import controller.DrinkDAO;
 import launcher.ConnectionDB;
 import model.Drink;
 import org.junit.jupiter.api.*;

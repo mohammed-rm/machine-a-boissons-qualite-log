@@ -1,5 +1,6 @@
-package controller;
+package integration;
 
+import controller.StockDAO;
 import launcher.ConnectionDB;
 import model.Stock;
 import org.junit.jupiter.api.*;
