@@ -26,14 +26,14 @@ public class OrderDAO {
         Stock stock = this.stockDAO.getStock();
 
         List<String> missingElems = isOrderPossible(order, stock);
-        if (missingElems.isEmpty()) return missingElems; // Si le stock est insuffisant, on annule
+        if (!missingElems.isEmpty()) return missingElems; // Si le stock est insuffisant, on annule
 
         try {
             PreparedStatement stmt = this.conn.prepareStatement("INSERT INTO Commande " +
                     "(Boisson_id, Quantite_boisson, Quantite_sucre, Gobelet, Prix, Annule) VALUES " +
                     "(?, ?, ?, ?, ?, ?);");
             stmt.setInt(1, order.getDrinkId());
-            stmt.setInt(2, order.getDrinkQuantity());
+            stmt.setDouble(2, order.getDrinkQuantity());
             stmt.setInt(3, order.getSugarQuantity());
             stmt.setBoolean(4, order.isCup());
             //stmt.setFloat(5, order.getPrice());

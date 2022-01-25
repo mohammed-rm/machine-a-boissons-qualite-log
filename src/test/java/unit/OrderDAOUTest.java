@@ -19,7 +19,7 @@ public class OrderDAOUTest {
         this.order = mock(Order.class);
         this.stock = mock(Stock.class);
 
-        when(order.getDrinkQuantity()).thenReturn(35);
+        when(order.getDrinkQuantity()).thenReturn(35d);
         when(order.getSugarQuantity()).thenReturn(3);
         when(order.isCup()).thenReturn(true);
 
@@ -50,7 +50,7 @@ public class OrderDAOUTest {
 
     @Test
     void testIsOrderPossible_bigGobelets(){
-        when(order.getDrinkQuantity()).thenReturn(75);
+        when(order.getDrinkQuantity()).thenReturn(75d);
         when(stock.getLargeCup()).thenReturn(0);
 
         Assertions.assertEquals(OrderDAO.isOrderPossible(order, stock).get(0), "Grands gobelets");

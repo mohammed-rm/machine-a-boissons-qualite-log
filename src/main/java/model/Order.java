@@ -2,12 +2,12 @@ package model;
 
 public class Order {
 	private int drinkId;
-	private int drinkQuantity;
+	private double drinkQuantity;
 	private int sugarQuantity;
 	private boolean cup;
 	private boolean cancel;
 
-	public Order(int drinkId, int drinkQuantity, int sugarQuantity, boolean cup,
+	public Order(int drinkId, double drinkQuantity, int sugarQuantity, boolean cup,
 			boolean cancel) {
 		this.drinkId = drinkId;
 		this.drinkQuantity = drinkQuantity; // 35 ou 75 (petit ou grand gobelet)
@@ -26,7 +26,7 @@ public class Order {
 	/**
 	 * @return the drinkQuantity
 	 */
-	public int getDrinkQuantity() {
+	public double getDrinkQuantity() {
 		return drinkQuantity;
 	}
 
@@ -61,7 +61,7 @@ public class Order {
 	/**
 	 * @param drinkQuantity the drinkQuantity to set
 	 */
-	public void setDrinkQuantity(int drinkQuantity) {
+	public void setDrinkQuantity(double drinkQuantity) {
 		this.drinkQuantity = drinkQuantity;
 	}
 

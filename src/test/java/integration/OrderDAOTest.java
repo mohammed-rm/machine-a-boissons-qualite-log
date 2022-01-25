@@ -52,8 +52,6 @@ public class OrderDAOTest {
         Order order1 = new Order(1, 75, 5, true, false);
         Assertions.assertTrue(orderDAO.placeOrder(order1).isEmpty());
 
-        stockDAO.consumeOrder(order1);
-
         Order order2 = new Order(1, 75, 5, true, false);
         Assertions.assertEquals("Eau", orderDAO.placeOrder(order2).get(0));
 

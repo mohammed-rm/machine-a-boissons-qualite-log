@@ -137,7 +137,7 @@ public class StockDAO {
      * Consomme les éléments commandés dans le stock
      * @param order la commande à prendre en compte
      */
-    public void consumeOrder(Order order) {
+    public boolean consumeOrder(Order order) {
         try {
             Statement stmt = conn.createStatement();
             String gobeletSize;
@@ -153,6 +153,8 @@ public class StockDAO {
             stmt.close();
         } catch (SQLException sqle) {
             System.out.println("Erreur consumeOrder dans StockDAO : " + sqle);
+            return false;
         }
+        return true;
     }
 }

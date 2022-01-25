@@ -43,7 +43,7 @@ public class GlobalIntegrationTest {
     void connect() {
         stock_backup = stockDAO.getStock();
         orderDAO = new OrderDAO(conn, stockDAO);
-        stockDAO.setStocks(0, 150d, 2, 3, 4);
+        stockDAO.setStocks(0, 100d, 2, 3, 4);
     }
     @AfterEach
     void rollback() {
@@ -53,15 +53,15 @@ public class GlobalIntegrationTest {
 
     @Test
     void testOrderConsumeDrink(){
-        Order o = new Order(1, 75, 1, false, false);
+        double d = stockDAO.getStock().getWater();
+
+        Order o = new Order(1, 75d, 1, false, false);
         Assertions.assertTrue(orderDAO.placeOrder(o).isEmpty());
 
-        stockDAO.consumeOrder(o);
+        Order o2 = new Order(2, 110d, 1, false, false);
+        Assertions.assertFalse(orderDAO.placeOrder(o2).isEmpty());
 
-        //Assertions.assertFalse(orderDAO.placeOrder(o).isEmpty());
-        stockDAO.consumeOrder(o);
-
-        Assertions.assertEquals(0d, stockDAO.getStock().getWater());
+        Assertions.assertEquals(d-o.getDrinkQuantity(), stockDAO.getStock().getWater());
     }
 
 }

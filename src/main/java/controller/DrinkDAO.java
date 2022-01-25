@@ -39,7 +39,7 @@ public class DrinkDAO {
             drink = new Drink(rs.getInt("id"), rs.getString("nom"), rs.getString("description"), rs.getDouble("prix_u"));
 
         }catch(SQLException sqle) {
-            System.out.println("Erreur getAllDrink dans DrinkDAO : " + sqle);
+            System.out.println("Erreur getDrinkById dans DrinkDAO : " + sqle);
         }
         return drink;
     }
