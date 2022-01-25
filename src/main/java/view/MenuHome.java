@@ -32,9 +32,8 @@ public class MenuHome {
 		this.labBT = new JLabel("  Black Tea : " + "€");
 		this.labGT = new JLabel("  Green Tea : " + "€");
 		this.labTomato = new JLabel("  Tomato Soup : " + "€");
-
 		
-
+		initListener();
 	}
 
 	/**
@@ -94,8 +93,22 @@ public class MenuHome {
 		labTomato.setBounds(360, 120, 150, 40);
 		labTomato.setIcon(IconsResize
 				.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/tomato_soup.png")), 40, 40));
-		
 
+		pan.add(drinks);
+		pan.add(labSoups);
+		pan.add(labSB);
+		pan.add(labAmericano);
+		pan.add(labLatte);
+		pan.add(labBT);
+		pan.add(labGT);
+		pan.add(labTomato);
+		
+		return pan;
+
+	}
+	
+	
+	public void initListener() {
 		labSB.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
 				labSB.setForeground(Color.WHITE);
@@ -250,18 +263,6 @@ public class MenuHome {
 				frame = new DialogueFrame();
 			}
 		});
-
-		pan.add(drinks);
-		pan.add(labSoups);
-		pan.add(labSB);
-		pan.add(labAmericano);
-		pan.add(labLatte);
-		pan.add(labBT);
-		pan.add(labGT);
-		pan.add(labTomato);
-		
-		return pan;
-
 	}
 
 	/**
