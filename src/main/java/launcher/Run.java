@@ -1,8 +1,8 @@
 package launcher;
 
-import java.awt.EventQueue;
-
 import view.ApplicationWindow;
+
+import java.awt.*;
 
 public class Run {
 

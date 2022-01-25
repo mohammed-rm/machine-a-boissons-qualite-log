@@ -1,30 +1,11 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JTextPane;
-import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
-import javax.swing.JButton;
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.JList;
-import javax.swing.JToggleButton;
-import javax.swing.JSpinner;
-import javax.swing.JProgressBar;
-import javax.swing.JSeparator;
-import javax.swing.DefaultComboBoxModel;
 
 @SuppressWarnings("serial")
 public class ApplicationWindow extends JFrame {
