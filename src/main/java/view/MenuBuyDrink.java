@@ -2,11 +2,13 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class MenuBuyDrink {
+public class MenuBuyDrink implements ActionListener {
 
 	private JLabel orderDrinks;
 	private JLabel orderCup;
@@ -47,7 +49,7 @@ public class MenuBuyDrink {
 	private ArrayList<JSeparator> sepList;
 
 	public MenuBuyDrink() {
-
+		
 		labelList = new ArrayList<JLabel>();
 		comboList = new ArrayList<JComboBox<String>>();
 		checkList = new ArrayList<>();
@@ -250,6 +252,50 @@ public class MenuBuyDrink {
 		sepList.add(separator_1);
 
 		return sepList;
+	}
+	
+	/**
+	 * Configuration of the buying panel
+	 */
+	/*public InternalPanel buyConfig() {
+		InternalPanel pan = new InternalPanel();
+		pan.setLocation(0,0);
+		
+		System.out.print(createLab().size());
+		System.out.print(createCombo().size());
+		System.out.print(createCheck().size());
+		System.out.print(createButton().size());
+		System.out.print(createSep().size());
+		
+		for (int i = 0; i < createLab().size(); i++) {
+			pan.add(createLab().get(i));
+		}
+
+		for (int i = 0; i <= 1; i++) {
+			pan.add(createCombo().get(i));
+		}
+
+		for (int i = 0; i <= 13; i++) {
+			pan.add(createCheck().get(i));
+		}
+
+		for (int i = 0; i <= 1; i++) {
+			pan.add(createButton().get(i));
+		}
+
+		for (int i = 0; i <= 1; i++) {
+			pan.add(createSep().get(i));
+		}
+		
+		return pan;
+
+	}*/
+
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**
