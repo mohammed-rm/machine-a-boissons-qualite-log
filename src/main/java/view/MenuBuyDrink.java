@@ -12,6 +12,7 @@ import javax.swing.*;
 import controller.OrderDAO;
 import controller.StockDAO;
 import launcher.ConnectionDB;
+import model.Order;
 
 public class MenuBuyDrink implements ActionListener {
 
@@ -52,9 +53,8 @@ public class MenuBuyDrink implements ActionListener {
 	private ArrayList<JRadioButton> checkList;
 	private ArrayList<JButton> buttonList;
 	private ArrayList<JSeparator> sepList;
-	private ConnectionDB connection = new ConnectionDB("Boisson.db");
-	private StockDAO stock = new StockDAO(connection.getConn());
-	private OrderDAO order = new OrderDAO(connection.getConn(), stock);
+	
+	//DialogueFrame frame;
 
 	public MenuBuyDrink() {
 
@@ -141,6 +141,8 @@ public class MenuBuyDrink implements ActionListener {
 		firstQuantity_1.addActionListener(this);
 		secondQuantity_1.addActionListener(this);
 		btnOrder_1.addActionListener(this);
+		
+		//popUpButton();
 	}
 
 	public ArrayList<JLabel> createLab() {
@@ -282,16 +284,24 @@ public class MenuBuyDrink implements ActionListener {
 		return sepList;
 	}
 
+	/*public void popUpButton() {
+		frame = new DialogueFrame();
+		frame.getBtnConfirm().addActionListener(this);
+		frame.getBtnCancel().addActionListener(this);
+	}*/
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		//StockDAO stock = new StockDAO(connection.getConn());
-		//OrderDAO order = new OrderDAO(connection.getConn(), stock);
+		ConnectionDB connection = new ConnectionDB("Boisson.db");
+		StockDAO stockDAO = new StockDAO(connection.getConn());
+		OrderDAO orderDAO = new OrderDAO(connection.getConn(), stockDAO);
 		DialogueFrame frame = new DialogueFrame();
+		Order order;
 		Object source = event.getSource();
 		String inputDrinks = new String();
 		String inputCup = new String();
 		String inputQuantity = new String();
 		String inputSugar = new String();
+		boolean state;
 
 		/*****/
 		if(source == btnOrder) {
@@ -303,8 +313,18 @@ public class MenuBuyDrink implements ActionListener {
 			inputCup = takeCup.getSelection().getActionCommand();
 			inputQuantity = cupSize.getSelection().getActionCommand();
 			inputSugar = sugar.getSelection().getActionCommand();
-			System.out.print(inputDrinks + "\n" + inputCup + "\n" + inputQuantity + "\n" + inputSugar + "\n");
-			frame.dialogConfirm();}
+			
+			order = new Order(drinksList.getSelectedIndex()+1, Double.parseDouble(inputSugar), Integer.parseInt(inputSugar), true, false);
+			System.out.print("Id : " + (drinksList.getSelectedIndex()+1) + "\n" + inputDrinks + "\n" + inputCup + "\n" + inputQuantity + "\n" + inputSugar + "\n");
+			
+			frame.dialogConfirmation(inputDrinks, inputQuantity, inputCup, inputSugar, /*orderDAO.getPrice(order)*/ 10.);
+			//frame = new DialogueFrame();
+			//System.out.print("v " + DialogueFrame.result + "\n");
+			/*if(DialogueFrame.btnConfirm.getModel().isPressed()) {System.out.print("Pressed v " + DialogueFrame.result + "\n");}*/
+			state = true;
+			if(state) {System.out.print("v " + DialogueFrame.result + "\n");}
+			}
+			
 			else {
 				frame.dialogueCheckAllBoxes();
 				System.out.print("Need to check all boxes\n");
