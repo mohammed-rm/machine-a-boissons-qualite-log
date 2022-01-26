@@ -301,7 +301,7 @@ public class MenuBuyDrink implements ActionListener {
 		String inputCup = new String();
 		String inputQuantity = new String();
 		String inputSugar = new String();
-		boolean state;
+		boolean state = false;
 
 		/*****/
 		if(source == btnOrder) {
@@ -318,11 +318,19 @@ public class MenuBuyDrink implements ActionListener {
 			System.out.print("Id : " + (drinksList.getSelectedIndex()+1) + "\n" + inputDrinks + "\n" + inputCup + "\n" + inputQuantity + "\n" + inputSugar + "\n");
 			
 			frame.dialogConfirmation(inputDrinks, inputQuantity, inputCup, inputSugar, /*orderDAO.getPrice(order)*/ 10.);
-			//frame = new DialogueFrame();
-			//System.out.print("v " + DialogueFrame.result + "\n");
-			/*if(DialogueFrame.btnConfirm.getModel().isPressed()) {System.out.print("Pressed v " + DialogueFrame.result + "\n");}*/
-			state = true;
-			if(state) {System.out.print("v " + DialogueFrame.result + "\n");}
+			
+			// Listener to the confirm button
+			frame.getBtnConfirm().addActionListener(new ActionListener() {
+			    public void actionPerformed(ActionEvent evt) {
+			        System.out.println("Confirm");
+			    }
+			});
+			frame.getBtnCancel().addActionListener(new ActionListener() {
+			    public void actionPerformed(ActionEvent evt) {
+			        System.out.println("Cancel");
+			    }
+			});
+			
 			}
 			
 			else {

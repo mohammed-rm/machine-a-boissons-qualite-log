@@ -214,8 +214,8 @@ public class DialogueFrame implements ActionListener{
 		btnCancel.setBounds(addFrame.getPreferredSize().width/2 - 95, 100, 90, 25);
 		btnConfirm.setBackground(Color.GREEN);
 		btnCancel.setBackground(Color.RED);
-		btnConfirm.addActionListener(this);
-		btnCancel.addActionListener(this);
+		//btnConfirm.addActionListener(new MenuBuyDrink());
+		//btnCancel.addActionListener(new MenuBuyDrink());
 
 		contentPane.add(lab);
 		contentPane.add(btnConfirm);
