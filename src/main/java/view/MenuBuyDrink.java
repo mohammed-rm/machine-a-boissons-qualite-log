@@ -4,10 +4,15 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
 import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.JSeparator;
 
 import controller.OrderDAO;
 import controller.StockDAO;
@@ -53,8 +58,8 @@ public class MenuBuyDrink implements ActionListener {
 	private ArrayList<JRadioButton> checkList;
 	private ArrayList<JButton> buttonList;
 	private ArrayList<JSeparator> sepList;
-	
-	//DialogueFrame frame;
+
+	private DialogueFrame frame;
 
 	public MenuBuyDrink() {
 
@@ -141,10 +146,12 @@ public class MenuBuyDrink implements ActionListener {
 		firstQuantity_1.addActionListener(this);
 		secondQuantity_1.addActionListener(this);
 		btnOrder_1.addActionListener(this);
-		
-		//popUpButton();
+
 	}
 
+	/**
+	 * @return labelList
+	 */
 	public ArrayList<JLabel> createLab() {
 
 		orderDrinks.setFont(new Font("Script MT Bold", Font.ITALIC, 22));
@@ -173,6 +180,9 @@ public class MenuBuyDrink implements ActionListener {
 		return labelList;
 	}
 
+	/**
+	 * @return comboList
+	 */
 	public ArrayList<JComboBox<String>> createCombo() {
 
 		drinksList.setFont(new Font("Times New Roman", Font.PLAIN, 12));
@@ -193,6 +203,9 @@ public class MenuBuyDrink implements ActionListener {
 		return comboList;
 	}
 
+	/**
+	 * @return comboList
+	 */
 	public ArrayList<JRadioButton> createCheck() {
 
 		yes.setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -256,6 +269,9 @@ public class MenuBuyDrink implements ActionListener {
 		return checkList;
 	}
 
+	/**
+	 * @return buttonList
+	 */
 	public ArrayList<JButton> createButton() {
 
 		btnOrder.setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -271,6 +287,9 @@ public class MenuBuyDrink implements ActionListener {
 		return buttonList;
 	}
 
+	/**
+	 * @return sepList
+	 */
 	public ArrayList<JSeparator> createSep() {
 
 		separator.setBackground(new Color(128, 0, 128));
@@ -280,21 +299,16 @@ public class MenuBuyDrink implements ActionListener {
 
 		sepList.add(separator);
 		sepList.add(separator_1);
-		
+
 		return sepList;
 	}
 
-	/*public void popUpButton() {
-		frame = new DialogueFrame();
-		frame.getBtnConfirm().addActionListener(this);
-		frame.getBtnCancel().addActionListener(this);
-	}*/
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		ConnectionDB connection = new ConnectionDB("Boisson.db");
 		StockDAO stockDAO = new StockDAO(connection.getConn());
 		OrderDAO orderDAO = new OrderDAO(connection.getConn(), stockDAO);
-		DialogueFrame frame = new DialogueFrame();
+		frame = new DialogueFrame();
 		Order order;
 		Object source = event.getSource();
 		String inputDrinks = new String();
@@ -304,44 +318,53 @@ public class MenuBuyDrink implements ActionListener {
 		boolean state = false;
 
 		/*****/
-		if(source == btnOrder) {
-			if( (yes.isSelected() || no.isSelected() ) 
-			&&  (firstQuantity.isSelected() || secondQuantity.isSelected() ) 
-			&&  (noSug.isSelected() || oneSug.isSelected() || twoSug.isSelected() || treeSug.isSelected() || fourSug.isSelected() || fiveSug.isSelected()))
-			{
-			inputDrinks = String.valueOf(drinksList.getSelectedItem());
-			inputCup = takeCup.getSelection().getActionCommand();
-			inputQuantity = cupSize.getSelection().getActionCommand();
-			inputSugar = sugar.getSelection().getActionCommand();
-			
-			order = new Order(drinksList.getSelectedIndex()+1, Double.parseDouble(inputSugar), Integer.parseInt(inputSugar), true, false);
-			System.out.print("Id : " + (drinksList.getSelectedIndex()+1) + "\n" + inputDrinks + "\n" + inputCup + "\n" + inputQuantity + "\n" + inputSugar + "\n");
-			
-			frame.dialogConfirmation(inputDrinks, inputQuantity, inputCup, inputSugar, /*orderDAO.getPrice(order)*/ 10.);
-			
-			// Listener to the confirm button
-			frame.getBtnConfirm().addActionListener(new ActionListener() {
-			    public void actionPerformed(ActionEvent evt) {
-			        System.out.println("Confirm");
-			    }
-			});
-			frame.getBtnCancel().addActionListener(new ActionListener() {
-			    public void actionPerformed(ActionEvent evt) {
-			        System.out.println("Cancel");
-			    }
-			});
-			
+		if (source == btnOrder) {
+			if ((yes.isSelected() || no.isSelected()) && (firstQuantity.isSelected() || secondQuantity.isSelected())
+					&& (noSug.isSelected() || oneSug.isSelected() || twoSug.isSelected() || treeSug.isSelected()
+							|| fourSug.isSelected() || fiveSug.isSelected())) {
+				inputDrinks = String.valueOf(drinksList.getSelectedItem());
+				inputCup = takeCup.getSelection().getActionCommand();
+				inputQuantity = cupSize.getSelection().getActionCommand();
+				inputSugar = sugar.getSelection().getActionCommand();
+
+				order = new Order(drinksList.getSelectedIndex() + 1, Double.parseDouble(inputSugar),
+						Integer.parseInt(inputSugar), true, false);
+				System.out.print("Id : " + (drinksList.getSelectedIndex() + 1) + "\n" + inputDrinks + "\n" + inputCup
+						+ "\n" + inputQuantity + "\n" + inputSugar + "\n");
+
+				frame.dialogConfirmation(inputDrinks, inputQuantity, inputCup, inputSugar,
+						/* orderDAO.getPrice(order) */ 10.);
+
+				// Listener to the confirm button
+				frame.getBtnConfirm().addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						System.out.println("Confirm");
+						frame.getAddFrame().dispose();
+						frame = new DialogueFrame();
+						frame.dialogConfirmed();
+					}
+				});
+				frame.getBtnCancel().addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						System.out.println("Cancel");
+						frame.getAddFrame().dispose();
+						frame = new DialogueFrame();
+						frame.dialogCanceled();
+
+					}
+				});
+
 			}
-			
+
 			else {
 				frame.dialogueCheckAllBoxes();
 				System.out.print("Need to check all boxes\n");
 			}
 		}
 		/*****/
-		
+
 		/*****/
-		else if(source == btnOrder_1) {
+		else if (source == btnOrder_1) {
 			System.out.print("Test");
 		}
 		/*****/

@@ -1,9 +1,13 @@
 package view;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
+import javax.swing.UIManager;
 
 public class BottomItems {
 
