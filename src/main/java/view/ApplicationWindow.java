@@ -1,11 +1,18 @@
 package view;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class ApplicationWindow extends JFrame {
@@ -18,7 +25,7 @@ public class ApplicationWindow extends JFrame {
 	private Bottom bottom;
 	private MenuHome home;
 	private MenuBuyDrink buy;
-	MenuSettings settings;
+	private MenuSettings settings;
 
 	private final JLabel labClose;
 	private final JLabel labMin;
@@ -46,7 +53,6 @@ public class ApplicationWindow extends JFrame {
 		initComponents();
 		iconsConfig();
 		menuConfig();
-		//homeConfig();
 		internalPanel.add(home.createDrinks());
 		frameListener();
 		panelListener();
@@ -243,10 +249,11 @@ public class ApplicationWindow extends JFrame {
 				frame.pack();
 				frame.repaint();
 			}
+
 			@Override
 			public void mouseReleased(MouseEvent e) {
 			}
-		
+
 		});
 		menu.add(labHome);
 
@@ -270,8 +277,8 @@ public class ApplicationWindow extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				internalPanel.removeAll();
-				
-				//internalPanel.add(buy.buyConfig());
+
+				// internalPanel.add(buy.buyConfig());
 				buyConfig();
 
 				frame.pack();
@@ -316,7 +323,7 @@ public class ApplicationWindow extends JFrame {
 		MenuSeparators.lineSeparator(menu);
 
 	}
-	
+
 	/**
 	 * Configuration of the buying panel
 	 */

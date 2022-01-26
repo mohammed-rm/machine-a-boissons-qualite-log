@@ -6,7 +6,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.JSeparator;
+
+import controller.OrderDAO;
+import controller.StockDAO;
+import launcher.ConnectionDB;
+import model.Order;
 
 public class MenuBuyDrink implements ActionListener {
 
@@ -47,6 +58,8 @@ public class MenuBuyDrink implements ActionListener {
 	private ArrayList<JRadioButton> checkList;
 	private ArrayList<JButton> buttonList;
 	private ArrayList<JSeparator> sepList;
+
+	private DialogueFrame frame;
 
 	public MenuBuyDrink() {
 
@@ -115,16 +128,16 @@ public class MenuBuyDrink implements ActionListener {
 		separator_1 = new JSeparator();
 
 		drinksList.addActionListener(this);
-		yes.addActionListener(this);
-		no.addActionListener(this);
-		firstQuantity.addActionListener(this);
-		secondQuantity.addActionListener(this);
-		noSug.addActionListener(this);
-		oneSug.addActionListener(this);
-		twoSug.addActionListener(this);
-		treeSug.addActionListener(this);
-		fourSug.addActionListener(this);
-		fiveSug.addActionListener(this);
+		yes.setActionCommand("Yes");
+		no.setActionCommand("No");
+		firstQuantity.setActionCommand("35");
+		secondQuantity.setActionCommand("75");
+		noSug.setActionCommand("0");
+		oneSug.setActionCommand("1");
+		twoSug.setActionCommand("2");
+		treeSug.setActionCommand("3");
+		fourSug.setActionCommand("4");
+		fiveSug.setActionCommand("5");
 		btnOrder.addActionListener(this);
 
 		drinksList_1.addActionListener(this);
@@ -133,8 +146,12 @@ public class MenuBuyDrink implements ActionListener {
 		firstQuantity_1.addActionListener(this);
 		secondQuantity_1.addActionListener(this);
 		btnOrder_1.addActionListener(this);
+
 	}
 
+	/**
+	 * @return labelList
+	 */
 	public ArrayList<JLabel> createLab() {
 
 		orderDrinks.setFont(new Font("Script MT Bold", Font.ITALIC, 22));
@@ -163,6 +180,9 @@ public class MenuBuyDrink implements ActionListener {
 		return labelList;
 	}
 
+	/**
+	 * @return comboList
+	 */
 	public ArrayList<JComboBox<String>> createCombo() {
 
 		drinksList.setFont(new Font("Times New Roman", Font.PLAIN, 12));
@@ -183,6 +203,9 @@ public class MenuBuyDrink implements ActionListener {
 		return comboList;
 	}
 
+	/**
+	 * @return comboList
+	 */
 	public ArrayList<JRadioButton> createCheck() {
 
 		yes.setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -246,6 +269,9 @@ public class MenuBuyDrink implements ActionListener {
 		return checkList;
 	}
 
+	/**
+	 * @return buttonList
+	 */
 	public ArrayList<JButton> createButton() {
 
 		btnOrder.setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -261,6 +287,9 @@ public class MenuBuyDrink implements ActionListener {
 		return buttonList;
 	}
 
+	/**
+	 * @return sepList
+	 */
 	public ArrayList<JSeparator> createSep() {
 
 		separator.setBackground(new Color(128, 0, 128));
@@ -270,17 +299,74 @@ public class MenuBuyDrink implements ActionListener {
 
 		sepList.add(separator);
 		sepList.add(separator_1);
-		
+
 		return sepList;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
+		ConnectionDB connection = new ConnectionDB("Boisson.db");
+		StockDAO stockDAO = new StockDAO(connection.getConn());
+		OrderDAO orderDAO = new OrderDAO(connection.getConn(), stockDAO);
+		frame = new DialogueFrame();
+		Order order;
 		Object source = event.getSource();
+		String inputDrinks = new String();
+		String inputCup = new String();
+		String inputQuantity = new String();
+		String inputSugar = new String();
+		boolean state = false;
 
+		/*****/
 		if (source == btnOrder) {
-			System.out.print(1);
-		}
+			if ((yes.isSelected() || no.isSelected()) && (firstQuantity.isSelected() || secondQuantity.isSelected())
+					&& (noSug.isSelected() || oneSug.isSelected() || twoSug.isSelected() || treeSug.isSelected()
+							|| fourSug.isSelected() || fiveSug.isSelected())) {
+				inputDrinks = String.valueOf(drinksList.getSelectedItem());
+				inputCup = takeCup.getSelection().getActionCommand();
+				inputQuantity = cupSize.getSelection().getActionCommand();
+				inputSugar = sugar.getSelection().getActionCommand();
 
+				order = new Order(drinksList.getSelectedIndex() + 1, Double.parseDouble(inputSugar),
+						Integer.parseInt(inputSugar), true, false);
+				System.out.print("Id : " + (drinksList.getSelectedIndex() + 1) + "\n" + inputDrinks + "\n" + inputCup
+						+ "\n" + inputQuantity + "\n" + inputSugar + "\n");
+
+				frame.dialogConfirmation(inputDrinks, inputQuantity, inputCup, inputSugar,
+						/* orderDAO.getPrice(order) */ 10.);
+
+				// Listener to the confirm button
+				frame.getBtnConfirm().addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						System.out.println("Confirm");
+						frame.getAddFrame().dispose();
+						frame = new DialogueFrame();
+						frame.dialogConfirmed();
+					}
+				});
+				frame.getBtnCancel().addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						System.out.println("Cancel");
+						frame.getAddFrame().dispose();
+						frame = new DialogueFrame();
+						frame.dialogCanceled();
+
+					}
+				});
+
+			}
+
+			else {
+				frame.dialogueCheckAllBoxes();
+				System.out.print("Need to check all boxes\n");
+			}
+		}
+		/*****/
+
+		/*****/
+		else if (source == btnOrder_1) {
+			System.out.print("Test");
+		}
+		/*****/
 	}
 }

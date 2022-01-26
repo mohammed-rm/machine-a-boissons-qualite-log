@@ -1,30 +1,50 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
+
 import controller.DrinkDAO;
 import launcher.ConnectionDB;
-import model.Drink;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.List;
 
 public class DialogueFrame {
 
-	JFrame addFrame;
-	JPanel contentPane;
-	JLabel lab;
-	ConnectionDB connection;
-	DrinkDAO drinks;
-	List<Drink> list;
-	
-	/**
-	 * Initialize connection and list of drinks
-	 */
-	public void init() {
-		connection = new ConnectionDB("Boissons.db");
-		drinks = new DrinkDAO(connection.getConn());
-		list = drinks.getAllDrinks();
-	}
+	private JFrame addFrame;
+	private JPanel contentPane;
+	private JLabel lab;
+	private JButton btnConfirm;
+	private JButton btnCancel;
+	private JProgressBar bar;
+	private ConnectionDB connection = new ConnectionDB("Boissons.db");
+	private DrinkDAO drinks = new DrinkDAO(connection.getConn());
+
+	Timer timer = new Timer(10, new ActionListener() {
+		int counter = 1;
+
+		@Override
+		public void actionPerformed(ActionEvent ae) {
+			bar.setValue(++counter);
+			if (counter > 100) {
+				timer.stop();
+				lab.setText("Order ready, enjoy your drink :)");
+				lab.setIcon(IconsResize.getScaledImage(
+						new ImageIcon(ApplicationWindow.class.getResource("/icons/ready.png")), 80, 80));
+
+			}
+		}
+	});
 
 	/**
 	 * Default constructor
@@ -55,7 +75,7 @@ public class DialogueFrame {
 		lab = new JLabel(message, SwingConstants.CENTER);
 		lab.setIcon(IconsResize.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource(iconPath)), 35, 35));
 		lab.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lab.setBounds(50, 40, 300, 40);
+		lab.setBounds(0, 40, 400, 40);
 
 		contentPane.add(lab);
 		addFrame.add(contentPane);
@@ -65,11 +85,97 @@ public class DialogueFrame {
 	}
 
 	/**
-	 * Sub frame that shows the drinks description
+	 * 
 	 */
-	public void dialogFrameSB() {
-		init();
-		dialogFrame(list.get(0).getDescription(), "/icons/description.png");
+	public void dialogCanceled() {
+		dialogFrame("Your order has been canceled!", "/icons/cancel.png");
+		lab.setSize(400, 100);
+		lab.setLocation(addFrame.getPreferredSize().width / 2 - 208, 5);
+		lab.setIcon(IconsResize.getScaledImage(
+				new ImageIcon(ApplicationWindow.class.getResource("/icons/cancel.png")), 80, 80));
+	}
+
+	/**
+	 * @param drink    the drink id
+	 * @param quantity the drink quantity
+	 * @param cup      selection of the cup
+	 * @param sugar    amount of sugar
+	 * @param price    order price
+	 */
+	public void dialogConfirmation(String drink, String quantity, String cup, String sugar, Double price) {
+		contentPane = new JPanel();
+		contentPane.setSize(400, 180);
+		contentPane.setLayout(null);
+		contentPane.setBackground(new Color(189, 183, 107));
+
+		lab = new JLabel("Order Confirmation", SwingConstants.CENTER);
+		lab.setSize(400, 40);
+		lab.setLocation(addFrame.getPreferredSize().width / 2 - 208, 5);
+		lab.setIcon(IconsResize.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/confirm.png")),
+				35, 35));
+		lab.setFont(new Font("Times New Roman", Font.BOLD, 14));
+
+		JLabel labDrinkQ = new JLabel(drink + " " + quantity + " cl with " + sugar + " sugar(s)", SwingConstants.LEFT);
+		labDrinkQ.setSize(300, 40);
+		labDrinkQ.setLocation(addFrame.getPreferredSize().width / 2 - 50, 30);
+
+		JLabel labCup = new JLabel("Cup : " + cup, SwingConstants.LEFT);
+		labCup.setSize(200, 40);
+		labCup.setLocation(addFrame.getPreferredSize().width / 2 - 50, 50);
+
+		JLabel labPrice = new JLabel("Total Price : " + price + " €", SwingConstants.LEFT);
+		labPrice.setSize(200, 40);
+		labPrice.setLocation(addFrame.getPreferredSize().width / 2 - 50, 70);
+
+		btnConfirm = new JButton("Confirm");
+		btnCancel = new JButton("Cancel");
+		btnConfirm.setBounds(addFrame.getPreferredSize().width / 2 + 5, 100, 90, 25);
+		btnCancel.setBounds(addFrame.getPreferredSize().width / 2 - 95, 100, 90, 25);
+		btnConfirm.setBackground(Color.GREEN);
+		btnCancel.setBackground(Color.RED);
+
+		contentPane.add(lab);
+		contentPane.add(btnConfirm);
+		contentPane.add(btnCancel);
+		contentPane.add(labDrinkQ);
+		contentPane.add(labCup);
+		contentPane.add(labPrice);
+		addFrame.add(contentPane);
+		addFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addFrame.pack();
+		addFrame.setVisible(true);
+	}
+
+	/**
+	 * 
+	 */
+	public void dialogConfirmed() {
+		contentPane = new JPanel();
+		contentPane.setSize(400, 180);
+		contentPane.setLayout(null);
+		contentPane.setBackground(new Color(189, 183, 107));
+
+		lab = new JLabel("In Preparation...", SwingConstants.CENTER);
+		lab.setSize(400, 100);
+		lab.setLocation(addFrame.getPreferredSize().width / 2 - 208, 5);
+		lab.setIcon(IconsResize.getScaledImage(new ImageIcon(ApplicationWindow.class.getResource("/icons/confirm.png")),
+				35, 35));
+		lab.setFont(new Font("Times New Roman", Font.BOLD, 14));
+
+		bar = new JProgressBar();
+		bar.setBounds(addFrame.getPreferredSize().width / 2 - 50, 100, 100, 20);
+		bar.setMinimum(0);
+		bar.setMaximum(100);
+		bar.setStringPainted(true);
+		bar.setValue(0);
+		timer.start();
+
+		contentPane.add(bar);
+		contentPane.add(lab);
+		addFrame.add(contentPane);
+		addFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addFrame.pack();
+		addFrame.setVisible(true);
 
 	}
 
@@ -77,17 +183,7 @@ public class DialogueFrame {
 	 * Sub frame that shows the drinks description
 	 */
 	public void dialogFrameAmer() {
-		init();
-		dialogFrame(list.get(1).getDescription(), "/icons/description.png");
-
-	}
-
-	/**
-	 * Sub frame that shows the drinks description
-	 */
-	public void dialogFrameLatte() {
-		init();
-		dialogFrame(list.get(2).getDescription(), "/icons/description.png");
+		dialogFrame(drinks.getAllDrinks().get(1).getDescription(), "/icons/description.png");
 
 	}
 
@@ -95,8 +191,7 @@ public class DialogueFrame {
 	 * Sub frame that shows the drinks description
 	 */
 	public void dialogFrameBT() {
-		init();
-		dialogFrame(list.get(3).getDescription(), "/icons/description.png");
+		dialogFrame(drinks.getAllDrinks().get(3).getDescription(), "/icons/description.png");
 
 	}
 
@@ -104,8 +199,23 @@ public class DialogueFrame {
 	 * Sub frame that shows the drinks description
 	 */
 	public void dialogFrameGT() {
-		init();
-		dialogFrame(list.get(4).getDescription(), "/icons/description.png");
+		dialogFrame(drinks.getAllDrinks().get(4).getDescription(), "/icons/description.png");
+
+	}
+
+	/**
+	 * Sub frame that shows the drinks description
+	 */
+	public void dialogFrameLatte() {
+		dialogFrame(drinks.getAllDrinks().get(2).getDescription(), "/icons/description.png");
+
+	}
+
+	/**
+	 * Sub frame that shows the drinks description
+	 */
+	public void dialogFrameSB() {
+		dialogFrame(drinks.getAllDrinks().get(0).getDescription(), "/icons/description.png");
 
 	}
 
@@ -113,9 +223,15 @@ public class DialogueFrame {
 	 * Sub frame that shows the drinks description
 	 */
 	public void dialogFrameTS() {
-		init();
-		dialogFrame(list.get(5).getDescription(), "/icons/description.png");
+		dialogFrame(drinks.getAllDrinks().get(5).getDescription(), "/icons/description.png");
 
+	}
+
+	/**
+	 * 
+	 */
+	public void dialogueCheckAllBoxes() {
+		dialogFrame("You need to check all boxes beforing ordering!", "/icons/failure.png");
 	}
 
 	/**
@@ -126,80 +242,17 @@ public class DialogueFrame {
 	}
 
 	/**
-	 * @return the contentPane
+	 * @return the btnCancel
 	 */
-	public JPanel getContentPane() {
-		return contentPane;
+	public JButton getBtnCancel() {
+		return btnCancel;
 	}
 
 	/**
-	 * @return the lab
+	 * @return the btnConfirm
 	 */
-	public JLabel getLab() {
-		return lab;
-	}
-
-	/**
-	 * @return the connection
-	 */
-	public ConnectionDB getConnection() {
-		return connection;
-	}
-
-	/**
-	 * @return the drinks
-	 */
-	public DrinkDAO getDrinks() {
-		return drinks;
-	}
-
-	/**
-	 * @return the list
-	 */
-	public List<Drink> getList() {
-		return list;
-	}
-
-	/**
-	 * @param addFrame the addFrame to set
-	 */
-	public void setAddFrame(JFrame addFrame) {
-		this.addFrame = addFrame;
-	}
-
-	/**
-	 * @param contentPane the contentPane to set
-	 */
-	public void setContentPane(JPanel contentPane) {
-		this.contentPane = contentPane;
-	}
-
-	/**
-	 * @param lab the lab to set
-	 */
-	public void setLab(JLabel lab) {
-		this.lab = lab;
-	}
-
-	/**
-	 * @param connection the connection to set
-	 */
-	public void setConnection(ConnectionDB connection) {
-		this.connection = connection;
-	}
-
-	/**
-	 * @param drinks the drinks to set
-	 */
-	public void setDrinks(DrinkDAO drinks) {
-		this.drinks = drinks;
-	}
-
-	/**
-	 * @param list the list to set
-	 */
-	public void setList(List<Drink> list) {
-		this.list = list;
+	public JButton getBtnConfirm() {
+		return btnConfirm;
 	}
 
 }
