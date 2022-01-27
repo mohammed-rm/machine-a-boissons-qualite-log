@@ -30,7 +30,7 @@ public class OrderUTest {
 
     @Test
     void getSugarQuantity(){
-        Assertions.assertEquals(1, order.getSugarQuantity());
+        Assertions.assertEquals(5, order.getSugarQuantity());
     }
 
     @Test
