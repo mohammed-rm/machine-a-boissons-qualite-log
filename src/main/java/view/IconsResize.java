@@ -10,7 +10,7 @@ public class IconsResize {
      * Method to resize an icon for the application window
      *
      * @param srcImg the source image
-     * @param width the new width
+     * @param width  the new width
      * @param height the new height
      * @return res the new image
      */

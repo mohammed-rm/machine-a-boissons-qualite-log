@@ -5,41 +5,36 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
-
 public class OrderUTest {
-
     Order order;
 
     @BeforeEach
-    void init(){
+    void init() {
         this.order = new Order(1, 35, 5, true, false);
     }
 
-    //Test getter
-
     @Test
-    void getDrinkId(){
+    void getDrinkId() {
         Assertions.assertEquals(1, order.getDrinkId());
     }
 
     @Test
-    void getDrinkQuantity(){
+    void getDrinkQuantity() {
         Assertions.assertEquals(35, order.getDrinkQuantity());
     }
 
     @Test
-    void getSugarQuantity(){
+    void getSugarQuantity() {
         Assertions.assertEquals(5, order.getSugarQuantity());
     }
 
     @Test
-    void isCup(){
+    void isCup() {
         Assertions.assertTrue(order.isCup());
     }
 
     @Test
-    void isCancel(){
+    void isCancel() {
         Assertions.assertFalse(order.isCancel());
     }
 }

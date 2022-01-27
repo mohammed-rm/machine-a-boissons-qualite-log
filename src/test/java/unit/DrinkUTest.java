@@ -9,27 +9,27 @@ public class DrinkUTest {
     Drink drink;
 
     @BeforeEach
-    void init(){
+    void init() {
         this.drink = new Drink(1, "Breuvage intriguant", "Une boisson bizarre", 50.00d);
     }
 
     @Test
-    void testGetName(){
+    void testGetName() {
         Assertions.assertEquals("Breuvage intriguant", drink.getName());
     }
 
     @Test
-    void testGetDescription(){
+    void testGetDescription() {
         Assertions.assertEquals("Une boisson bizarre", drink.getDescription());
     }
 
     @Test
-    void testGetPrice(){
+    void testGetPrice() {
         Assertions.assertEquals(50.00d, drink.getPrice());
     }
 
     @Test
-    void setName(){
+    void setName() {
         drink.setName("Boisson perturbante");
         Assertions.assertEquals("Boisson perturbante", drink.getName());
     }

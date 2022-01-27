@@ -53,8 +53,8 @@ public class DialogueFrame {
     /**
      * Frame builder to respond when an action is made
      *
-     * @param message the message to display
-     * @param iconPath the image source 
+     * @param message  the message to display
+     * @param iconPath the image source
      */
     public void dialogFrame(String message, String iconPath) {
         contentPane = new JPanel();
