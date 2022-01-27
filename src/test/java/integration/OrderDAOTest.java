@@ -53,7 +53,7 @@ public class OrderDAOTest {
         Assertions.assertTrue(orderDAO.placeOrder(order1).isEmpty());
 
         Order order2 = new Order(1, 75, 5, true, false);
-        Assertions.assertEquals("Eau", orderDAO.placeOrder(order2).get(0));
+        Assertions.assertEquals("Water", orderDAO.placeOrder(order2).get(0));
 
         Order order3 = new Order(2, 750, 50, true, false);
         Assertions.assertFalse(orderDAO.placeOrder(order3).isEmpty());
