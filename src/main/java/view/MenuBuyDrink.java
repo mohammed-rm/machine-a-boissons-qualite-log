@@ -366,19 +366,6 @@ public class MenuBuyDrink implements ActionListener {
         
                             // Place the order
                             orderDAO.placeOrder(order);
-
-                            // Reduce cups
-                            if (Objects.equals(inputCup, "Yes")) {
-                                switch (inputQuantity) {
-                                    case "35":
-                                        stockDAO.decrementSmallCupStock();
-                                        break;
-                                    case "75":
-                                        stockDAO.decrementLargeCupStock();
-                                        break;
-                                }
-                            }
-
                         }
                     });
 
@@ -441,19 +428,6 @@ public class MenuBuyDrink implements ActionListener {
 
                             // Place the order
                             orderDAO.placeOrder(order);
-
-                            // Reduce cups
-                            if (Objects.equals(inputCup, "Yes")) {
-                                switch (inputQuantity) {
-                                    case "35":
-                                        stockDAO.decrementSmallCupStock();
-                                        break;
-                                    case "75":
-                                        stockDAO.decrementLargeCupStock();
-                                        break;
-                                }
-                            }
-
                         }
                     });
 
