@@ -315,7 +315,6 @@ public class MenuBuyDrink implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		connection = new ConnectionDB("Boisson.db");
 		stockDAO = new StockDAO(connection.getConn());
 		orderDAO = new OrderDAO(connection.getConn(), stockDAO);
 		stock = new Stock(0, 5000, 200, 100, 5000);

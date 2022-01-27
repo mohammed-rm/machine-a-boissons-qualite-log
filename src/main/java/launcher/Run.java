@@ -7,6 +7,10 @@ import java.awt.*;
 public class Run {
 
     public static void main(String[] args){
+		ConnectionDB dbManager = new ConnectionDB("Boissons.db");
+		dbManager.createBoissonsTables();
+		dbManager.fillBoissonsTables();
+
     	EventQueue.invokeLater(new Runnable() {
 			@SuppressWarnings("unused")
 			public void run() {
@@ -17,12 +21,5 @@ public class Run {
 				}
 			}
 		});
-    	
-        System.out.println("Hello world");
-        ConnectionDB dbManager = new ConnectionDB("Boissons.db");
-        dbManager.createBoissonsTables();
-        dbManager.fillBoissonsTables();
-        
-        
     }
 }

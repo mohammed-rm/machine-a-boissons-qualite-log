@@ -25,7 +25,7 @@ public class MenuHome {
 	private JLabel labGT;
 	private JLabel labTomato;
 	private DialogueFrame frame;
-	private ConnectionDB connection = new ConnectionDB("Boissons.db");
+	private ConnectionDB connection;
 	private DrinkDAO drinkDAO = new DrinkDAO(connection.getConn());
 	private List<Drink> list;
 

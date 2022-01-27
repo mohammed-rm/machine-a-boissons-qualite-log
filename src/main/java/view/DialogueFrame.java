@@ -27,7 +27,7 @@ public class DialogueFrame {
 	private JButton btnConfirm;
 	private JButton btnCancel;
 	private JProgressBar bar;
-	private ConnectionDB connection = new ConnectionDB("Boissons.db");
+	private ConnectionDB connection;
 	private DrinkDAO drinks = new DrinkDAO(connection.getConn());
 
 	Timer timer = new Timer(10, new ActionListener() {
