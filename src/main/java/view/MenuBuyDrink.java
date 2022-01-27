@@ -393,7 +393,6 @@ public class MenuBuyDrink implements ActionListener {
 				});
 
 			}
-
 			else {
 				frame.dialogueCheckAllBoxes();
 				System.out.print("Need to check all boxes\n");
