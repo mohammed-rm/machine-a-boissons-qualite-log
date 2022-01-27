@@ -45,6 +45,7 @@ public class GlobalIntegrationTest {
         orderDAO = new OrderDAO(conn, stockDAO);
         stockDAO.setStocks(0, 100d, 2, 3, 4);
     }
+
     @AfterEach
     void rollback() {
         stockDAO.setStocks(stock_backup.getIdStock(), stock_backup.getWater(), stock_backup.getSmallCup(), stock_backup.getLargeCup(), stock_backup.getSugar());
@@ -52,7 +53,7 @@ public class GlobalIntegrationTest {
 
 
     @Test
-    void testOrderConsumeDrink(){
+    void testOrderConsumeDrink() {
         double d = stockDAO.getStock().getWater();
 
         Order o = new Order(1, 75d, 1, false, false);
@@ -61,7 +62,7 @@ public class GlobalIntegrationTest {
         Order o2 = new Order(2, 110d, 1, false, false);
         Assertions.assertFalse(orderDAO.placeOrder(o2).isEmpty());
 
-        Assertions.assertEquals(d-o.getDrinkQuantity(), stockDAO.getStock().getWater());
+        Assertions.assertEquals(d - o.getDrinkQuantity(), stockDAO.getStock().getWater());
     }
 
 }

@@ -3,7 +3,10 @@ package unit;
 import controller.OrderDAO;
 import model.Order;
 import model.Stock;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -15,7 +18,7 @@ public class OrderDAOisOrderPossibleUTest {
     Stock stock; // Fake stock (mock)
 
     @BeforeEach
-    void init(){
+    void init() {
         this.order = mock(Order.class);
         this.stock = mock(Stock.class);
 
@@ -30,26 +33,26 @@ public class OrderDAOisOrderPossibleUTest {
     }
 
     @Test
-    void testIsOrderPossible_allRight(){
+    void testIsOrderPossible_allRight() {
         Assertions.assertTrue(OrderDAO.isOrderPossible(order, stock).isEmpty());
     }
 
     @Test
-    void testIsOrderPossible_water(){
+    void testIsOrderPossible_water() {
         when(stock.getWater()).thenReturn(12.0);
 
         Assertions.assertEquals(OrderDAO.isOrderPossible(order, stock).get(0), "Water");
     }
 
     @Test
-    void testIsOrderPossible_sugar(){
+    void testIsOrderPossible_sugar() {
         when(stock.getSugar()).thenReturn(2);
 
         Assertions.assertEquals(OrderDAO.isOrderPossible(order, stock).get(0), "Sugar");
     }
 
     @Test
-    void testIsOrderPossible_bigGobelets(){
+    void testIsOrderPossible_bigGobelets() {
         when(order.getDrinkQuantity()).thenReturn(75d);
         when(stock.getLargeCup()).thenReturn(0);
 
@@ -57,14 +60,14 @@ public class OrderDAOisOrderPossibleUTest {
     }
 
     @Test
-    void testIsOrderPossible_smallGobelets(){
+    void testIsOrderPossible_smallGobelets() {
         when(stock.getSmallCup()).thenReturn(0);
 
         Assertions.assertEquals(OrderDAO.isOrderPossible(order, stock).get(0), "Small Cups");
     }
 
     @Test
-    void testIsOrderPossible_everythingExplodes(){
+    void testIsOrderPossible_everythingExplodes() {
         when(stock.getWater()).thenReturn(0.0);
         when(stock.getSugar()).thenReturn(0);
         when(stock.getSmallCup()).thenReturn(0);

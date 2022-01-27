@@ -9,31 +9,32 @@ public class StockDAO {
 
     private final Connection conn;
 
-    public StockDAO(Connection conn){
+    public StockDAO(Connection conn) {
         this.conn = conn;
     }
 
-    public Stock getStock(){
-        try{
+    public Stock getStock() {
+        try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Stock");
-            if(rs.next()){
+            if (rs.next()) {
                 return new Stock(rs.getInt("Id"), rs.getDouble("Eau"), rs.getInt("Petits_gobelets"), rs.getInt("Grands_gobelets"), rs.getInt("Sucre"));
             }
             return null;
-        }catch(SQLException sqle){
-            System.out.println("Erreur getStock dans StockDAO : "+sqle);
+        } catch (SQLException sqle) {
+            System.out.println("Erreur getStock dans StockDAO : " + sqle);
         }
         return null;
     }
 
     /**
      * Méthode pour enlever du sucre du stock actuel
+     *
      * @param amount Quantité de sucre qu'on enlève
-     * note : sugar peut être négatif, ce qui ajoute du sucre
+     *               note : sugar peut être négatif, ce qui ajoute du sucre
      */
-    public void reduceSugarStock(int amount){
-        try{
+    public void reduceSugarStock(int amount) {
+        try {
             Statement stmt = conn.createStatement();
             ResultSet rs1 = stmt.executeQuery("SELECT Sucre FROM Stock WHERE Id = 0");
             rs1.next();
@@ -41,19 +42,19 @@ public class StockDAO {
 
             String sql = "UPDATE Stock SET Sucre = ? WHERE Id = 0";
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, preSugar-amount);
+            pstmt.setInt(1, preSugar - amount);
             pstmt.executeUpdate();
 
-        }catch(SQLException sqle){
-            System.out.println("Erreur reduceSugarStock dans StockDAO : "+sqle);
+        } catch (SQLException sqle) {
+            System.out.println("Erreur reduceSugarStock dans StockDAO : " + sqle);
         }
     }
 
     /**
      * Méthode pour enlever un seul petit gobelet du stock
      */
-    public void decrementSmallCupStock(){
-        try{
+    public void decrementSmallCupStock() {
+        try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT Petits_gobelets FROM Stock WHERE Id = 0");
             rs.next();
@@ -61,19 +62,19 @@ public class StockDAO {
 
             String sql = "UPDATE Stock SET Petits_gobelets = ? WHERE Id = 0";
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, preSmallCups-1);
+            pstmt.setInt(1, preSmallCups - 1);
 
             pstmt.executeUpdate();
-        }catch(SQLException sqle){
-            System.out.println("Erreur decrementSmallCupStock dans StockDAO : "+sqle);
+        } catch (SQLException sqle) {
+            System.out.println("Erreur decrementSmallCupStock dans StockDAO : " + sqle);
         }
     }
 
     /**
      * Méthode pour enlever un seul grand gobelet du stock
      */
-    public void decrementLargeCupStock(){
-        try{
+    public void decrementLargeCupStock() {
+        try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT Grands_gobelets FROM Stock WHERE Id = 0");
             rs.next();
@@ -81,32 +82,33 @@ public class StockDAO {
 
             String sql = "UPDATE Stock SET Grands_gobelets = ? WHERE Id = 0";
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, preLargeCups-1);
+            pstmt.setInt(1, preLargeCups - 1);
 
             pstmt.executeUpdate();
-        }catch(SQLException sqle){
-            System.out.println("Erreur decrementLargeCupStock dans StockDAO : "+sqle);
+        } catch (SQLException sqle) {
+            System.out.println("Erreur decrementLargeCupStock dans StockDAO : " + sqle);
         }
     }
 
     /**
      * Méthode pour réduire le stock d'eau
+     *
      * @param amount Quantité d'eau à enlever du stock
-     * note : amount peut être négatif
+     *               note : amount peut être négatif
      */
-    public void reduceWaterStock(double amount){
-        try{
+    public void reduceWaterStock(double amount) {
+        try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT Eau FROM Stock WHERE Id = 0");
             rs.next();
-            Double preEau = rs.getDouble(1);
+            double preEau = rs.getDouble(1);
 
             String sql = "UPDATE Stock SET Eau = ? WHERE Id = 0";
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setDouble(1, preEau-amount);
+            pstmt.setDouble(1, preEau - amount);
 
             pstmt.executeUpdate();
-        }catch(SQLException sqle) {
+        } catch (SQLException sqle) {
             System.out.println("Erreur reduceWaterStock dans StockDAO : " + sqle);
         }
     }
@@ -135,6 +137,7 @@ public class StockDAO {
     /**
      * Méthode appelé par OrderDAO si une commande est effectuée
      * Consomme les éléments commandés dans le stock
+     *
      * @param order la commande à prendre en compte
      */
     public boolean consumeOrder(Order order) {
@@ -155,6 +158,7 @@ public class StockDAO {
             System.out.println("Erreur consumeOrder dans StockDAO : " + sqle);
             return false;
         }
+        System.out.println("Commande effectuée :\n" + order);
         return true;
     }
 }

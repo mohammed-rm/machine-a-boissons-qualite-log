@@ -60,13 +60,13 @@ public class OrderDAOTest {
     }
 
     @Test
-    void testGetPrice(){
+    void testGetPrice() {
         // 35cl with a gobelet
-        Order order1 = new Order(1,35, 0, true, false);
+        Order order1 = new Order(1, 35, 0, true, false);
         Assertions.assertEquals(0.3d, orderDAO.getPrice(order1));
 
         // 75cl without a gobelet
-        Order order2 = new Order(1,75, 0, false, false);
+        Order order2 = new Order(1, 75, 0, false, false);
         Assertions.assertEquals(0.3d, orderDAO.getPrice(order2));
     }
 }

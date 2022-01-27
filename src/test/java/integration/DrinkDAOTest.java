@@ -23,6 +23,7 @@ public class DrinkDAOTest {
         conn = dbManager.getConn();
         drinkDAO = new DrinkDAO(conn);
     }
+
     @AfterAll
     void disconnect() {
         try {
@@ -34,7 +35,7 @@ public class DrinkDAOTest {
     }
 
     @Test
-    void testGetAllDrink_DrinkNotInDatabase(){
+    void testGetAllDrink_DrinkNotInDatabase() {
         List<Drink> list = drinkDAO.getAllDrinks();
         Drink drink_not_in_database = new Drink(-1, "Chocolat Chaud", "Meilleurs boisson", 0d);
         boolean result = list.contains(drink_not_in_database);
@@ -42,7 +43,7 @@ public class DrinkDAOTest {
     }
 
     @Test
-    void testGetAllDrink_DrinkInDatabase(){
+    void testGetAllDrink_DrinkInDatabase() {
         List<Drink> list = drinkDAO.getAllDrinks();
         Drink drink_in_database = new Drink(1, "Café court", "Un café court.", 0.30);
         boolean result = list.contains(drink_in_database);
@@ -50,7 +51,7 @@ public class DrinkDAOTest {
     }
 
     @Test
-    void testGetAllDrink_AllDrinkInDatabase(){
+    void testGetAllDrink_AllDrinkInDatabase() {
         List<Drink> list = drinkDAO.getAllDrinks();
         List<Drink> contenu_theorique = new ArrayList<>();
         contenu_theorique.add(new Drink(1, "Café court", "Un café court.", 0.30d));
@@ -66,7 +67,7 @@ public class DrinkDAOTest {
     }
 
     @Test
-    void testGetAllDrink_ThereIsAnImpostorAmongUs(){
+    void testGetAllDrink_ThereIsAnImpostorAmongUs() {
         List<Drink> list = drinkDAO.getAllDrinks();
         List<Drink> contenu_theorique = new ArrayList<>();
         contenu_theorique.add(new Drink(1, "Café court", "Un café court.", 0.30));
@@ -83,7 +84,7 @@ public class DrinkDAOTest {
     }
 
     @Test
-    void testGetAllDrink_ButThereIsNoSoup(){
+    void testGetAllDrink_ButThereIsNoSoup() {
         List<Drink> list = drinkDAO.getAllDrinks();
         List<Drink> contenu_theorique = new ArrayList<>();
         contenu_theorique.add(new Drink(1, "Café court", "Un café court.", 0.30));
@@ -98,15 +99,15 @@ public class DrinkDAOTest {
     }
 
     @Test
-    void testGetAllDrink_NothingSimilar(){
+    void testGetAllDrink_NothingSimilar() {
         List<Drink> list = drinkDAO.getAllDrinks();
         List<Drink> contenu_theorique = new ArrayList<>();
-        contenu_theorique.add(new Drink(1, "Eau","H2O", 0.30));
-        contenu_theorique.add(new Drink(2, "Ethanol","C2H6O", 0.40));
-        contenu_theorique.add(new Drink(3, "Acide sulfurique","H2SO4", 0.40));
+        contenu_theorique.add(new Drink(1, "Eau", "H2O", 0.30));
+        contenu_theorique.add(new Drink(2, "Ethanol", "C2H6O", 0.40));
+        contenu_theorique.add(new Drink(3, "Acide sulfurique", "H2SO4", 0.40));
         contenu_theorique.add(new Drink(4, "Mercure", "Hg", 0.30));
-        contenu_theorique.add(new Drink(5, "Dibrome","Br2", 0.50));
-        contenu_theorique.add(new Drink(6, "Octane","C8H18", 0.40));
+        contenu_theorique.add(new Drink(5, "Dibrome", "Br2", 0.50));
+        contenu_theorique.add(new Drink(6, "Octane", "C8H18", 0.40));
         boolean result1 = contenu_theorique.containsAll(list);
         boolean result2 = list.containsAll(contenu_theorique);
         Assertions.assertFalse(result1);

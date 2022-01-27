@@ -10,35 +10,35 @@ public class DrinkDAO {
 
     private final Connection conn;
 
-    public DrinkDAO(Connection conn){
+    public DrinkDAO(Connection conn) {
         this.conn = conn;
     }
 
-    public List<Drink> getAllDrinks(){
+    public List<Drink> getAllDrinks() {
         List<Drink> liste = new ArrayList<>();
-        try{
+        try {
             Statement stmt = this.conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Boisson");
-            while(rs.next()){
+            while (rs.next()) {
                 Drink drink = new Drink(rs.getInt("id"), rs.getString("nom"), rs.getString("description"), rs.getDouble("prix_u"));
                 liste.add(drink);
             }
-        }catch(SQLException sqle) {
+        } catch (SQLException sqle) {
             System.out.println("Erreur getAllDrink dans DrinkDAO : " + sqle);
         }
         return liste;
     }
 
-    public Drink getDrinkById(Integer id){
+    public Drink getDrinkById(Integer id) {
         Drink drink = null;
-        try{
+        try {
             PreparedStatement pstmt = this.conn.prepareStatement("SELECT * FROM Boisson where Id=?");
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
             rs.next();
             drink = new Drink(rs.getInt("id"), rs.getString("nom"), rs.getString("description"), rs.getDouble("prix_u"));
 
-        }catch(SQLException sqle) {
+        } catch (SQLException sqle) {
             System.out.println("Erreur getDrinkById dans DrinkDAO : " + sqle);
         }
         return drink;

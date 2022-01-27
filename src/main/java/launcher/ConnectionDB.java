@@ -9,7 +9,7 @@ public class ConnectionDB {
     private static final String DB_URL = "jdbc:sqlite:SQLite/";
     private Connection conn;
 
-    public ConnectionDB(String fileName){
+    public ConnectionDB(String fileName) {
         try {
             this.conn = DriverManager.getConnection(DB_URL + "/" + fileName);
             // System.out.println("Nom du driver : " + meta.getDriverName());
@@ -23,7 +23,7 @@ public class ConnectionDB {
      * Create the Boissons tables
      * /!\ Drop the tables if they already exist
      */
-    public void createBoissonsTables(){
+    public void createBoissonsTables() {
         try {
             Statement stmt = this.conn.createStatement();
             // Drop all the tables
@@ -32,13 +32,13 @@ public class ConnectionDB {
             stmt.executeUpdate("DROP TABLE IF EXISTS Stock");
 
             // Table Stock
-            String query =  "CREATE TABLE IF NOT EXISTS Stock(" +
-                            "Id INTEGER," +
-                            "Eau FLOAT," +
-                            "Petits_gobelets INTEGER," +
-                            "Grands_gobelets INTEGER," +
-                            "Sucre INTEGER," +
-                            "PRIMARY KEY (Id));";
+            String query = "CREATE TABLE IF NOT EXISTS Stock(" +
+                    "Id INTEGER," +
+                    "Eau FLOAT," +
+                    "Petits_gobelets INTEGER," +
+                    "Grands_gobelets INTEGER," +
+                    "Sucre INTEGER," +
+                    "PRIMARY KEY (Id));";
             stmt.executeUpdate(query);
 
             // Table Boisson
@@ -65,7 +65,7 @@ public class ConnectionDB {
 
             System.out.println("Tables de la base Boissons créées.");
             stmt.close();
-        } catch(SQLException ex){
+        } catch (SQLException ex) {
             System.out.println("Erreur SQL : " + ex.getMessage());
         }
     }
@@ -73,7 +73,7 @@ public class ConnectionDB {
     /**
      * Fill the database Boissons with test values
      */
-    public void fillBoissonsTables(){
+    public void fillBoissonsTables() {
         try {
             Statement stmt = this.conn.createStatement();
 
@@ -126,12 +126,12 @@ public class ConnectionDB {
 
             System.out.println("Tables de la base Boissons remplies.");
             stmt.close();
-        } catch(SQLException ex){
+        } catch (SQLException ex) {
             System.out.println("Erreur SQL : " + ex.getMessage());
         }
     }
 
-    public Connection getConn(){
+    public Connection getConn() {
         return conn;
     }
 }

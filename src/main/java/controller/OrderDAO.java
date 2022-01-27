@@ -12,17 +12,18 @@ public class OrderDAO {
     private final Connection conn;
     private final StockDAO stockDAO;
 
-    public OrderDAO(Connection conn, StockDAO stockDAO){
+    public OrderDAO(Connection conn, StockDAO stockDAO) {
         this.conn = conn;
         this.stockDAO = stockDAO;
     }
 
     /**
      * Effectue une commande de boisson
+     *
      * @param order la commande à effectuer
      * @return la liste des éléments manquant, vide si la commande a été effectué
      */
-    public List<String> placeOrder(Order order){
+    public List<String> placeOrder(Order order) {
         Stock stock = this.stockDAO.getStock();
 
         List<String> missingElems = isOrderPossible(order, stock);
@@ -52,11 +53,12 @@ public class OrderDAO {
 
     /**
      * Vérifie qu'une commande est possible en fonction d'un stock
+     *
      * @param order la commande à vérifier
      * @param stock le stock à prendre en compte
      * @return La liste des éléments manquants, vide si possible
      */
-    public static List<String> isOrderPossible(Order order, Stock stock){
+    public static List<String> isOrderPossible(Order order, Stock stock) {
         List<String> missingElems = new ArrayList<>();
         if (order.getDrinkQuantity() > stock.getWater())
             missingElems.add("Water");
@@ -66,15 +68,16 @@ public class OrderDAO {
             missingElems.add("Large Cups");
         if (order.isCup() && order.getDrinkQuantity() == 35 && stock.getSmallCup() == 0)
             missingElems.add("Small Cups");
+        System.out.println("Éléments manquants de la commande : " + missingElems);
         return missingElems;
     }
 
-    public List<Order> getAllOrders(){
+    public List<Order> getAllOrders() {
         List<Order> liste = new ArrayList<>();
-        try{
+        try {
             Statement stmt = this.conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Commande");
-            while(rs.next()){
+            while (rs.next()) {
                 Order order = new Order(rs.getInt("Boisson_id"),
                         rs.getInt("Quantite_boisson"),
                         rs.getInt("Quantite_sucre"),
@@ -83,7 +86,7 @@ public class OrderDAO {
                 );
                 liste.add(order);
             }
-        }catch(SQLException sqle) {
+        } catch (SQLException sqle) {
             System.out.println("Erreur getAllDrink dans DrinkDAO : " + sqle);
         }
         return liste;
@@ -91,31 +94,32 @@ public class OrderDAO {
 
     /**
      * Calcule et retourne le prix d'un ordre donne
+     *
      * @param order L'ordre pour lequel on veut avoir son prix
      * @return Le prix de l'ordre
      */
-    public double getPrice(Order order){
+    public double getPrice(Order order) {
         double price = 0d;
         // Recuperation prix boisson
-        try{
+        try {
             PreparedStatement stmt = this.conn.prepareStatement("SELECT * FROM Boisson WHERE Id=?;");
             stmt.setInt(1, order.getDrinkId());
             ResultSet rs = stmt.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 price += rs.getDouble("Prix_u");
             }
-        }catch(SQLException sqle){
-            System.out.println("Erreur getPrice dans OrderDAO : "+sqle);
+        } catch (SQLException sqle) {
+            System.out.println("Erreur getPrice dans OrderDAO : " + sqle);
             return price;
         }
         // Augmentation si 75cl
-        if(order.getDrinkQuantity() == 75){
+        if (order.getDrinkQuantity() == 75) {
             price *= 1.5d;
         }
         // Reduction si pas de gobelet
-        if(!order.isCup()){
+        if (!order.isCup()) {
             price -= 0.1d;
-            if(order.getDrinkQuantity() == 75){
+            if (order.getDrinkQuantity() == 75) {
                 price -= 0.05d;
             }
         }

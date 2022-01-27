@@ -22,6 +22,7 @@ class StockDAOTest {
         conn = dbManager.getConn();
         stockDAO = new StockDAO(conn);
     }
+
     @AfterAll
     void disconnect() {
         try {
@@ -37,6 +38,7 @@ class StockDAOTest {
         stock_backup = stockDAO.getStock();
         stockDAO.setStocks(0, 1d, 2, 3, 4);
     }
+
     @AfterEach
     void rollback() {
         stockDAO.setStocks(stock_backup.getIdStock(), stock_backup.getWater(), stock_backup.getSmallCup(), stock_backup.getLargeCup(), stock_backup.getSugar());
@@ -61,7 +63,7 @@ class StockDAOTest {
         int sugar = stockDAO.getStock().getSugar();
         stockDAO.reduceSugarStock(1);
 
-        Assertions.assertEquals(sugar-1, stockDAO.getStock().getSugar());
+        Assertions.assertEquals(sugar - 1, stockDAO.getStock().getSugar());
     }
 
     @Test
@@ -70,7 +72,7 @@ class StockDAOTest {
         int smallCup = stockDAO.getStock().getSmallCup();
         stockDAO.decrementSmallCupStock();
 
-        Assertions.assertEquals(smallCup-1, stockDAO.getStock().getSmallCup());
+        Assertions.assertEquals(smallCup - 1, stockDAO.getStock().getSmallCup());
     }
 
     @Test
@@ -79,7 +81,7 @@ class StockDAOTest {
         int largeCup = stockDAO.getStock().getLargeCup();
         stockDAO.decrementLargeCupStock();
 
-        Assertions.assertEquals(largeCup-1, stockDAO.getStock().getLargeCup());
+        Assertions.assertEquals(largeCup - 1, stockDAO.getStock().getLargeCup());
     }
 
     @Test
@@ -88,6 +90,6 @@ class StockDAOTest {
         Double water = stockDAO.getStock().getWater();
         stockDAO.reduceWaterStock(1d);
 
-        Assertions.assertEquals(water-1d, stockDAO.getStock().getWater());
+        Assertions.assertEquals(water - 1d, stockDAO.getStock().getWater());
     }
 }
