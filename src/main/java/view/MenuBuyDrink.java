@@ -68,9 +68,6 @@ public class MenuBuyDrink implements ActionListener {
 
     public MenuBuyDrink(ConnectionDB conn, StockDAO st, OrderDAO or) {
 
-		/*connection = new ConnectionDB("Boissons.db");
-		stockDAO = new StockDAO(connection.getConn());
-		orderDAO = new OrderDAO(connection.getConn(), stockDAO);*/
         this.connection = conn;
         this.stockDAO = st;
         this.orderDAO = or;
@@ -167,7 +164,7 @@ public class MenuBuyDrink implements ActionListener {
     }
 
     /**
-     * @return labelList
+     * @return labelList the list of drinks
      */
     public ArrayList<JLabel> createLab() {
 
@@ -198,7 +195,7 @@ public class MenuBuyDrink implements ActionListener {
     }
 
     /**
-     * @return comboList
+     * @return comboList the list
      */
     public ArrayList<JComboBox<String>> createCombo() {
 
@@ -221,7 +218,7 @@ public class MenuBuyDrink implements ActionListener {
     }
 
     /**
-     * @return comboList
+     * @return comboList the check list
      */
     public ArrayList<JRadioButton> createCheck() {
 
@@ -287,7 +284,7 @@ public class MenuBuyDrink implements ActionListener {
     }
 
     /**
-     * @return buttonList
+     * @return buttonList the buttons
      */
     public ArrayList<JButton> createButton() {
 
@@ -305,7 +302,7 @@ public class MenuBuyDrink implements ActionListener {
     }
 
     /**
-     * @return sepList
+     * @return sepList the separators
      */
     public ArrayList<JSeparator> createSep() {
 

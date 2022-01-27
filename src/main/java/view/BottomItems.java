@@ -9,7 +9,7 @@ public class BottomItems {
     /**
      * Method to add a name to the application
      *
-     * @return labName
+     * @return labName the name
      */
     public JLabel createLabName() {
         JLabel labName = new JLabel("\u00A9 2021 Hot Drinks Machine.");
@@ -23,7 +23,7 @@ public class BottomItems {
     /**
      * Method to display date and time
      *
-     * @return labTime
+     * @return labTime the name
      */
     public JLabel createTime() {
         JLabel labTime = new JLabel();

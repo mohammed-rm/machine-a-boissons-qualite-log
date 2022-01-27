@@ -43,7 +43,7 @@ public class MenuHome {
     /**
      * Creates home panel
      *
-     * @return pan
+     * @return pan the panel with drinks
      */
     public InternalPanel createDrinks() {
 

@@ -53,8 +53,8 @@ public class DialogueFrame {
     /**
      * Frame builder to respond when an action is made
      *
-     * @param message
-     * @param iconPath
+     * @param message the message to display
+     * @param iconPath the image source 
      */
     public void dialogFrame(String message, String iconPath) {
         contentPane = new JPanel();
@@ -137,7 +137,7 @@ public class DialogueFrame {
     }
 
     /**
-     *
+     * Pop up to confirm order
      */
     public void dialogConfirmed() {
         contentPane = new JPanel();
@@ -218,14 +218,14 @@ public class DialogueFrame {
     }
 
     /**
-     *
+     * Warning frame the check all boxes
      */
     public void dialogueCheckAllBoxes() {
         dialogFrame("You need to check all boxes beforing ordering!", "/icons/failure.png");
     }
 
     /**
-     *
+     * Warning when the stock is not enough
      */
     public void dialogueNotEnough(String missing) {
         dialogFrame("Not enough " + missing + " !", "/icons/failure.png");

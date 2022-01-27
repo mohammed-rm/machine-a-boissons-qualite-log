@@ -8,7 +8,7 @@ public class MenuSeparators {
     /**
      * Separators between menu's items
      *
-     * @param menu
+     * @param menu application menu
      */
     public static void lineSeparator(Menu menu) {
         JSeparator separator_1 = new JSeparator();

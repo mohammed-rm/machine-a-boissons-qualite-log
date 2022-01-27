@@ -26,7 +26,7 @@ public class MenuSettings extends Component {
     /**
      * Settings panel
      *
-     * @return pan
+     * @return pan the panel
      */
     public InternalPanel createPan() {
         InternalPanel pan = new InternalPanel();

@@ -9,10 +9,10 @@ public class IconsResize {
     /**
      * Method to resize an icon for the application window
      *
-     * @param srcImg
-     * @param width
-     * @param height
-     * @return res
+     * @param srcImg the source image
+     * @param width the new width
+     * @param height the new height
+     * @return res the new image
      */
     public static ImageIcon getScaledImage(ImageIcon srcImg, int width, int height) {
         BufferedImage resizedImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
