@@ -44,7 +44,8 @@ public class OrderDAO {
             System.out.println("Erreur placeOrder dans OrderDAO : " + sqle);
         }
 
-        this.stockDAO.consumeOrder(order);
+        if (!order.isCancel())
+            this.stockDAO.consumeOrder(order);
 
         return missingElems;
     }
