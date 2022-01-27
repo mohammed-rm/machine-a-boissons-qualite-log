@@ -51,41 +51,6 @@ public class Order {
         return cancel;
     }
 
-    /**
-     * @param drinkId the drinkId to set
-     */
-    public void setDrinkId(int drinkId) {
-        this.drinkId = drinkId;
-    }
-
-    /**
-     * @param drinkQuantity the drinkQuantity to set
-     */
-    public void setDrinkQuantity(double drinkQuantity) {
-        this.drinkQuantity = drinkQuantity;
-    }
-
-    /**
-     * @param sugarQuantity the sugarQuantity to set
-     */
-    public void setSugarQuantity(int sugarQuantity) {
-        this.sugarQuantity = sugarQuantity;
-    }
-
-    /**
-     * @param cup the cup to set
-     */
-    public void setCup(boolean cup) {
-        this.cup = cup;
-    }
-
-    /**
-     * @param cancel the cancel to set
-     */
-    public void setCancel(boolean cancel) {
-        this.cancel = cancel;
-    }
-
     public String toString() {
         return "Order{" +
                 "drinkId=" + drinkId +

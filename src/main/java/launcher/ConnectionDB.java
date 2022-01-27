@@ -21,7 +21,7 @@ public class ConnectionDB {
 
     /**
      * Create the Boissons tables
-     * /!\ Drop the tables if they already exist
+     * /!\ Drop the tables if they already exists
      */
     public void createBoissonsTables() {
         try {
@@ -80,10 +80,10 @@ public class ConnectionDB {
             // Stock
             String query = "INSERT INTO Stock VALUES(" +
                     "0," +      // id to always use
-                    "5000.0," + // cl of water
-                    "200," +    // little cups
-                    "100," +    // big cups
-                    "5000);";   // g of sugar
+                    "250.0," +  // cl of water
+                    "10," +     // little cups
+                    "5," +      // big cups
+                    "20);";     // g of sugar
             stmt.executeUpdate(query);
 
             // Boisson

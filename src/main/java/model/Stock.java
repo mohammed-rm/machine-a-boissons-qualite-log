@@ -52,34 +52,6 @@ public class Stock {
     }
 
     /**
-     * @param idStock the idStock to set
-     */
-    public void setIdStock(int idStock) {
-        IdStock = idStock;
-    }
-
-    /**
-     * @param water the water to set
-     */
-    public void setWater(double water) {
-        this.water = water;
-    }
-
-    /**
-     * @param smallCup the smallCup to set
-     */
-    public void setSmallCup(int smallCup) {
-        this.smallCup = smallCup;
-    }
-
-    /**
-     * @param largeCup the largeCup to set
-     */
-    public void setLargeCup(int largeCup) {
-        this.largeCup = largeCup;
-    }
-
-    /**
      * @param sugar the sugar to set
      */
     public void setSugar(int sugar) {

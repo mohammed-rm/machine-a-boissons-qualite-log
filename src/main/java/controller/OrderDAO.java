@@ -72,26 +72,6 @@ public class OrderDAO {
         return missingElems;
     }
 
-    public List<Order> getAllOrders() {
-        List<Order> liste = new ArrayList<>();
-        try {
-            Statement stmt = this.conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Commande");
-            while (rs.next()) {
-                Order order = new Order(rs.getInt("Boisson_id"),
-                        rs.getInt("Quantite_boisson"),
-                        rs.getInt("Quantite_sucre"),
-                        rs.getBoolean("Gobelet"),
-                        rs.getBoolean("Annule")
-                );
-                liste.add(order);
-            }
-        } catch (SQLException sqle) {
-            System.out.println("Erreur getAllDrink dans DrinkDAO : " + sqle);
-        }
-        return liste;
-    }
-
     /**
      * Calcule et retourne le prix d'un ordre donne
      *

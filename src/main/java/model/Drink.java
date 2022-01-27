@@ -14,13 +14,6 @@ public class Drink {
     }
 
     /**
-     * @return the idDrink
-     */
-    public int getIdDrink() {
-        return IdDrink;
-    }
-
-    /**
      * @return the name
      */
     public String getName() {
@@ -42,31 +35,10 @@ public class Drink {
     }
 
     /**
-     * @param idDrink the idDrink to set
-     */
-    public void setIdDrink(int idDrink) {
-        IdDrink = idDrink;
-    }
-
-    /**
      * @param name the name to set
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * @param price the price to set
-     */
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     /**

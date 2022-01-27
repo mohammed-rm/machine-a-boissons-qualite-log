@@ -28,20 +28,4 @@ public class DrinkDAO {
         }
         return liste;
     }
-
-    public Drink getDrinkById(Integer id) {
-        Drink drink = null;
-        try {
-            PreparedStatement pstmt = this.conn.prepareStatement("SELECT * FROM Boisson where Id=?");
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-            rs.next();
-            drink = new Drink(rs.getInt("id"), rs.getString("nom"), rs.getString("description"), rs.getDouble("prix_u"));
-
-        } catch (SQLException sqle) {
-            System.out.println("Erreur getDrinkById dans DrinkDAO : " + sqle);
-        }
-        return drink;
-    }
-
 }
