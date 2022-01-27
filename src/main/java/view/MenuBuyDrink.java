@@ -74,12 +74,15 @@ public class MenuBuyDrink implements ActionListener {
 	private String inputSugar;
 	private boolean stateCup;
 
-	public MenuBuyDrink() {
+	public MenuBuyDrink(ConnectionDB conn, StockDAO st, OrderDAO or) {
 
-		connection = new ConnectionDB("Boissons.db");
+		/*connection = new ConnectionDB("Boissons.db");
 		stockDAO = new StockDAO(connection.getConn());
-		orderDAO = new OrderDAO(connection.getConn(), stockDAO);
-		stock = new Stock(0, 5000, 200, 100, 5000); /*new Stock(0, 0, 0, 0, 0);*/
+		orderDAO = new OrderDAO(connection.getConn(), stockDAO);*/
+		this.connection = conn;
+		this.stockDAO = st;
+		this.orderDAO = or;
+		stock = stockDAO.getStock();
 		
 		labelList = new ArrayList<JLabel>();
 		comboList = new ArrayList<JComboBox<String>>();
@@ -327,7 +330,7 @@ public class MenuBuyDrink implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		frame = new DialogueFrame();
+		frame = new DialogueFrame(connection);
 		Object source = event.getSource();
 		inputDrinks = new String();
 		inputCup = new String();
@@ -366,7 +369,7 @@ public class MenuBuyDrink implements ActionListener {
 						public void actionPerformed(ActionEvent evt) {
 
 							frame.getAddFrame().dispose();
-							frame = new DialogueFrame();
+							frame = new DialogueFrame(connection);
 							frame.dialogConfirmed();
 
 							order = new Order(listIndexDrinks + 1, Double.parseDouble(inputQuantity),
@@ -398,7 +401,7 @@ public class MenuBuyDrink implements ActionListener {
 					frame.getBtnCancel().addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							frame.getAddFrame().dispose();
-							frame = new DialogueFrame();
+							frame = new DialogueFrame(connection);
 							frame.dialogCanceled();
 
 							order = new Order(listIndexDrinks + 1, Double.parseDouble(inputQuantity),
@@ -447,7 +450,7 @@ public class MenuBuyDrink implements ActionListener {
 						public void actionPerformed(ActionEvent evt) {
 
 							frame.getAddFrame().dispose();
-							frame = new DialogueFrame();
+							frame = new DialogueFrame(connection);
 							frame.dialogConfirmed();
 
 							order = new Order(listIndexSoups + 1, Double.parseDouble(inputQuantity),
@@ -478,7 +481,7 @@ public class MenuBuyDrink implements ActionListener {
 					frame.getBtnCancel().addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							frame.getAddFrame().dispose();
-							frame = new DialogueFrame();
+							frame = new DialogueFrame(connection);
 							frame.dialogCanceled();
 
 							order = new Order(listIndexSoups + 1, Double.parseDouble(inputQuantity),

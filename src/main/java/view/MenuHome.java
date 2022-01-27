@@ -29,9 +29,8 @@ public class MenuHome {
 	private DrinkDAO drinkDAO;
 	private List<Drink> list;
 
-	public MenuHome() {
-
-		connection = new ConnectionDB("Boissons.db");
+	public MenuHome(ConnectionDB conn) {
+		this.connection = conn;
 		drinkDAO = new DrinkDAO(connection.getConn());
 		list = drinkDAO.getAllDrinks();
 
@@ -138,7 +137,7 @@ public class MenuHome {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				frame = new DialogueFrame();
+				frame = new DialogueFrame(connection);
 			}
 		});
 
@@ -164,7 +163,7 @@ public class MenuHome {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				frame = new DialogueFrame();
+				frame = new DialogueFrame(connection);
 			}
 		});
 
@@ -190,7 +189,7 @@ public class MenuHome {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				frame = new DialogueFrame();
+				frame = new DialogueFrame(connection);
 			}
 		});
 
@@ -216,7 +215,7 @@ public class MenuHome {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				frame = new DialogueFrame();
+				frame = new DialogueFrame(connection);
 			}
 		});
 
@@ -242,7 +241,7 @@ public class MenuHome {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				frame = new DialogueFrame();
+				frame = new DialogueFrame(connection);
 			}
 		});
 
@@ -268,7 +267,7 @@ public class MenuHome {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				frame = new DialogueFrame();
+				frame = new DialogueFrame(connection);
 			}
 		});
 	}

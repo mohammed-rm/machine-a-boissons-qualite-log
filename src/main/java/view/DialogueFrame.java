@@ -30,7 +30,7 @@ public class DialogueFrame {
 	private ConnectionDB connection;
 	private DrinkDAO drinks;
 
-	Timer timer = new Timer(10, new ActionListener() {
+	Timer timer = new Timer(50, new ActionListener() {
 		int counter = 1;
 
 		@Override
@@ -49,8 +49,8 @@ public class DialogueFrame {
 	/**
 	 * Default constructor
 	 */
-	public DialogueFrame() {
-		connection = new ConnectionDB("Boissons.db");
+	public DialogueFrame(ConnectionDB conn) {
+		this.connection = conn;
 		drinks = new DrinkDAO(connection.getConn());
 		
 		addFrame = new JFrame();

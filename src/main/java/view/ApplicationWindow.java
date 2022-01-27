@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import controller.OrderDAO;
+import controller.StockDAO;
 import launcher.ConnectionDB;
 
 @SuppressWarnings("serial")
@@ -38,11 +40,20 @@ public class ApplicationWindow extends JFrame {
 
 	private int xMouse;
 	private int yMouse;
+	
+	private StockDAO stockDAO;
+	private OrderDAO orderDAO;
+	private ConnectionDB connection;
 
 	/**
 	 * Create the frame.
 	 */
-	public ApplicationWindow() {
+	public ApplicationWindow(ConnectionDB conn, StockDAO st, OrderDAO or) {
+		
+		this.connection = conn;
+		this.stockDAO = st;
+		this.orderDAO = or;
+		
 		this.frame = new JFrame();
 		this.labClose = new JLabel();
 		this.labMin = new JLabel();
@@ -92,8 +103,8 @@ public class ApplicationWindow extends JFrame {
 		itemRights = new BottomItems();
 		menu = new Menu();
 		bottom = new Bottom();
-		home = new MenuHome();
-		buy = new MenuBuyDrink();
+		home = new MenuHome(connection);
+		buy = new MenuBuyDrink(connection, stockDAO, orderDAO);
 		settings = new MenuSettings();
 	}
 

@@ -42,45 +42,4 @@ public class MenuSettings extends Component {
 		
 	}
 
-	/**
-	 * @return the comboBox
-	 */
-	public JComboBox<String> getComboBox() {
-		return comboBox;
-	}
-
-	/**
-	 * @return the labLanguage
-	 */
-	public JLabel getLabLanguage() {
-		return labLanguage;
-	}
-
-	/**
-	 * @return the pan
-	 */
-	public InternalPanel getPan() {
-		return pan;
-	}
-
-	/**
-	 * @param comboBox the comboBox to set
-	 */
-	public void setComboBox(JComboBox<String> comboBox) {
-		this.comboBox = comboBox;
-	}
-
-	/**
-	 * @param labLanguage the labLanguage to set
-	 */
-	public void setLabLanguage(JLabel labLanguage) {
-		this.labLanguage = labLanguage;
-	}
-
-	/**
-	 * @param pan the pan to set
-	 */
-	public void setPan(InternalPanel pan) {
-		this.pan = pan;
-	}
 }
