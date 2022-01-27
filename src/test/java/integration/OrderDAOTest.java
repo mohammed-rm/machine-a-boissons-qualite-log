@@ -68,5 +68,9 @@ public class OrderDAOTest {
         // 75cl without a gobelet
         Order order2 = new Order(1, 75, 0, false, false);
         Assertions.assertEquals(0.3d, orderDAO.getPrice(order2));
+
+        //Drink doesn't not exist
+        Order order3 = new Order(-1, 75, 5, true, false);
+        Assertions.assertEquals(0d, orderDAO.getPrice(order3));
     }
 }

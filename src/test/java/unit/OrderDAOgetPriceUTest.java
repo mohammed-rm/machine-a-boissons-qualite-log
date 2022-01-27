@@ -12,12 +12,12 @@ public class OrderDAOgetPriceUTest {
     Order order; // Fake order (mock)
 
     @BeforeEach
-    void init() {
+    void init(){
         this.order = mock(Order.class);
     }
 
     @Test
-    void testGetPrice_smallNoCup() {
+    void testGetPrice_smallNoCup(){
         when(order.getDrinkQuantity()).thenReturn(35d);
         when(order.isCup()).thenReturn(false);
     }
