@@ -38,14 +38,14 @@ public class OrderDAOisOrderPossibleUTest {
     void testIsOrderPossible_water(){
         when(stock.getWater()).thenReturn(12.0);
 
-        Assertions.assertEquals(OrderDAO.isOrderPossible(order, stock).get(0), "Eau");
+        Assertions.assertEquals(OrderDAO.isOrderPossible(order, stock).get(0), "Water");
     }
 
     @Test
     void testIsOrderPossible_sugar(){
         when(stock.getSugar()).thenReturn(2);
 
-        Assertions.assertEquals(OrderDAO.isOrderPossible(order, stock).get(0), "Sucre");
+        Assertions.assertEquals(OrderDAO.isOrderPossible(order, stock).get(0), "Sugar");
     }
 
     @Test
@@ -53,14 +53,14 @@ public class OrderDAOisOrderPossibleUTest {
         when(order.getDrinkQuantity()).thenReturn(75d);
         when(stock.getLargeCup()).thenReturn(0);
 
-        Assertions.assertEquals(OrderDAO.isOrderPossible(order, stock).get(0), "Grands gobelets");
+        Assertions.assertEquals(OrderDAO.isOrderPossible(order, stock).get(0), "Large Cups");
     }
 
     @Test
     void testIsOrderPossible_smallGobelets(){
         when(stock.getSmallCup()).thenReturn(0);
 
-        Assertions.assertEquals(OrderDAO.isOrderPossible(order, stock).get(0), "Petits gobelets");
+        Assertions.assertEquals(OrderDAO.isOrderPossible(order, stock).get(0), "Small Cups");
     }
 
     @Test
@@ -69,8 +69,8 @@ public class OrderDAOisOrderPossibleUTest {
         when(stock.getSugar()).thenReturn(0);
         when(stock.getSmallCup()).thenReturn(0);
 
-        Assertions.assertTrue(OrderDAO.isOrderPossible(order, stock).contains("Eau"));
-        Assertions.assertTrue(OrderDAO.isOrderPossible(order, stock).contains("Sucre"));
-        Assertions.assertTrue(OrderDAO.isOrderPossible(order, stock).contains("Petits gobelets"));
+        Assertions.assertTrue(OrderDAO.isOrderPossible(order, stock).contains("Water"));
+        Assertions.assertTrue(OrderDAO.isOrderPossible(order, stock).contains("Sugar"));
+        Assertions.assertTrue(OrderDAO.isOrderPossible(order, stock).contains("Small Cups"));
     }
 }

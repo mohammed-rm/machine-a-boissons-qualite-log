@@ -72,6 +72,7 @@ public class MenuBuyDrink implements ActionListener {
 	private String inputDrinks;
 	private String inputCup;
 	private String inputSugar;
+	private boolean stateCup;
 
 	public MenuBuyDrink() {
 
@@ -156,6 +157,11 @@ public class MenuBuyDrink implements ActionListener {
 		fourSug.setActionCommand("4");
 		fiveSug.setActionCommand("5");
 		btnOrder.addActionListener(this);
+		
+		yes_1.setActionCommand("Yes");
+		no_1.setActionCommand("No");
+		firstQuantity_1.setActionCommand("35");
+		secondQuantity_1.setActionCommand("75");
 
 		drinksList_1.addActionListener(this);
 		yes_1.addActionListener(this);
@@ -328,8 +334,8 @@ public class MenuBuyDrink implements ActionListener {
 		inputQuantity = new String();
 		inputSugar = new String();
 		List<String> missingItems;
-		int listIndex;
-		boolean stateCup;
+		int listIndexDrinks;
+		int listIndexSoups;
 
 		// Order for drinks
 		if (source == btnOrder) {
@@ -341,7 +347,7 @@ public class MenuBuyDrink implements ActionListener {
 				inputQuantity = cupSize.getSelection().getActionCommand();
 				inputSugar = sugar.getSelection().getActionCommand();
 				inputCup = takeCup.getSelection().getActionCommand();
-				listIndex = drinksList.getSelectedIndex();
+				listIndexDrinks = drinksList.getSelectedIndex();
 				stateCup = (inputCup == "Yes") ? true : false;
 
 				// Create an order
@@ -354,8 +360,8 @@ public class MenuBuyDrink implements ActionListener {
 					frame.dialogConfirmation(inputDrinks, inputQuantity, inputCup, inputSugar,
 							Math.round(orderDAO.getPrice(order) * 100.0) / 100.0);
 
-					// Listener to the confirm button, save the order and decrement elements from
-					// stock
+					// Listener to the confirm button, save the order in the database
+					// and decrement elements from stock
 					frame.getBtnConfirm().addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 
@@ -363,28 +369,39 @@ public class MenuBuyDrink implements ActionListener {
 							frame = new DialogueFrame();
 							frame.dialogConfirmed();
 
-							order = new Order(listIndex + 1, Double.parseDouble(inputQuantity),
+							order = new Order(listIndexDrinks + 1, Double.parseDouble(inputQuantity),
 									Integer.parseInt(inputSugar), stateCup, false);
 
 							// Place the order
 							orderDAO.placeOrder(order);
-							System.out.print(stock.getWater());
 
 							// Reduce stock
 							stockDAO.reduceWaterStock(Double.parseDouble(inputQuantity));
 							stockDAO.reduceSugarStock(Integer.parseInt(inputSugar));
 
+							// Reduce cups
+							if (inputCup == "Yes") {
+								switch (inputQuantity) {
+								case "35":
+									stockDAO.decrementSmallCupStock();
+									break;
+								case "75":
+									stockDAO.decrementLargeCupStock();
+									break;
+								}
+							}
+
 						}
 					});
 
+					// Listener to the cancel button, save the order in the database
 					frame.getBtnCancel().addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
-							System.out.println("Cancel");
 							frame.getAddFrame().dispose();
 							frame = new DialogueFrame();
 							frame.dialogCanceled();
 
-							order = new Order(listIndex + 1, Double.parseDouble(inputQuantity),
+							order = new Order(listIndexDrinks + 1, Double.parseDouble(inputQuantity),
 									Integer.parseInt(inputSugar), stateCup, true);
 
 							// Save the order
@@ -392,6 +409,7 @@ public class MenuBuyDrink implements ActionListener {
 
 						}
 					});
+					// When there is not enough products
 				} else {
 					frame.dialogueNotEnough(missingItems.toString());
 				}
@@ -404,11 +422,81 @@ public class MenuBuyDrink implements ActionListener {
 		/*****/
 		if (source == btnOrder_1) {
 
-		} else {
-			//frame.dialogueCheckAllBoxes();
-			// System.out.print("Need to check all boxes\n");
+			if ((yes_1.isSelected() || no_1.isSelected())
+					&& (firstQuantity_1.isSelected() || secondQuantity_1.isSelected())) {
+
+				inputDrinks = String.valueOf(drinksList_1.getSelectedItem());
+				inputQuantity = cupSizeSoup.getSelection().getActionCommand();
+				inputSugar = "0";
+				inputCup = takeCupSoup.getSelection().getActionCommand();
+				listIndexSoups = drinksList_1.getSelectedIndex();
+				stateCup = (inputCup == "Yes") ? true : false;
+
+				// Create an order
+				order = new Order(6, Double.parseDouble(inputQuantity), Integer.parseInt(inputSugar), stateCup, false);
+				missingItems = OrderDAO.isOrderPossible(order, stock);
+
+				// Check if the order is possible
+				if (missingItems.isEmpty()) {
+					frame.dialogConfirmation(inputDrinks, inputQuantity, inputCup, inputSugar,
+							Math.round(orderDAO.getPrice(order) * 100.0) / 100.0);
+
+					// Listener to the confirm button, save the order in the database
+					// and decrement elements from stock
+					frame.getBtnConfirm().addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+
+							frame.getAddFrame().dispose();
+							frame = new DialogueFrame();
+							frame.dialogConfirmed();
+
+							order = new Order(listIndexSoups + 1, Double.parseDouble(inputQuantity),
+									Integer.parseInt(inputSugar), stateCup, false);
+
+							// Place the order
+							orderDAO.placeOrder(order);
+
+							// Reduce stock
+							stockDAO.reduceWaterStock(Double.parseDouble(inputQuantity));
+
+							// Reduce cups
+							if (inputCup == "Yes") {
+								switch (inputQuantity) {
+								case "35":
+									stockDAO.decrementSmallCupStock();
+									break;
+								case "75":
+									stockDAO.decrementLargeCupStock();
+									break;
+								}
+							}
+
+						}
+					});
+
+					// Listener to the cancel button, save the order in the database
+					frame.getBtnCancel().addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							frame.getAddFrame().dispose();
+							frame = new DialogueFrame();
+							frame.dialogCanceled();
+
+							order = new Order(listIndexSoups + 1, Double.parseDouble(inputQuantity),
+									Integer.parseInt(inputSugar), stateCup, true);
+
+							// Save the order
+							orderDAO.placeOrder(order);
+
+						}
+					});
+					// When there is not enough products
+				} else {
+					frame.dialogueNotEnough(missingItems.toString());
+				}
+			} else {
+				frame.dialogueCheckAllBoxes();
+			}
 		}
 		/*****/
-		//System.out.print(stock.getWater());
 	}
 }
