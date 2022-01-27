@@ -327,7 +327,6 @@ public class MenuBuyDrink implements ActionListener {
         inputSugar = "";
         List<String> missingItems;
         int listIndexDrinks;
-        int listIndexSoups;
 
         // Order for drinks
         if (source == btnOrder) {
@@ -363,7 +362,7 @@ public class MenuBuyDrink implements ActionListener {
 
                             order = new Order(listIndexDrinks + 1, Double.parseDouble(inputQuantity),
                                     Integer.parseInt(inputSugar), stateCup, false);
-        
+
                             // Place the order
                             orderDAO.placeOrder(order);
                         }
@@ -402,7 +401,6 @@ public class MenuBuyDrink implements ActionListener {
                 inputQuantity = cupSizeSoup.getSelection().getActionCommand();
                 inputSugar = "0";
                 inputCup = takeCupSoup.getSelection().getActionCommand();
-                listIndexSoups = drinksList_1.getSelectedIndex();
                 stateCup = Objects.equals(inputCup, "Yes");
 
                 // Create an order
