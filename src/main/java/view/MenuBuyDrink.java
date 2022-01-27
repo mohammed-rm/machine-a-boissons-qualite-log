@@ -363,7 +363,7 @@ public class MenuBuyDrink implements ActionListener {
 
                             order = new Order(listIndexDrinks + 1, Double.parseDouble(inputQuantity),
                                     Integer.parseInt(inputSugar), stateCup, false);
-
+        
                             // Place the order
                             orderDAO.placeOrder(order);
 
@@ -440,7 +440,7 @@ public class MenuBuyDrink implements ActionListener {
                             frame = new DialogueFrame(connection);
                             frame.dialogConfirmed();
 
-                            order = new Order(listIndexSoups + 1, Double.parseDouble(inputQuantity),
+                            order = new Order(6, Double.parseDouble(inputQuantity),
                                     Integer.parseInt(inputSugar), stateCup, false);
 
                             // Place the order
@@ -471,7 +471,7 @@ public class MenuBuyDrink implements ActionListener {
                             frame = new DialogueFrame(connection);
                             frame.dialogCanceled();
 
-                            order = new Order(listIndexSoups + 1, Double.parseDouble(inputQuantity),
+                            order = new Order(6, Double.parseDouble(inputQuantity),
                                     Integer.parseInt(inputSugar), stateCup, true);
 
                             // Save the order
