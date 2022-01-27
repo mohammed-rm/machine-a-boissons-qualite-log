@@ -20,7 +20,5 @@ public class OrderDAOgetPriceUTest {
     void testGetPrice_smallNoCup(){
         when(order.getDrinkQuantity()).thenReturn(35d);
         when(order.isCup()).thenReturn(false);
-
-
     }
 }
