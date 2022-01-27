@@ -18,6 +18,7 @@ import controller.OrderDAO;
 import controller.StockDAO;
 import launcher.ConnectionDB;
 import model.Order;
+import model.Stock;
 
 public class MenuBuyDrink implements ActionListener {
 
@@ -60,6 +61,16 @@ public class MenuBuyDrink implements ActionListener {
 	private ArrayList<JSeparator> sepList;
 
 	private DialogueFrame frame;
+	private Stock stock;
+	private Order order;
+	private StockDAO stockDAO;
+	private OrderDAO orderDAO;
+	private ConnectionDB connection;
+
+	private String inputQuantity;
+	private String inputDrinks;
+	private String inputCup;
+	private String inputSugar;
 
 	public MenuBuyDrink() {
 
@@ -146,7 +157,6 @@ public class MenuBuyDrink implements ActionListener {
 		firstQuantity_1.addActionListener(this);
 		secondQuantity_1.addActionListener(this);
 		btnOrder_1.addActionListener(this);
-
 	}
 
 	/**
@@ -305,51 +315,79 @@ public class MenuBuyDrink implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		ConnectionDB connection = new ConnectionDB("Boisson.db");
-		StockDAO stockDAO = new StockDAO(connection.getConn());
-		OrderDAO orderDAO = new OrderDAO(connection.getConn(), stockDAO);
+		connection = new ConnectionDB("Boisson.db");
+		stockDAO = new StockDAO(connection.getConn());
+		orderDAO = new OrderDAO(connection.getConn(), stockDAO);
+		stock = new Stock(0, 5000, 200, 100, 5000);
 		frame = new DialogueFrame();
-		Order order;
 		Object source = event.getSource();
-		String inputDrinks = new String();
-		String inputCup = new String();
-		String inputQuantity = new String();
-		String inputSugar = new String();
-		boolean state = false;
+		inputDrinks = new String();
+		inputCup = new String();
+		inputQuantity = new String();
+		inputSugar = new String();
+		int listIndex;
+		boolean stateCup;
 
-		/*****/
+		// Order for drinks
 		if (source == btnOrder) {
 			if ((yes.isSelected() || no.isSelected()) && (firstQuantity.isSelected() || secondQuantity.isSelected())
 					&& (noSug.isSelected() || oneSug.isSelected() || twoSug.isSelected() || treeSug.isSelected()
 							|| fourSug.isSelected() || fiveSug.isSelected())) {
+
 				inputDrinks = String.valueOf(drinksList.getSelectedItem());
-				inputCup = takeCup.getSelection().getActionCommand();
 				inputQuantity = cupSize.getSelection().getActionCommand();
 				inputSugar = sugar.getSelection().getActionCommand();
+				inputCup = takeCup.getSelection().getActionCommand();
+				listIndex = drinksList.getSelectedIndex();
+				stateCup = (inputCup == "Yes") ? true : false;
 
-				order = new Order(drinksList.getSelectedIndex() + 1, Double.parseDouble(inputSugar),
-						Integer.parseInt(inputSugar), true, false);
-				System.out.print("Id : " + (drinksList.getSelectedIndex() + 1) + "\n" + inputDrinks + "\n" + inputCup
-						+ "\n" + inputQuantity + "\n" + inputSugar + "\n");
+				// Create an order
+				order = new Order(drinksList.getSelectedIndex() + 1, Double.parseDouble(inputQuantity),
+						Integer.parseInt(inputSugar), stateCup, false);
 
-				frame.dialogConfirmation(inputDrinks, inputQuantity, inputCup, inputSugar,
-						/* orderDAO.getPrice(order) */ 10.);
+				// Check if the order is possible
+				if (/* OrderDAO.isOrderPossible(order, stock) */true) {
+					frame.dialogConfirmation(inputDrinks, inputQuantity, inputCup, inputSugar,
+							orderDAO.getPrice(order));
 
-				// Listener to the confirm button
-				frame.getBtnConfirm().addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent evt) {
-						System.out.println("Confirm");
-						frame.getAddFrame().dispose();
-						frame = new DialogueFrame();
-						frame.dialogConfirmed();
-					}
-				});
+					// Listener to the confirm button, save the order and decrement elements from
+					// stock
+					frame.getBtnConfirm().addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							System.out.println("Confirm" + "Cup :" + stateCup);
+							frame.getAddFrame().dispose();
+							frame = new DialogueFrame();
+							frame.dialogConfirmed();
+
+							System.out.print("Size " + inputQuantity);
+							order = new Order(listIndex + 1, Double.parseDouble(inputQuantity),
+									Integer.parseInt(inputSugar), stateCup, false);
+
+							// Place the order
+							orderDAO.placeOrder(order);
+							System.out.print(stock.getWater());
+
+							// Reduce stock
+							stockDAO.reduceWaterStock(Double.parseDouble(inputQuantity));
+							// System.out.print("Size" + inputQuantity);
+							stockDAO.reduceSugarStock(Integer.parseInt(inputSugar));
+
+						}
+					});
+				}
+
 				frame.getBtnCancel().addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						System.out.println("Cancel");
 						frame.getAddFrame().dispose();
 						frame = new DialogueFrame();
 						frame.dialogCanceled();
+
+						order = new Order(listIndex + 1, Double.parseDouble(inputQuantity),
+								Integer.parseInt(inputSugar), stateCup, true);
+
+						// Place the order
+						orderDAO.placeOrder(order);
 
 					}
 				});
@@ -364,8 +402,11 @@ public class MenuBuyDrink implements ActionListener {
 		/*****/
 
 		/*****/
-		else if (source == btnOrder_1) {
-			System.out.print("Test");
+		if (source == btnOrder_1) {
+
+		} else {
+			frame.dialogueCheckAllBoxes();
+			// System.out.print("Need to check all boxes\n");
 		}
 		/*****/
 	}
