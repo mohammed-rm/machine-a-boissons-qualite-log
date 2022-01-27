@@ -26,11 +26,13 @@ public class MenuHome {
 	private JLabel labTomato;
 	private DialogueFrame frame;
 	private ConnectionDB connection;
-	private DrinkDAO drinkDAO = new DrinkDAO(connection.getConn());
+	private DrinkDAO drinkDAO;
 	private List<Drink> list;
 
 	public MenuHome() {
 
+		connection = new ConnectionDB("Boissons.db");
+		drinkDAO = new DrinkDAO(connection.getConn());
 		list = drinkDAO.getAllDrinks();
 
 		this.drinks = new JLabel("  Drinks");

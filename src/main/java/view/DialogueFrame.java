@@ -28,7 +28,7 @@ public class DialogueFrame {
 	private JButton btnCancel;
 	private JProgressBar bar;
 	private ConnectionDB connection;
-	private DrinkDAO drinks = new DrinkDAO(connection.getConn());
+	private DrinkDAO drinks;
 
 	Timer timer = new Timer(10, new ActionListener() {
 		int counter = 1;
@@ -50,6 +50,9 @@ public class DialogueFrame {
 	 * Default constructor
 	 */
 	public DialogueFrame() {
+		connection = new ConnectionDB("Boissons.db");
+		drinks = new DrinkDAO(connection.getConn());
+		
 		addFrame = new JFrame();
 		addFrame.setPreferredSize(new Dimension(400, 180));
 		addFrame.setResizable(false);
@@ -232,6 +235,13 @@ public class DialogueFrame {
 	 */
 	public void dialogueCheckAllBoxes() {
 		dialogFrame("You need to check all boxes beforing ordering!", "/icons/failure.png");
+	}
+	
+	/**
+	 * 
+	 */
+	public void dialogueNotEnough(String missing) {
+		dialogFrame("Not enough " + missing + " !", "/icons/failure.png");
 	}
 
 	/**

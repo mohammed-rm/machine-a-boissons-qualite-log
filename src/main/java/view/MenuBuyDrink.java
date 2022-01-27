@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -74,6 +75,11 @@ public class MenuBuyDrink implements ActionListener {
 
 	public MenuBuyDrink() {
 
+		connection = new ConnectionDB("Boissons.db");
+		stockDAO = new StockDAO(connection.getConn());
+		orderDAO = new OrderDAO(connection.getConn(), stockDAO);
+		stock = new Stock(0, 5000, 200, 100, 5000); /*new Stock(0, 0, 0, 0, 0);*/
+		
 		labelList = new ArrayList<JLabel>();
 		comboList = new ArrayList<JComboBox<String>>();
 		checkList = new ArrayList<>();
@@ -315,15 +321,13 @@ public class MenuBuyDrink implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		stockDAO = new StockDAO(connection.getConn());
-		orderDAO = new OrderDAO(connection.getConn(), stockDAO);
-		stock = new Stock(0, 5000, 200, 100, 5000);
 		frame = new DialogueFrame();
 		Object source = event.getSource();
 		inputDrinks = new String();
 		inputCup = new String();
 		inputQuantity = new String();
 		inputSugar = new String();
+		List<String> missingItems;
 		int listIndex;
 		boolean stateCup;
 
@@ -343,22 +347,22 @@ public class MenuBuyDrink implements ActionListener {
 				// Create an order
 				order = new Order(drinksList.getSelectedIndex() + 1, Double.parseDouble(inputQuantity),
 						Integer.parseInt(inputSugar), stateCup, false);
+				missingItems = OrderDAO.isOrderPossible(order, stock);
 
 				// Check if the order is possible
-				if (/* OrderDAO.isOrderPossible(order, stock) */true) {
+				if (missingItems.isEmpty()) {
 					frame.dialogConfirmation(inputDrinks, inputQuantity, inputCup, inputSugar,
-							orderDAO.getPrice(order));
+							Math.round(orderDAO.getPrice(order) * 100.0) / 100.0);
 
 					// Listener to the confirm button, save the order and decrement elements from
 					// stock
 					frame.getBtnConfirm().addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
-							System.out.println("Confirm" + "Cup :" + stateCup);
+
 							frame.getAddFrame().dispose();
 							frame = new DialogueFrame();
 							frame.dialogConfirmed();
 
-							System.out.print("Size " + inputQuantity);
 							order = new Order(listIndex + 1, Double.parseDouble(inputQuantity),
 									Integer.parseInt(inputSugar), stateCup, false);
 
@@ -368,33 +372,31 @@ public class MenuBuyDrink implements ActionListener {
 
 							// Reduce stock
 							stockDAO.reduceWaterStock(Double.parseDouble(inputQuantity));
-							// System.out.print("Size" + inputQuantity);
 							stockDAO.reduceSugarStock(Integer.parseInt(inputSugar));
 
 						}
 					});
+
+					frame.getBtnCancel().addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							System.out.println("Cancel");
+							frame.getAddFrame().dispose();
+							frame = new DialogueFrame();
+							frame.dialogCanceled();
+
+							order = new Order(listIndex + 1, Double.parseDouble(inputQuantity),
+									Integer.parseInt(inputSugar), stateCup, true);
+
+							// Save the order
+							orderDAO.placeOrder(order);
+
+						}
+					});
+				} else {
+					frame.dialogueNotEnough(missingItems.toString());
 				}
-
-				frame.getBtnCancel().addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent evt) {
-						System.out.println("Cancel");
-						frame.getAddFrame().dispose();
-						frame = new DialogueFrame();
-						frame.dialogCanceled();
-
-						order = new Order(listIndex + 1, Double.parseDouble(inputQuantity),
-								Integer.parseInt(inputSugar), stateCup, true);
-
-						// Place the order
-						orderDAO.placeOrder(order);
-
-					}
-				});
-
-			}
-			else {
+			} else {
 				frame.dialogueCheckAllBoxes();
-				System.out.print("Need to check all boxes\n");
 			}
 		}
 		/*****/
@@ -403,9 +405,10 @@ public class MenuBuyDrink implements ActionListener {
 		if (source == btnOrder_1) {
 
 		} else {
-			frame.dialogueCheckAllBoxes();
+			//frame.dialogueCheckAllBoxes();
 			// System.out.print("Need to check all boxes\n");
 		}
 		/*****/
+		//System.out.print(stock.getWater());
 	}
 }

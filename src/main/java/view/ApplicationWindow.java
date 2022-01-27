@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import launcher.ConnectionDB;
+
 @SuppressWarnings("serial")
 public class ApplicationWindow extends JFrame {
 
