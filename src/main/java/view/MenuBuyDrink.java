@@ -367,10 +367,6 @@ public class MenuBuyDrink implements ActionListener {
                             // Place the order
                             orderDAO.placeOrder(order);
 
-                            // Reduce stock
-                            stockDAO.reduceWaterStock(Double.parseDouble(inputQuantity));
-                            stockDAO.reduceSugarStock(Integer.parseInt(inputSugar));
-
                             // Reduce cups
                             if (Objects.equals(inputCup, "Yes")) {
                                 switch (inputQuantity) {
@@ -445,9 +441,6 @@ public class MenuBuyDrink implements ActionListener {
 
                             // Place the order
                             orderDAO.placeOrder(order);
-
-                            // Reduce stock
-                            stockDAO.reduceWaterStock(Double.parseDouble(inputQuantity));
 
                             // Reduce cups
                             if (Objects.equals(inputCup, "Yes")) {
