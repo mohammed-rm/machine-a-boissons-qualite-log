@@ -58,13 +58,13 @@ public class OrderDAO {
     public static List<String> isOrderPossible(Order order, Stock stock){
         List<String> missingElems = new ArrayList<>();
         if (order.getDrinkQuantity() > stock.getWater())
-            missingElems.add("Eau");
+            missingElems.add("Water");
         if (order.getSugarQuantity() > stock.getSugar())
-            missingElems.add("Sucre");
+            missingElems.add("Sugar");
         if (order.isCup() && order.getDrinkQuantity() == 75 && stock.getLargeCup() == 0)
-            missingElems.add("Grands gobelets");
+            missingElems.add("Large Cups");
         if (order.isCup() && order.getDrinkQuantity() == 35 && stock.getSmallCup() == 0)
-            missingElems.add("Petits gobelets");
+            missingElems.add("Small Cups");
         return missingElems;
     }
 
